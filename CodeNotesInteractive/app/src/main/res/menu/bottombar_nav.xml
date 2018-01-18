@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_code"
+        android:title="@string/bottom_menu_codenotes"
+        android:icon="@drawable/ic_code" />
+    <item android:id="@+id/action_simulation"
+        android:title="@string/bottom_menu_simulation"
+        android:icon="@drawable/ic_simulation" />
+    <item android:id="@+id/action_chat"
+        android:title="@string/bottom_menu_chat"
+        android:icon="@drawable/ic_chat" />
+</menu>

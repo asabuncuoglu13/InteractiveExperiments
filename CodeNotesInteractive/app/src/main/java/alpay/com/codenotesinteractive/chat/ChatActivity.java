@@ -1,7 +1,7 @@
-package alpay.com.codenotesinteractive;
+package alpay.com.codenotesinteractive.chat;
 
-import android.*;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -31,6 +31,8 @@ import ai.api.android.AIService;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
+import alpay.com.codenotesinteractive.HomeActivity;
+import alpay.com.codenotesinteractive.R;
 
 public class ChatActivity extends AppCompatActivity implements AIListener {
 
@@ -50,9 +52,9 @@ public class ChatActivity extends AppCompatActivity implements AIListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(alpay.com.codenotesinteractive.R.layout.activity_chat);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.setPersistenceEnabled(true);
+        //database.setPersistenceEnabled(true);
 
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.RECORD_AUDIO}, 1);
 

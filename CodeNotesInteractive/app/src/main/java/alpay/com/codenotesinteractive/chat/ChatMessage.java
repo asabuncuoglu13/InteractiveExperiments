@@ -1,4 +1,4 @@
-package alpay.com.codenotesinteractive;
+package alpay.com.codenotesinteractive.chat;
 
 public class ChatMessage {
 

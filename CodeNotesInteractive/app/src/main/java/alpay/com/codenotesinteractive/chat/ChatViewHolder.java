@@ -1,8 +1,10 @@
-package alpay.com.codenotesinteractive;
+package alpay.com.codenotesinteractive.chat;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import alpay.com.codenotesinteractive.R;
 
 public class ChatViewHolder extends RecyclerView.ViewHolder  {
 
