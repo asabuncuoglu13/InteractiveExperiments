@@ -3,4 +3,15 @@
     <string name="bottom_menu_chat">ChatBot</string>
     <string name="bottom_menu_codenotes">Code</string>
     <string name="bottom_menu_simulation">Simulation</string>
+    <string name="detector_dependency">Dependencies are not met</string>
+
+    <string name="detail_info_button_text">Start Learning!</string>
+    <string name="check_connection_text">There is no internet connection!
+        To continue please be sure you have an active connection.</string>
+    <string name="no_code_detected">I am sorry! I could not recognize a meaningful code...</string>
+    <string name="no_code_dialog_message">I am sorry! I could not recognize a meaningful code...</string>
+    <string name="no_code_dialog_title">I could not recognize the code</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

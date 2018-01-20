@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -31,10 +30,11 @@ import ai.api.android.AIService;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
-import alpay.com.codenotesinteractive.HomeActivity;
+import alpay.com.codenotesinteractive.BaseActivity;
 import alpay.com.codenotesinteractive.R;
+import alpay.com.codenotesinteractive.compiler.CompilerActivity;
 
-public class ChatActivity extends AppCompatActivity implements AIListener {
+public class ChatActivity extends BaseActivity implements AIListener {
 
     RecyclerView recyclerView;
     EditText editText;
@@ -57,7 +57,6 @@ public class ChatActivity extends AppCompatActivity implements AIListener {
         //database.setPersistenceEnabled(true);
 
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.RECORD_AUDIO}, 1);
-
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         editText = (EditText) findViewById(R.id.editText);
@@ -87,6 +86,13 @@ public class ChatActivity extends AppCompatActivity implements AIListener {
                 String message = editText.getText().toString().trim();
 
                 if (!message.equals("")) {
+
+                    if(message.equals("code"))
+                    {
+                        Intent intent = new Intent(ChatActivity.this, CompilerActivity.class);
+                        startActivity(intent);
+                        return;
+                    }
 
                     ChatMessage chatMessage = new ChatMessage(message, "user");
                     ref.child("chat").push().setValue(chatMessage);
