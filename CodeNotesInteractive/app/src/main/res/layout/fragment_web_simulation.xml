@@ -68,10 +68,10 @@
                     android:inputType="number" />
 
                 <Button
-                    android:id="@+id/startButton"
+                    android:id="@+id/setParameters"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/start" />
+                    android:text="@string/setparams" />
 
                 <Button
                     android:id="@+id/resetButton"

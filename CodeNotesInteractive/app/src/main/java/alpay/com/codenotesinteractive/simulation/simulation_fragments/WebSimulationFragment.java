@@ -2,8 +2,10 @@ package alpay.com.codenotesinteractive.simulation.simulation_fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import alpay.com.codenotesinteractive.R;
 
@@ -25,6 +28,8 @@ public class WebSimulationFragment extends Fragment implements View.OnClickListe
     private EditText weightText;
     private EditText frictionText;
     private EditText angleText;
+    public int[] parameters;
+    private static final String TAG = "WebSimulationFragment";
 
     public WebSimulationFragment() {
         // Required empty public constructor
@@ -49,6 +54,13 @@ public class WebSimulationFragment extends Fragment implements View.OnClickListe
         webSettings.setDomStorageEnabled(true);
         webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
 
+        weightText = (EditText) view.findViewById(R.id.weight);
+        frictionText = (EditText) view.findViewById(R.id.coeff_friction);
+        angleText = (EditText) view.findViewById(R.id.incline_angle);
+        view.findViewById(R.id.setParameters).setOnClickListener(this);
+        view.findViewById(R.id.resetButton).setOnClickListener(this);
+
+
         if(simulationName.compareTo("inclinedplane") == 0)
             webView.loadUrl("file:///android_asset/InclinedPlane/index.html");
         else
@@ -65,8 +77,40 @@ public class WebSimulationFragment extends Fragment implements View.OnClickListe
             mContext = c;
         }
         @JavascriptInterface
-        public int getFromAndroid() {
-            return 20;
+        public int getAngle() {
+            return parameters[0];
+        }
+        @JavascriptInterface
+        public int getWeight() {
+            return parameters[1];
+        }
+        @JavascriptInterface
+        public int getFriction() {
+            return parameters[2];
+        }
+    }
+
+    public int[] getParameters()
+    {
+        int a, w, f;
+
+        String w_text = weightText.getText().toString();
+        String a_text = angleText.getText().toString();
+        String f_text = frictionText.getText().toString();
+
+        if(!(w_text.matches("") || f_text.matches("") || a_text.matches("")))
+        {
+            a = Integer.valueOf(a_text);
+            w = Integer.valueOf(w_text);
+            f = Integer.valueOf(f_text);
+            Log.d(TAG, "Values of awf: "+a+" "+w+" "+f);
+            Toast.makeText(this.getContext(), "Values of awf: "+a+" "+w+" "+f, Toast.LENGTH_SHORT).show();
+            int[] params = {a,w,f};
+            return params;
+        }else
+        {
+            Toast.makeText(this.getContext(), R.string.all_text_required, Toast.LENGTH_SHORT).show();
+            return null;
         }
     }
 
@@ -87,10 +131,9 @@ public class WebSimulationFragment extends Fragment implements View.OnClickListe
                         forceview_selection = 2;
                         break;
             }
-        }else if(i == R.id.startButton)
+        }else if(i == R.id.setParameters)
         {
-            JavaScriptInterface jif = new JavaScriptInterface(this.getContext());
-            jif.getFromAndroid();
+            parameters = getParameters();
         }else if(i == R.id.resetButton)
         {
 
