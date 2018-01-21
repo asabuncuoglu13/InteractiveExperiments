@@ -14,4 +14,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="springscale">Spring Scale</string>
+    <string name="forcevector">Force Vectors</string>
+    <string name="incline_angle">Angle of Inclination</string>
+    <string name="weight">Weight</string>
+    <string name="coeff_friction">Coefficient of Friction</string>
+    <string name="start">START</string>
+    <string name="reset">RESET</string>
 </resources>

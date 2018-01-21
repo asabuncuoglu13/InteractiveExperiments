@@ -194,11 +194,12 @@ function reactionReset () {
 // v1x, v1y, v2x, v2y, w1x, w1y, w2x, w2y
 
 function reactionStart () {
+  var angle = Android.getFromAndroid();
   switchButton2();                                         // Zustand des Schaltknopfs �ndern
   enableInput(false);                                      // Eingabefelder deaktivieren
   if (bu2.state == 1) startAnimation();                    // Entweder Animation starten bzw. fortsetzen ...
   else stopAnimation();                                    // ... oder stoppen
-  reaction();                                              // Eingabe, Berechnungen, Ausgabe
+  reaction(angle);                                              // Eingabe, Berechnungen, Ausgabe
   }
   
 // Reaktion auf Optionsfeld Zeitlupe:
@@ -212,8 +213,8 @@ function reactionSlow () {
 // Seiteneffekt alpha, fG, my, sin, cos, fN, fH, fR, f, dyFG, dxFN, dyFN, dxFH,dyFH, dxF, dyF, polyPlane, 
 // v1x, v1y, v2x, v2y, w1x, w1y, w2x, w2y
 
-function reaction () {
-  input();                                                 // Eingegebene Werte �bernehmen (eventuell korrigiert)
+function reaction (a) {
+  input(a);                                                 // Eingegebene Werte �bernehmen (eventuell korrigiert)
   calculation();                                           // Berechnungen
   updateOutput();                                          // Ausgabefelder aktualisieren
   }
@@ -330,8 +331,8 @@ function inputNumber (ef, d, fix, min, max) {
 // Gesamte Eingabe:
 // Seiteneffekt alpha, fG, my
 
-function input () {
-  alpha = inputNumber(ip1,0,true,0,90)*DEG;                // Neigungswinkel (Bogenma�)
+function input (a) {
+  alpha = a*DEG;                // Neigungswinkel (Bogenma�)
   fG = inputNumber(ip2,1,true,0,10);                       // Gewichtskraft (N)
   my = inputNumber(ip3,2,true,0,0.5);                      // Reibungszahl
   }

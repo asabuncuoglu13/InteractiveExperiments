@@ -11,14 +11,20 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.EditText;
+import android.widget.RadioButton;
 
 import alpay.com.codenotesinteractive.R;
 
-public class WebSimulationFragment extends Fragment {
+public class WebSimulationFragment extends Fragment implements View.OnClickListener{
 
     public View view;
     private WebView webView;
     private String simulationName = "";
+    public int forceview_selection = 0;
+    private EditText weightText;
+    private EditText frictionText;
+    private EditText angleText;
 
     public WebSimulationFragment() {
         // Required empty public constructor
@@ -44,7 +50,7 @@ public class WebSimulationFragment extends Fragment {
         webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
 
         if(simulationName.compareTo("inclinedplane") == 0)
-            webView.loadUrl("file:///android_asset/InclinedPlane/deneme.html");
+            webView.loadUrl("file:///android_asset/InclinedPlane/index.html");
         else
             webView.loadUrl("file:///android_asset/nothing-to-see-here.gif");
 
@@ -59,9 +65,35 @@ public class WebSimulationFragment extends Fragment {
             mContext = c;
         }
         @JavascriptInterface
-        public String getFromAndroid() {
-            return "This is from android.";
+        public int getFromAndroid() {
+            return 20;
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if(i == R.id.forceview_selection)
+        {
+            boolean checked = ((RadioButton) view).isChecked();
+            // Check which radio button was clicked
+            switch(view.getId()) {
+                case R.id.forcevector:
+                    if (checked)
+                        forceview_selection = 1;
+                        break;
+                case R.id.springscale:
+                    if (checked)
+                        forceview_selection = 2;
+                        break;
+            }
+        }else if(i == R.id.startButton)
+        {
+            JavaScriptInterface jif = new JavaScriptInterface(this.getContext());
+            jif.getFromAndroid();
+        }else if(i == R.id.resetButton)
+        {
+
+        }
+    }
 }
