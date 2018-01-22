@@ -22,4 +22,5 @@
     <string name="coeff_friction">Coefficient of Friction</string>
     <string name="setparams">Set Parameters</string>
     <string name="reset">RESET</string>
+    <string name="slowmotion">Slow Motion</string>
 </resources>

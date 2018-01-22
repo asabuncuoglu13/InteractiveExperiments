@@ -23,16 +23,29 @@ public class WebSimulationFragment extends Fragment implements View.OnClickListe
 
     public View view;
     private WebView webView;
+
     private String simulationName = "";
-    public int forceview_selection = 0;
+    public int forceview_selection = -1;
+    public int slowmotion_selection = -1;
     private EditText weightText;
     private EditText frictionText;
     private EditText angleText;
-    public int[] parameters;
+    public int[] parameters = new int[3];
+    private int a, w, f;
     private static final String TAG = "WebSimulationFragment";
 
     public WebSimulationFragment() {
+
+    }
+
+    public void setParameters(int a, int w, int f) {
         // Required empty public constructor
+        this.a = a;
+        this.f = f;
+        this.w = w;
+        parameters[0] = a;
+        parameters[1] = w;
+        parameters[2] = f;
     }
 
 
@@ -88,12 +101,18 @@ public class WebSimulationFragment extends Fragment implements View.OnClickListe
         public int getFriction() {
             return parameters[2];
         }
+        @JavascriptInterface
+        public int getForceViewSelection() {
+            return forceview_selection;
+        }
+        @JavascriptInterface
+        public int getSlowMotionSelection() {
+            return forceview_selection;
+        }
     }
 
     public int[] getParameters()
     {
-        int a, w, f;
-
         String w_text = weightText.getText().toString();
         String a_text = angleText.getText().toString();
         String f_text = frictionText.getText().toString();
@@ -103,15 +122,28 @@ public class WebSimulationFragment extends Fragment implements View.OnClickListe
             a = Integer.valueOf(a_text);
             w = Integer.valueOf(w_text);
             f = Integer.valueOf(f_text);
-            Log.d(TAG, "Values of awf: "+a+" "+w+" "+f);
-            Toast.makeText(this.getContext(), "Values of awf: "+a+" "+w+" "+f, Toast.LENGTH_SHORT).show();
-            int[] params = {a,w,f};
+            Toast.makeText(this.getContext(), "Parameters are set to: Angle: "+a+", Weight: "+w+", Coeff. Of Friction: "+f, Toast.LENGTH_SHORT).show();
+            int[] params = new int[3];
+            params[0] = a;
+            params[1] = w;
+            params[2] = f;
             return params;
         }else
         {
             Toast.makeText(this.getContext(), R.string.all_text_required, Toast.LENGTH_SHORT).show();
             return null;
         }
+    }
+
+    public void setParametersToDefault()
+    {
+        angleText.setText("");
+        frictionText.setText("");
+        weightText.setText("");
+
+        parameters[0] = 25; //angle
+        parameters[1] = 2; //weight
+        parameters[2] = 1; //friction
     }
 
     @Override
@@ -131,12 +163,15 @@ public class WebSimulationFragment extends Fragment implements View.OnClickListe
                         forceview_selection = 2;
                         break;
             }
+        }else if(i == R.id.slow_motion)
+        {
+            slowmotion_selection = 1;
         }else if(i == R.id.setParameters)
         {
             parameters = getParameters();
         }else if(i == R.id.resetButton)
         {
-
+            setParametersToDefault();
         }
     }
 }

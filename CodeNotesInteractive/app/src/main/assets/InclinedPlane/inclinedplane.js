@@ -197,6 +197,18 @@ function reactionStart () {
   var a = Android.getAngle();
   var w = Android.getWeight();
   var f = Android.getFriction();
+  var forceviewselection = Android.getForceViewSelection();
+  if(forceviewselection == 1){
+    on = true
+  }else{
+    on = false;
+  }
+  var slowmotion = Android.getSlowMotionSelection();
+  if(slowmotion > 0)
+  {
+    reactionSlow();
+  }
+  reactionRadioButton();
   switchButton2();                                         // Zustand des Schaltknopfs �ndern
   enableInput(false);                                      // Eingabefelder deaktivieren
   if (bu2.state == 1) startAnimation();                    // Entweder Animation starten bzw. fortsetzen ...
