@@ -70,13 +70,13 @@ public class BaseActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_code:
-                        viewPager.setCurrentItem(0);
+                        viewPager.setCurrentItem(2);
                         break;
                     case R.id.action_simulation:
                         viewPager.setCurrentItem(1);
                         break;
                     case R.id.action_chat:
-                        viewPager.setCurrentItem(2);
+                        viewPager.setCurrentItem(0);
                         break;
                     default:
                         break;
@@ -99,7 +99,7 @@ public class BaseActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    bottomNavigation.getMenu().getItem(0).setChecked(false);
+                    bottomNavigation.getMenu().getItem(2).setChecked(false);
                 }
 
                 bottomNavigation.getMenu().getItem(position).setChecked(true);
@@ -131,7 +131,6 @@ public class BaseActivity extends AppCompatActivity {
             default:
                 break;
         }
-
         return true;
     }
 
@@ -141,9 +140,9 @@ public class BaseActivity extends AppCompatActivity {
         chatFragment=new ChatFragment();
         simulationFragment = new WebSimulationFragment();
         compilerFragment = new CompilerFragment();
-        adapter.addFragment(compilerFragment);
-        adapter.addFragment(simulationFragment);
         adapter.addFragment(chatFragment);
+        adapter.addFragment(simulationFragment);
+        adapter.addFragment(compilerFragment);
         viewPager.setAdapter(adapter);
     }
 
