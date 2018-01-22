@@ -26,4 +26,12 @@
     <string name="setparams">Set Parameters</string>
     <string name="reset">RESET</string>
     <string name="slowmotion">Slow Motion</string>
+
+    <string name="base1_welcome">Welcome to the interactive experiments.</string>
+    <string name="base2_experiment_list">First, visit the experiment list to see what you can do.</string>
+    <string name="base3_choose_experiment">Choose an experiment from the list and examine the parameters.</string>
+    <string name="base4_parameters">You can change the parameters with Code Notes cards or manually from the menu.</string>
+    <string name="base5_coding_parameters">To code the parameters choose Code from the bottom bar.</string>
+    <string name="base6_experiment_result">After setting parameters you can start the experiment to see how it is going.</string>
+    <string name="base7_chatbot">You can use chatbot for small talks or talking about the experiments.</string>
 </resources>

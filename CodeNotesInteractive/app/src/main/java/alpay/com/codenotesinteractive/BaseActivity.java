@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -11,16 +12,30 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
 
 import alpay.com.codenotesinteractive.chat.ChatActivity;
+import alpay.com.codenotesinteractive.chat.ChatFragment;
 import alpay.com.codenotesinteractive.compiler.CompilerActivity;
+import alpay.com.codenotesinteractive.compiler.CompilerFragment;
 import alpay.com.codenotesinteractive.simulation.SimulationActivity;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.WebSimulationFragment;
 
 
 public class BaseActivity extends AppCompatActivity {
+
+
+    ChatFragment chatFragment;
+    WebSimulationFragment simulationFragment;
+    CompilerFragment compilerFragment;
+    ViewPager viewPager;
+    BottomNavigationView bottomNavigation;
+    MenuItem prevMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+
+        viewPager = findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
         TapTargetView.showFor(this,                 // `this` is an Activity
                 TapTarget.forView(findViewById(R.id.bottom_navigation), getString(R.string.bottom_target_title), getString(R.string.bottom_target_detail))
@@ -40,22 +55,20 @@ public class BaseActivity extends AppCompatActivity {
                     }
                 });
 
-        BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        bottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.action_chat:
-                        Intent chatintent = new Intent(BaseActivity.this, ChatActivity.class);
-                        startActivity(chatintent);
-                        break;
                     case R.id.action_code:
-                        Intent codeintent = new Intent(BaseActivity.this, CompilerActivity.class);
-                        startActivity(codeintent);
+                        viewPager.setCurrentItem(0);
                         break;
                     case R.id.action_simulation:
-                        Intent simintent = new Intent(BaseActivity.this, SimulationActivity.class);
-                        startActivity(simintent);
+                        viewPager.setCurrentItem(1);
+                        break;
+                    case R.id.action_chat:
+                        viewPager.setCurrentItem(2);
                         break;
                     default:
                         break;
@@ -63,6 +76,46 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (prevMenuItem != null) {
+                    prevMenuItem.setChecked(false);
+                }
+                else
+                {
+                    bottomNavigation.getMenu().getItem(0).setChecked(false);
+                }
+
+                bottomNavigation.getMenu().getItem(position).setChecked(true);
+                prevMenuItem = bottomNavigation.getMenu().getItem(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+
+    private void setupViewPager(ViewPager viewPager)
+    {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        chatFragment=new ChatFragment();
+        simulationFragment = new WebSimulationFragment();
+        compilerFragment = new CompilerFragment();
+        adapter.addFragment(compilerFragment);
+        adapter.addFragment(simulationFragment);
+        adapter.addFragment(chatFragment);
+        viewPager.setAdapter(adapter);
     }
 
 

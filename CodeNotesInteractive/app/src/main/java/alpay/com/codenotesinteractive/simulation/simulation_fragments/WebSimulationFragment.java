@@ -77,7 +77,7 @@ public class WebSimulationFragment extends Fragment implements View.OnClickListe
         if(simulationName.compareTo("inclinedplane") == 0)
             webView.loadUrl("file:///android_asset/InclinedPlane/index.html");
         else
-            webView.loadUrl("file:///android_asset/nothing-to-see-here.gif");
+            webView.loadUrl("file:///android_asset/InclinedPlane/index.html");
 
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);

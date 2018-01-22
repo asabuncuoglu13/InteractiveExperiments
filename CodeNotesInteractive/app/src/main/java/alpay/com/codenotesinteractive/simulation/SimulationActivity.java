@@ -3,12 +3,13 @@ package alpay.com.codenotesinteractive.simulation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
 import alpay.com.codenotesinteractive.BaseActivity;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.WebSimulationFragment;
 
-public class SimulationActivity extends BaseActivity {
+public class SimulationActivity extends AppCompatActivity {
 
     int[] parameters;
     int angle, weight, friction;

@@ -7,12 +7,15 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -31,11 +34,10 @@ import ai.api.android.AIService;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
-import alpay.com.codenotesinteractive.BaseActivity;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.compiler.CompilerActivity;
 
-public class ChatActivity extends AppCompatActivity implements AIListener, View.OnClickListener {
+public class ChatFragment extends Fragment implements AIListener, View.OnClickListener {
 
     RecyclerView recyclerView;
     EditText editText;
@@ -44,38 +46,45 @@ public class ChatActivity extends AppCompatActivity implements AIListener, View.
     FirebaseRecyclerAdapter<ChatMessage, ChatViewHolder> adapter;
     Boolean flagFab = true;
 
+    public View view;
     private AIService aiService;
     final AIConfiguration config = new AIConfiguration("cbecec58c68d40a3b4fbdd71723c4a34",
             AIConfiguration.SupportedLanguages.English,
             AIConfiguration.RecognitionEngine.System);
 
 
+    public ChatFragment(){
+
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(alpay.com.codenotesinteractive.R.layout.activity_chat);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.activity_chat, container, false);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         //database.setPersistenceEnabled(true);
 
-        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.RECORD_AUDIO}, 1);
+        ActivityCompat.requestPermissions(this.getActivity(), new String[]{android.Manifest.permission.RECORD_AUDIO}, 1);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        editText = (EditText) findViewById(R.id.editText);
-        addBtn = (RelativeLayout) findViewById(R.id.addBtn);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        editText = (EditText) view.findViewById(R.id.editText);
+        addBtn = (RelativeLayout) view.findViewById(R.id.addBtn);
 
         recyclerView.setHasFixedSize(true);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         ref = FirebaseDatabase.getInstance().getReference();
         ref.keepSynced(true);
 
-        aiService = AIService.getService(this, config);
+        aiService = AIService.getService(this.getContext(), config);
         aiService.setListener(this);
 
 
-        final AIDataService aiDataService = new AIDataService(this, config);
+        final AIDataService aiDataService = new AIDataService(this.getContext(), config);
         final AIRequest aiRequest = new AIRequest();
 
 
@@ -90,7 +99,7 @@ public class ChatActivity extends AppCompatActivity implements AIListener, View.
 
                     if(message.equals("code"))
                     {
-                        Intent intent = new Intent(ChatActivity.this, CompilerActivity.class);
+                        Intent intent = new Intent(getActivity(), CompilerActivity.class);
                         startActivity(intent);
                         return;
                     }
@@ -141,17 +150,17 @@ public class ChatActivity extends AppCompatActivity implements AIListener, View.
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ImageView fab_img = (ImageView) findViewById(R.id.fab_img);
+                ImageView fab_img = (ImageView) view.findViewById(R.id.fab_img);
                 Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.ic_send_white_24dp);
                 Bitmap img1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_mic_white_24dp);
 
 
                 if (s.toString().trim().length() != 0 && flagFab) {
-                    ImageViewAnimatedChange(ChatActivity.this, fab_img, img);
+                    ImageViewAnimatedChange(getActivity(), fab_img, img);
                     flagFab = false;
 
                 } else if (s.toString().trim().length() == 0) {
-                    ImageViewAnimatedChange(ChatActivity.this, fab_img, img1);
+                    ImageViewAnimatedChange(getActivity(), fab_img, img1);
                     flagFab = true;
 
                 }
@@ -197,7 +206,7 @@ public class ChatActivity extends AppCompatActivity implements AIListener, View.
         });
 
         recyclerView.setAdapter(adapter);
-
+        return view;
     }
 
 
@@ -236,7 +245,7 @@ public class ChatActivity extends AppCompatActivity implements AIListener, View.
     }
 
     @Override
-    public void onResult(ai.api.model.AIResponse response) {
+    public void onResult(AIResponse response) {
 
 
         Result result = response.getResult();
