@@ -13,11 +13,8 @@ import android.view.MenuItem;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
 
-import alpay.com.codenotesinteractive.chat.ChatActivity;
 import alpay.com.codenotesinteractive.chat.ChatFragment;
-import alpay.com.codenotesinteractive.compiler.CompilerActivity;
 import alpay.com.codenotesinteractive.compiler.CompilerFragment;
-import alpay.com.codenotesinteractive.simulation.SimulationActivity;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.WebSimulationFragment;
 
 

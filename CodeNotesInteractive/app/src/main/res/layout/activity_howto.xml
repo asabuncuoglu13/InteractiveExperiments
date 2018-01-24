@@ -25,7 +25,26 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:text="@string/base3_choose_experiment"/>
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/base4_parameters"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/base5_coding_parameters"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/base6_experiment_result"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/base7_chatbot"/>
 
     </LinearLayout>
 

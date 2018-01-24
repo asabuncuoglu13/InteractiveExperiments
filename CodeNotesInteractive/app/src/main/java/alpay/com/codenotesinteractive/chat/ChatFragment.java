@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -36,6 +35,7 @@ import ai.api.model.AIResponse;
 import ai.api.model.Result;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.compiler.CompilerActivity;
+import alpay.com.codenotesinteractive.simulation.SimulationActivity;
 
 public class ChatFragment extends Fragment implements AIListener, View.OnClickListener {
 
@@ -62,7 +62,7 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.activity_chat, container, false);
+        view = inflater.inflate(R.layout.fragment_chat, container, false);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         //database.setPersistenceEnabled(true);
 
@@ -97,9 +97,15 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
 
                 if (!message.equals("")) {
 
-                    if(message.equals("code"))
+                    if(message.contains("code"))
                     {
                         Intent intent = new Intent(getActivity(), CompilerActivity.class);
+                        startActivity(intent);
+                        return;
+                    }
+                    if (message.contains("experiment") || message.contains("simulation"))
+                    {
+                        Intent intent = new Intent(getActivity(), SimulationActivity.class);
                         startActivity(intent);
                         return;
                     }

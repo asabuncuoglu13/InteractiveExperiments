@@ -19,7 +19,7 @@ public class SimulationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_simulation);
+        setContentView(R.layout.activity_onfragment);
 
         Bundle bundle = getIntent().getExtras();
         WebSimulationFragment simuFrag = new WebSimulationFragment();
