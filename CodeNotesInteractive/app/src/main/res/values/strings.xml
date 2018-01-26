@@ -19,6 +19,7 @@
 
     <string name="response_type_error">Returned response type was not compatible for this chat.</string>
     <string name="connection_error">There is no active internet connection.</string>
+    <string name="wrong_arguments_for_simulation">Set arguments are not valid for this experiment.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

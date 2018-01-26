@@ -16,8 +16,10 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import alpay.com.codenotesinteractive.R;
+import alpay.com.codenotesinteractive.simulation.Simulation;
+import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
-public class WebSimulationFragment extends Fragment implements View.OnClickListener{
+public class InclinedPlaneSimulationFragment extends Fragment implements View.OnClickListener{
 
     public View view;
     private WebView webView;
@@ -30,17 +32,34 @@ public class WebSimulationFragment extends Fragment implements View.OnClickListe
     private EditText angleText;
     public int[] parameters = new int[3];
     private int a, w, f;
-    private static final String TAG = "WebSimulationFragment";
+    private static final String TAG = "InclinedPlaneSimulationFragment";
 
-    public WebSimulationFragment() {
+    public InclinedPlaneSimulationFragment() {
 
     }
 
-    public void setParameters(int a, int w, int f) {
-        // Required empty public constructor
-        this.a = a;
-        this.f = f;
-        this.w = w;
+    public void setParameters(int[] params) {
+        int cnt = 0;
+        for(int i : params)
+        {
+            if(i==0)
+            {
+                break;
+            }
+            if(i == SimulationParameters.ANGLE)
+            {
+                this.a = parameters[cnt+1];
+            }
+            if(i == SimulationParameters.WEIGHT)
+            {
+                this.w = parameters[cnt+1];
+            }
+            if(i == SimulationParameters.FRICTION)
+            {
+                this.f = parameters[cnt+1];
+            }
+            cnt++;
+        }
         parameters[0] = a;
         parameters[1] = w;
         parameters[2] = f;
@@ -155,11 +174,11 @@ public class WebSimulationFragment extends Fragment implements View.OnClickListe
                 case R.id.forcevector:
                     if (checked)
                         forceview_selection = 1;
-                        break;
+                    break;
                 case R.id.springscale:
                     if (checked)
                         forceview_selection = 2;
-                        break;
+                    break;
             }
         }else if(i == R.id.slow_motion)
         {

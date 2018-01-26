@@ -16,14 +16,16 @@ import com.getkeepsafe.taptargetview.TapTargetView;
 
 import alpay.com.codenotesinteractive.chat.ChatFragment;
 import alpay.com.codenotesinteractive.compiler.CompilerFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.WebSimulationFragment;
+import alpay.com.codenotesinteractive.simulation.Simulation;
+import alpay.com.codenotesinteractive.simulation.SimulationActivity;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener{
 
 
     ChatFragment chatFragment;
-    WebSimulationFragment simulationFragment;
+    SimulationListFragment simulationListFragment;
     CompilerFragment compilerFragment;
     ViewPager viewPager;
     BottomNavigationView bottomNavigation;
@@ -119,6 +121,14 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onListFragmentInteraction(Simulation.SimulationItem item) {
+        int id = Integer.valueOf(item.id);
+        Intent intent = new Intent(this, SimulationActivity.class);
+        intent.putExtra("simulationID", id);
+        startActivity(intent);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_menu, menu);
@@ -143,10 +153,10 @@ public class BaseActivity extends AppCompatActivity {
     {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         chatFragment=new ChatFragment();
-        simulationFragment = new WebSimulationFragment();
+        simulationListFragment = new SimulationListFragment();
         compilerFragment = new CompilerFragment();
         adapter.addFragment(chatFragment);
-        adapter.addFragment(simulationFragment);
+        adapter.addFragment(simulationListFragment);
         adapter.addFragment(compilerFragment);
         viewPager.setAdapter(adapter);
     }

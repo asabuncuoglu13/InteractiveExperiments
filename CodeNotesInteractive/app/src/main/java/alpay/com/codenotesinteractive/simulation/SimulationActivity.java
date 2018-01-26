@@ -4,58 +4,81 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
+
+import java.util.HashMap;
 
 import alpay.com.codenotesinteractive.BaseActivity;
 import alpay.com.codenotesinteractive.R;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.WebSimulationFragment;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneSimulationFragment;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 
-public class SimulationActivity extends AppCompatActivity {
+public class SimulationActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener{
 
-    int[] parameters;
-    int angle, weight, friction;
-    int angle_code = 51;
-    int friction_code = 52;
-    int weight_code = 53;
+
+    private HashMap<String, int[]> parameterMap;
+    int[] parameters = null;
+    int simulation = 1001;
+    InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment;
+    ConstantAccelerationSimulationFragment constantAccelerationSimulationFragment;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onfragment);
-
         Bundle bundle = getIntent().getExtras();
-        WebSimulationFragment simuFrag = new WebSimulationFragment();
         if (bundle != null) {
             parameters = bundle.getIntArray("output");
-            int cnt = 0;
-            for(int i : parameters)
-            {
-                if(i==0)
-                {
-                    break;
-                }
-                if(i == angle_code)
-                {
-                    angle = parameters[cnt+1];
-                }
-                if(i == weight_code)
-                {
-                    weight = parameters[cnt+1];
-                }
-                if(i == friction_code)
-                {
-                    friction = parameters[cnt+1];
-                }
-                cnt++;
+            simulation = bundle.getInt("simulationID");
+        }
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if(parameters != null)
+        {
+            if(simulation == SimulationParameters.INCLINED_PLANE_SIMULATION) {
+                inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
+                inclinedPlaneSimulationFragment.setParameters(parameters);
+                ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
             }
-            simuFrag.setParameters(angle, weight, friction);
+            else if(simulation == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION)
+            {
+                constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
+                constantAccelerationSimulationFragment.setParameters(parameters);
+                ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
+            }
+        }else
+        {
+            if(simulation == SimulationParameters.INCLINED_PLANE_SIMULATION) {
+                inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
+                ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
+            }
+            else if(simulation == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION)
+            {
+                constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
+                ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
+            }
         }
 
-        simuFrag.setSimulation("inclinedplane");
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, simuFrag);
         ft.addToBackStack(null);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
     }
+
+    @Override
+    public void onListFragmentInteraction(Simulation.SimulationItem item) {
+        int id = Integer.valueOf(item.id);
+        InclinedPlaneSimulationFragment simulationFragment = new InclinedPlaneSimulationFragment();
+        if(id == SimulationParameters.INCLINED_PLANE_SIMULATION)
+        {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, simulationFragment);
+            ft.addToBackStack(null);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
+        }
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -63,4 +86,6 @@ public class SimulationActivity extends AppCompatActivity {
         Intent newIntent = new Intent(this, BaseActivity.class);
         startActivity(newIntent);
     }
+
+
 }

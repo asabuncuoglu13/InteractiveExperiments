@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<title>Motion with constant acceleration</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css" type="text/css">
+<style type="text/css">
+div#total { width: 540px; height: 400px; }
+div#canvas { width: 540px; height: 400px; }
+div#panel { top: 400px; width: 540px; height: 110px; } 
+button { width: 220px; }
+input[type="text"] { left: 10px; width: 150px; }
+.pos1 { left: 10px; }
+.pos3 { left: 180px; }
+</style>
+<script src="page_phen.js"></script>
+<script src="acceleration.js"></script>
+<script src="acceleration_en.js"></script>
+<meta name="description" content="HTML5 app: Motion with constant acceleration">
+<meta name="author" content="Walter Fendt">
+<meta name="keywords" content="app, physics, mechanics, kinematics, acceleration">
+</head>
+
+<body>
+<div id="total">
+  <div id="canvas"><canvas id="cv" width=540 height=400>This browser doesn't support HTML5 canvas!</canvas></div>
+  <div id="panel">
+    <div style="top: 10px; left:150px;"><button id="bu1" style="background-color: #00ffff;"></button></div>
+    <div style="top: 50px; left:150px;"><button id="bu2" style="background-color: #ffff00;"></button></div>
+    <div style="top: 95px;  display: none;"><input id="cbSlow" type="checkbox" name="cbSlow" value=""><label id="lbSlow" for="cbSlow"></label></div>
+    <div style="top: 130px; display: none;"><span class="pos1" id="ipX0a"></span></div>
+    <div style="top: 150px; display: none;"><input type="text" id="ipX0b"><span class="pos3" id="ipX0c"></span></div>
+    <div style="top: 180px; display: none;"><span class="pos1" id="ipV0a"></span></div>
+    <div style="top: 200px; display: none;"><input type="text" id="ipV0b"><span class="pos3" id="ipV0c"></span></div>
+    <div style="top: 230px; display: none;"><span class="pos1" id="ipAa"></span></div>
+    <div style="top: 250px; display: none;"><input type="text" id="ipAb"><span class="pos3" id="ipAc"></span></div>
+    <div style="top: 290px; display: none;"><input type="radio" id="rbV" name="bg" value=""><label for="rbV" id="lbV"></label></div>
+    <div style="top: 320px; display: none;"><input type="radio" id="rbA" name="bg" value=""><label for="rbA" id="lbA"></label></div>
+    <div style="top: 360px; display: none;"><span class="pos1" id="author"></span></div>
+    <div style="top: 380px; display: none;"><span class="pos1" id="translator"></span></div>
+  </div>
+</div>
+
+</body>
+</html>
