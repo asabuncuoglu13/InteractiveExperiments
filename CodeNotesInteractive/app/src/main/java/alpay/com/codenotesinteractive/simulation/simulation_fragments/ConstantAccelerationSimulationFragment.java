@@ -89,11 +89,7 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         view.findViewById(R.id.setParameters).setOnClickListener(this);
         view.findViewById(R.id.resetButton).setOnClickListener(this);
 
-
-        if(simulationName.compareTo("inclinedplane") == 0)
-            webView.loadUrl("file:///android_asset/InclinedPlane/index.html");
-        else
-            webView.loadUrl("file:///android_asset/InclinedPlane/index.html");
+        webView.loadUrl("file:///android_asset/ConstantAcceleration/index.html");
 
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);

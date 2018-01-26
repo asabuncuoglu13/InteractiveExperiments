@@ -187,7 +187,7 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
             }
         });
 
-        adapter = new FirebaseRecyclerAdapter<ChatMessage, ChatViewHolder>(ChatMessage.class, R.layout.msglist, ChatViewHolder.class, ref.child("chat")) {
+        adapter = new FirebaseRecyclerAdapter<ChatMessage, ChatViewHolder>(ChatMessage.class, R.layout.message_listview, ChatViewHolder.class, ref.child("chat")) {
             @Override
             protected void populateViewHolder(ChatViewHolder viewHolder, ChatMessage model, int position) {
 

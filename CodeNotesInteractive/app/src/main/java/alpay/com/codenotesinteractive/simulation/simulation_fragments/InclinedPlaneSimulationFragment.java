@@ -90,12 +90,7 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
         view.findViewById(R.id.setParameters).setOnClickListener(this);
         view.findViewById(R.id.resetButton).setOnClickListener(this);
 
-
-        if(simulationName.compareTo("inclinedplane") == 0)
-            webView.loadUrl("file:///android_asset/InclinedPlane/index.html");
-        else
-            webView.loadUrl("file:///android_asset/InclinedPlane/index.html");
-
+        webView.loadUrl("file:///android_asset/InclinedPlane/index.html");
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
         return view;
