@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
@@ -108,6 +109,13 @@ public class BaseActivity extends AppCompatActivity {
 
             }
         });
+
+        if(!Utility.isNetworkAvailable(this))
+        {
+            Toast.makeText(this, R.string.connection_error, Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     @Override

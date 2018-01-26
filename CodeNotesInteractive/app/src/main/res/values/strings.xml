@@ -17,6 +17,9 @@
     <string name="all_text_required">All fields are required</string>
     <string name="howto">How To Guide</string>
 
+    <string name="response_type_error">Returned response type was not compatible for this chat.</string>
+    <string name="connection_error">There is no active internet connection.</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="springscale">Spring Scale</string>

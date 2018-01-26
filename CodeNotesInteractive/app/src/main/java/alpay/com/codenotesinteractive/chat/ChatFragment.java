@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +34,7 @@ import ai.api.android.AIService;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
+import alpay.com.codenotesinteractive.HowToActivity;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.compiler.CompilerActivity;
 import alpay.com.codenotesinteractive.simulation.SimulationActivity;
@@ -97,19 +99,6 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
 
                 if (!message.equals("")) {
 
-                    if(message.contains("code"))
-                    {
-                        Intent intent = new Intent(getActivity(), CompilerActivity.class);
-                        startActivity(intent);
-                        return;
-                    }
-                    if (message.contains("experiment") || message.contains("simulation"))
-                    {
-                        Intent intent = new Intent(getActivity(), SimulationActivity.class);
-                        startActivity(intent);
-                        return;
-                    }
-
                     ChatMessage chatMessage = new ChatMessage(message, "user");
                     ref.child("chat").push().setValue(chatMessage);
 
@@ -123,6 +112,9 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
                                 final AIResponse response = aiDataService.request(aiRequest);
                                 return response;
                             } catch (AIServiceException e) {
+                            } catch (NumberFormatException n)
+                            {
+                                Toast.makeText(getContext(), R.string.response_type_error, Toast.LENGTH_SHORT).show();
                             }
                             return null;
                         }
@@ -130,11 +122,26 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
                         @Override
                         protected void onPostExecute(AIResponse response) {
                             if (response != null) {
-
                                 Result result = response.getResult();
                                 String reply = result.getFulfillment().getSpeech();
                                 ChatMessage chatMessage = new ChatMessage(reply, "bot");
                                 ref.child("chat").push().setValue(chatMessage);
+                                if(reply.contains("How-To-Guide"))
+                                {
+                                    Intent intent = new Intent(getActivity(), HowToActivity.class);
+                                    startActivity(intent);
+                                    return;
+                                }else if(reply.contains("Coding-Area"))
+                                {
+                                    Intent intent = new Intent(getActivity(), CompilerActivity.class);
+                                    startActivity(intent);
+                                    return;
+                                }else if (reply.contains("Simulation-Area"))
+                                {
+                                    Intent intent = new Intent(getActivity(), SimulationActivity.class);
+                                    startActivity(intent);
+                                    return;
+                                }
                             }
                         }
                     }.execute(aiRequest);

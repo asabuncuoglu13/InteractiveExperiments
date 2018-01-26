@@ -70,7 +70,7 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.activity_compiler, container, false);
+        view = inflater.inflate(R.layout.fragment_compiler, container, false);
 
         cameraView = (SurfaceView) view.findViewById(R.id.surface_view);
         textView = (TextView) view.findViewById(R.id.text_view);
