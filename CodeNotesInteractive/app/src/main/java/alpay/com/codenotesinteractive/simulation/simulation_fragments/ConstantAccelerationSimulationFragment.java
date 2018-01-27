@@ -26,11 +26,11 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
     private String simulationName = "";
     public int forceview_selection = -1;
     public int slowmotion_selection = -1;
-    private EditText weightText;
-    private EditText frictionText;
-    private EditText angleText;
+    private EditText positionText;
+    private EditText velocityText;
+    private EditText accelerationText;
     public int[] parameters = new int[3];
-    private int a, w, f;
+    private int p, v, a;
     private static final String TAG = "InclinedPlaneSimulationFragment";
 
     public ConstantAccelerationSimulationFragment() {
@@ -45,23 +45,23 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
             {
                 break;
             }
-            if(i == SimulationParameters.ANGLE)
+            if(i == SimulationParameters.POSITION)
+            {
+                this.p = parameters[cnt+1];
+            }
+            if(i == SimulationParameters.VELOCITY)
+            {
+                this.v = parameters[cnt+1];
+            }
+            if(i == SimulationParameters.ACCELERATION)
             {
                 this.a = parameters[cnt+1];
             }
-            if(i == SimulationParameters.WEIGHT)
-            {
-                this.w = parameters[cnt+1];
-            }
-            if(i == SimulationParameters.FRICTION)
-            {
-                this.f = parameters[cnt+1];
-            }
             cnt++;
         }
-        parameters[0] = a;
-        parameters[1] = w;
-        parameters[2] = f;
+        parameters[0] = p;
+        parameters[1] = v;
+        parameters[2] = a;
     }
 
 
@@ -83,9 +83,15 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         webSettings.setDomStorageEnabled(true);
         webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
 
-        weightText = (EditText) view.findViewById(R.id.weight);
-        frictionText = (EditText) view.findViewById(R.id.coeff_friction);
-        angleText = (EditText) view.findViewById(R.id.incline_angle);
+        positionText = (EditText) view.findViewById(R.id.parameter1);
+        velocityText = (EditText) view.findViewById(R.id.parameter2);
+        accelerationText = (EditText) view.findViewById(R.id.parameter3);
+
+        positionText.setHint(R.string.position);
+        velocityText.setHint(R.string.velocity);
+        accelerationText.setHint(R.string.acceleration);
+
+
         view.findViewById(R.id.setParameters).setOnClickListener(this);
         view.findViewById(R.id.resetButton).setOnClickListener(this);
 
@@ -102,43 +108,35 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
             mContext = c;
         }
         @JavascriptInterface
-        public int getAngle() {
+        public int getPosition() {
             return parameters[0];
         }
         @JavascriptInterface
-        public int getWeight() {
+        public int getVelocity() {
             return parameters[1];
         }
         @JavascriptInterface
-        public int getFriction() {
+        public int getAcceleration() {
             return parameters[2];
-        }
-        @JavascriptInterface
-        public int getForceViewSelection() {
-            return forceview_selection;
-        }
-        @JavascriptInterface
-        public int getSlowMotionSelection() {
-            return forceview_selection;
         }
     }
 
     public int[] getParameters()
     {
-        String w_text = weightText.getText().toString();
-        String a_text = angleText.getText().toString();
-        String f_text = frictionText.getText().toString();
+        String p_text = positionText.getText().toString();
+        String a_text = accelerationText.getText().toString();
+        String v_text = velocityText.getText().toString();
 
-        if(!(w_text.matches("") || f_text.matches("") || a_text.matches("")))
+        if(!(p_text.matches("") || v_text.matches("") || a_text.matches("")))
         {
+            p = Integer.valueOf(p_text);
+            v = Integer.valueOf(v_text);
             a = Integer.valueOf(a_text);
-            w = Integer.valueOf(w_text);
-            f = Integer.valueOf(f_text);
-            Toast.makeText(this.getContext(), "Parameters are set to: Angle: "+a+", Weight: "+w+", Coeff. Of Friction: "+f, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), "Parameters are set to: Angle: "+ p +", Weight: "+ v +", Coeff. Of Friction: "+ a, Toast.LENGTH_SHORT).show();
             int[] params = new int[3];
-            params[0] = a;
-            params[1] = w;
-            params[2] = f;
+            params[0] = p;
+            params[1] = v;
+            params[2] = a;
             return params;
         }else
         {
@@ -149,9 +147,9 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
 
     public void setParametersToDefault()
     {
-        angleText.setText("");
-        frictionText.setText("");
-        weightText.setText("");
+        accelerationText.setText("");
+        velocityText.setText("");
+        positionText.setText("");
 
         parameters[0] = 25; //angle
         parameters[1] = 2; //weight

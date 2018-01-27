@@ -19,6 +19,7 @@ import java.util.List;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.Simulation.SimulationItem;
+import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment.OnListFragmentInteractionListener;
 
 /**
@@ -47,7 +48,7 @@ public class SimulationRecyclerViewAdapter extends RecyclerView.Adapter<Simulati
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        mValues.get(position).setImageID(context, R.drawable.ic_image);
+        mValues.get(position).setImageID(context, SimulationParameters.images[position]);
         holder.mItem = mValues.get(position);
         holder.mContentView.setText(mValues.get(position).content);
         holder.mDetailView.setText(mValues.get(position).details);

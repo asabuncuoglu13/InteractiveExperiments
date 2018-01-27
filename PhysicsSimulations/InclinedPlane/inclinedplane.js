@@ -194,17 +194,11 @@ function reactionReset () {
 // v1x, v1y, v2x, v2y, w1x, w1y, w2x, w2y
 
 function reactionStart () {
-  var a = Android.getAngle();
-  var w = Android.getWeight();
-  var f = Android.getFriction();
-  var forceviewselection = Android.getForceViewSelection();
-  var slowmotion = Android.getSlowMotionSelection();
-
   switchButton2();                                         // Zustand des Schaltknopfs �ndern
   enableInput(false);                                      // Eingabefelder deaktivieren
   if (bu2.state == 1) startAnimation();                    // Entweder Animation starten bzw. fortsetzen ...
   else stopAnimation();                                    // ... oder stoppen
-  reaction(a, w, f);                                                // Eingabe, Berechnungen, Ausgabe
+  reaction();                                              // Eingabe, Berechnungen, Ausgabe
   }
   
 // Reaktion auf Optionsfeld Zeitlupe:
@@ -218,8 +212,8 @@ function reactionSlow () {
 // Seiteneffekt alpha, fG, my, sin, cos, fN, fH, fR, f, dyFG, dxFN, dyFN, dxFH,dyFH, dxF, dyF, polyPlane, 
 // v1x, v1y, v2x, v2y, w1x, w1y, w2x, w2y
 
-function reaction(a, w, f) {
-  input(a, w, f);                                                 // Eingegebene Werte �bernehmen (eventuell korrigiert)
+function reaction () {
+  input();                                                 // Eingegebene Werte �bernehmen (eventuell korrigiert)
   calculation();                                           // Berechnungen
   updateOutput();                                          // Ausgabefelder aktualisieren
   }
@@ -336,11 +330,11 @@ function inputNumber (ef, d, fix, min, max) {
 // Gesamte Eingabe:
 // Seiteneffekt alpha, fG, my
 
-function input (a,f, w) {
-  alpha = a*DEG;                // angle
-  fG = w;                       // weight force (N)
-  my = f;                      // friction
-}
+function input () {
+  alpha = inputNumber(ip1,0,true,0,90)*DEG;                // Neigungswinkel (Bogenma�)
+  fG = inputNumber(ip2,1,true,0,10);                       // Gewichtskraft (N)
+  my = inputNumber(ip3,2,true,0,0.5);                      // Reibungszahl
+  }
   
 // Aktualisierung der Eingabefelder:
 

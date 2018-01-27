@@ -25,7 +25,7 @@ public class Simulation {
     static {
         // Add some sample items.
         addItem(new SimulationItem(String.valueOf(SimulationParameters.INCLINED_PLANE_SIMULATION),"Inclined Plane", "Experiment about Inclined Plane"));
-        addItem(new SimulationItem(String.valueOf(SimulationParameters.CONSTANT_ACCELERATION_SIMULATION), "Constant Acceleration", "Experiment about Constant Acceleration"));
+        addItem(new SimulationItem(String.valueOf(SimulationParameters.CONSTANT_ACCELERATION_SIMULATION), "Constant Acceleration", "Experiment about Constant"));
     }
 
     private static void addItem(SimulationItem item) {

@@ -29,6 +29,9 @@
     <string name="incline_angle">Angle of Inclination</string>
     <string name="weight">Weight</string>
     <string name="coeff_friction">Coefficient of Friction</string>
+    <string name="position">Initial Position</string>
+    <string name="velocity">Initial Velocity</string>
+    <string name="acceleration">Initial Acceleration</string>
     <string name="setparams">Set Parameters</string>
     <string name="reset">RESET</string>
     <string name="slowmotion">Slow Motion</string>

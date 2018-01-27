@@ -195,12 +195,16 @@ function reactionReset() {
 // Seiteneffekt bu2.state, on, timer, t0, slow, x0, v0, a, tLB1, tLB2, Wirkung auf Eingabefelder
 
 function reactionStart() {
+  a = Android.getAcceleration();        
+  v0 = Android.getVelocity();    
+  x0 = Android.getPosition();
+
   switchButton2();                                         // Zustand des Schaltknopfs �ndern
   enableInput(false);                                      // Eingabefelder deaktivieren
   if (bu2.state == 1) startAnimation();                    // Entweder Animation starten bzw. fortsetzen ...
   else stopAnimation();                                    // ... oder stoppen
   slow = cbSlow.checked;                                   // Flag f�r Zeitlupe
-  reaction();                                              // Eingegebene Werte �bernehmen und rechnen
+  reaction(a, v0, x0);                                              // Eingegebene Werte �bernehmen und rechnen
   updateInput();                                           // Eingabefelder aktualisieren
 }
 
@@ -214,8 +218,8 @@ function reactionSlow() {
 // Hilfsroutine: Eingabe �bernehmen und rechnen
 // Seiteneffekt x0, v0, a, tLB1, tLB2, Wirkung auf Eingabefelder
 
-function reaction() {
-  input();                                                 // Eingegebene Werte �bernehmen (eventuell korrigiert)
+function reaction(a, v0, x0) {
+  input(a, v0, x0);                                                 // Eingegebene Werte �bernehmen (eventuell korrigiert)
   calculation();                                           // Berechnungen
 }
 
@@ -376,10 +380,11 @@ function inputNumber(ef, d, fix, min, max) {
 // Gesamte Eingabe:
 // Seiteneffekt x0, v0, a, Wirkung auf Eingabefelder
 
-function input() {
-  x0 = inputNumber(ipX0, 2, true, 0, 50);                     // Anfangsposition (m)
-  v0 = inputNumber(ipV0, 2, true, -10, 10);                   // Anfangsgeschwindigkeit (m/s)
-  a = inputNumber(ipA, 2, true, -2, 2);                       // Beschleunigung (m/s�)
+function input(a1, v01, x01) {
+  x0 = x01;                     // Anfangsposition (m)
+  v0 = v01;                   // Anfangsgeschwindigkeit (m/s)
+  a = a1;                       // Beschleunigung (m/s�)
+  updateInput();
 }
 
 // Aktualisierung der Eingabefelder:

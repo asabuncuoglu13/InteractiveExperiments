@@ -340,6 +340,9 @@ function input (a,f, w) {
   alpha = a*DEG;                // angle
   fG = w;                       // weight force (N)
   my = f;                      // friction
+  updateInput();                                           // Eingabefelder aktualisieren 
+  calculation();                                           // Berechnungen (Seiteneffekt!)
+  updateOutput();                                          // Ausgabefelder aktualisieren
 }
   
 // Aktualisierung der Eingabefelder:
@@ -357,6 +360,7 @@ function updateOutput () {
   op2.innerHTML = ToString(fN,1,true);                     // Normalkraft (N)
   op3.innerHTML = ToString(fR,1,true);                     // Reibungskraft (N)
   op4.innerHTML = ToString(f,1,true);                      // Zugkraft (N)
+  paint()
   }
    
 //-------------------------------------------------------------------------------------------------

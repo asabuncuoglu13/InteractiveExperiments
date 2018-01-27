@@ -54,24 +54,21 @@
                     android:text="@string/slowmotion"/>
 
                 <EditText
-                    android:id="@+id/incline_angle"
+                    android:id="@+id/parameter1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/incline_angle"
                     android:inputType="number" />
 
                 <EditText
-                    android:id="@+id/weight"
+                    android:id="@+id/parameter2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/weight"
                     android:inputType="number" />
 
                 <EditText
-                    android:id="@+id/coeff_friction"
+                    android:id="@+id/parameter3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/coeff_friction"
                     android:inputType="number" />
 
                 <Button

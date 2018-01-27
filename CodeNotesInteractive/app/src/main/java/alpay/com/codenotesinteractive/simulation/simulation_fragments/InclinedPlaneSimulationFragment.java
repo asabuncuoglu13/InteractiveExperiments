@@ -84,9 +84,15 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
         webSettings.setDomStorageEnabled(true);
         webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
 
-        weightText = (EditText) view.findViewById(R.id.weight);
-        frictionText = (EditText) view.findViewById(R.id.coeff_friction);
-        angleText = (EditText) view.findViewById(R.id.incline_angle);
+        angleText = (EditText) view.findViewById(R.id.parameter1);
+        weightText = (EditText) view.findViewById(R.id.parameter2);
+        frictionText = (EditText) view.findViewById(R.id.parameter3);
+
+        angleText.setHint(R.string.incline_angle);
+        weightText.setHint(R.string.weight);
+        frictionText.setHint(R.string.coeff_friction);
+
+
         view.findViewById(R.id.setParameters).setOnClickListener(this);
         view.findViewById(R.id.resetButton).setOnClickListener(this);
 

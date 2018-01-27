@@ -167,7 +167,6 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
                 Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.ic_send_white_24dp);
                 Bitmap img1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_mic_white_24dp);
 
-
                 if (s.toString().trim().length() != 0 && flagFab) {
                     ImageViewAnimatedChange(getActivity(), fab_img, img);
                     flagFab = false;
@@ -175,10 +174,7 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
                 } else if (s.toString().trim().length() == 0) {
                     ImageViewAnimatedChange(getActivity(), fab_img, img1);
                     flagFab = true;
-
                 }
-
-
             }
 
             @Override

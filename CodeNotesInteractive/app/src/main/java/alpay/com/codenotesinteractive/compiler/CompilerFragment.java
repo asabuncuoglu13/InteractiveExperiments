@@ -1,9 +1,11 @@
 package alpay.com.codenotesinteractive.compiler;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -149,6 +151,30 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
+    public void createAlertDialog(int titleID, int messageID)
+    {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(getContext());
+        }
+        builder.setTitle(titleID)
+                .setMessage(messageID)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -159,22 +185,17 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
                 int[] s = c.compile(code);
                 if(s[0] == -1)
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setMessage(R.string.no_code_dialog_message)
-                            .setTitle(R.string.no_code_dialog_title);
-                    AlertDialog dialog = builder.create();
+                    createAlertDialog(R.string.no_code_dialog_title, R.string.no_code_dialog_message);
                 }else
                 {
                     Intent intent = new Intent(getActivity(), SimulationActivity.class);
                     intent.putExtra("output", s);
+                    intent.putExtra("simulationID", 1001);
                     startActivity(intent);
                 }
             }else
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage(R.string.no_code_dialog_message)
-                        .setTitle(R.string.no_code_dialog_title);
-                AlertDialog dialog = builder.create();
+                createAlertDialog(R.string.no_code_dialog_title, R.string.no_code_dialog_message);
             }
 
         }
