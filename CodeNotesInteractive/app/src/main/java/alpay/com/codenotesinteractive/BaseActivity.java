@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -17,7 +19,9 @@ import com.getkeepsafe.taptargetview.TapTargetView;
 import alpay.com.codenotesinteractive.chat.ChatFragment;
 import alpay.com.codenotesinteractive.compiler.CompilerFragment;
 import alpay.com.codenotesinteractive.simulation.Simulation;
-import alpay.com.codenotesinteractive.simulation.SimulationActivity;
+import alpay.com.codenotesinteractive.simulation.SimulationParameters;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 
 
@@ -26,6 +30,8 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
 
     ChatFragment chatFragment;
     SimulationListFragment simulationListFragment;
+    InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment;
+    ConstantAccelerationSimulationFragment constantAccelerationSimulationFragment;
     CompilerFragment compilerFragment;
     ViewPager viewPager;
     BottomNavigationView bottomNavigation;
@@ -122,10 +128,21 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
 
     @Override
     public void onListFragmentInteraction(Simulation.SimulationItem item) {
-        int id = Integer.valueOf(item.id);
-        Intent intent = new Intent(this, SimulationActivity.class);
-        intent.putExtra("simulationID", id);
-        startActivity(intent);
+        int simulationID = Integer.valueOf(item.id);
+        findViewById(R.id.baseactivity_view).setVisibility(View.GONE);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if(simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
+            inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
+            ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
+        }
+        else if(simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION)
+        {
+            constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
+            ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
+        }
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
     }
 
     @Override
