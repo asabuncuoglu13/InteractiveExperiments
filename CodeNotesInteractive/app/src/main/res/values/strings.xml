@@ -5,8 +5,8 @@
     <string name="bottom_menu_simulation">Simulation</string>
     <string name="detector_dependency">Dependencies are not met</string>
 
-    <string name="bottom_target_title">Hello! Welcome to Interactive Experiments.</string>
-    <string name="bottom_target_detail">You can navigate between programming, experiments and chatbot from this bar.</string>
+    <string name="tap_target_title">Hello! Welcome to Interactive Experiments.</string>
+    <string name="tap_target_detail">You can start learning how to use this app by How To Guide. Just tap the dots on the upper right corner.</string>
 
     <string name="detail_info_button_text">Start Learning!</string>
     <string name="check_connection_text">There is no internet connection!

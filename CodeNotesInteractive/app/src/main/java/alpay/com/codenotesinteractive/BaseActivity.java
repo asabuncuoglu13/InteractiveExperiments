@@ -25,7 +25,7 @@ import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPl
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 
 
-public class BaseActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener{
+public class BaseActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener {
 
 
     ChatFragment chatFragment;
@@ -37,27 +37,42 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
     BottomNavigationView bottomNavigation;
     MenuItem prevMenuItem;
     static boolean showTapTarget = true;
+    static boolean largeScreen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        chatFragment = new ChatFragment();
+        simulationListFragment = new SimulationListFragment();
+        compilerFragment = new CompilerFragment();
 
-        viewPager = findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+        if (findViewById(R.id.fragment_chat_container) != null) {
+            largeScreen = true;
+            findViewById(R.id.bottom_navigation).setVisibility(View.GONE);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_chat_container, chatFragment);
+            ft.addToBackStack(null);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
+        }
 
-        if(showTapTarget)
+        if(!largeScreen)
         {
+            findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
+        }
+
+        if (showTapTarget) {
             TapTargetView.showFor(this,                 // `this` is an Activity
-                    TapTarget.forView(findViewById(R.id.bottom_navigation), getString(R.string.bottom_target_title), getString(R.string.bottom_target_detail))
+                    TapTarget.forView(findViewById(R.id.fragment_container), getString(R.string.tap_target_title), getString(R.string.tap_target_detail))
                             // All options below are optional
                             .outerCircleColor(R.color.colorPrimaryDark)      // Specify a color for the outer circle
                             .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
                             .drawShadow(true)                   // Whether to draw a drop shadow or not
                             .cancelable(true)                  // Whether tapping outside the outer circle dismisses the view
                             .tintTarget(true)                   // Whether to tint the target view's color
-                            .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
-                            .targetRadius(60),                  // Specify the target radius (in dp)
+                            .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
+                            .targetRadius(10),                  // Specify the target radius (in dp)
                     new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
                         @Override
                         public void onTargetClick(TapTargetView view) {
@@ -91,7 +106,8 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
             }
         });
 
-
+        viewPager = findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -102,9 +118,7 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
             public void onPageSelected(int position) {
                 if (prevMenuItem != null) {
                     prevMenuItem.setChecked(false);
-                }
-                else
-                {
+                } else {
                     bottomNavigation.getMenu().getItem(2).setChecked(false);
                 }
 
@@ -118,8 +132,7 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
             }
         });
 
-        if(!Utility.isNetworkAvailable(this))
-        {
+        if (!Utility.isNetworkAvailable(this)) {
             Toast.makeText(this, R.string.connection_error, Toast.LENGTH_LONG).show();
         }
 
@@ -131,12 +144,10 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
         int simulationID = Integer.valueOf(item.id);
         findViewById(R.id.baseactivity_view).setVisibility(View.GONE);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if(simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
+        if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
             inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
             ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
-        }
-        else if(simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION)
-        {
+        } else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
             constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
             ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
         }
@@ -166,13 +177,11 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
         return true;
     }
 
-    private void setupViewPager(ViewPager viewPager)
-    {
+    private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        chatFragment=new ChatFragment();
-        simulationListFragment = new SimulationListFragment();
-        compilerFragment = new CompilerFragment();
-        adapter.addFragment(chatFragment);
+        if (!largeScreen) {
+            adapter.addFragment(chatFragment);
+        }
         adapter.addFragment(simulationListFragment);
         adapter.addFragment(compilerFragment);
         viewPager.setAdapter(adapter);
