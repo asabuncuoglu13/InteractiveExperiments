@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import alpay.com.codenotesinteractive.BaseActivity;
@@ -21,7 +23,7 @@ public class SimulationActivity extends AppCompatActivity implements SimulationL
 
     private HashMap<String, int[]> parameterMap;
     int[] parameters = null;
-    int simulation = 1001;
+    int simulation = 1002;
     InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment;
     ConstantAccelerationSimulationFragment constantAccelerationSimulationFragment;
     SimulationListFragment simulationListFragment;
@@ -41,6 +43,7 @@ public class SimulationActivity extends AppCompatActivity implements SimulationL
         {
             if(simulation == SimulationParameters.INCLINED_PLANE_SIMULATION) {
                 inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
+                Log.d("Simulation", "onCreate: "+Arrays.toString(parameters));
                 inclinedPlaneSimulationFragment.setParameters(parameters);
                 ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
             }

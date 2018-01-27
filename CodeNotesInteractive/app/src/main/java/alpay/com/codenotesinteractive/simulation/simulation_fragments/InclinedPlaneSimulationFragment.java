@@ -4,6 +4,7 @@ package alpay.com.codenotesinteractive.simulation.simulation_fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,39 +31,29 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
     private EditText weightText;
     private EditText frictionText;
     private EditText angleText;
-    public int[] parameters = new int[3];
-    private int a, w, f;
-    private static final String TAG = "InclinedPlaneSimulationFragment";
+    public int[] parameters = {0,0,0}; // angle, weight, friction
+    private static final String TAG = "InclinedPlaneSimulation";
 
     public InclinedPlaneSimulationFragment() {
 
     }
 
     public void setParameters(int[] params) {
-        int cnt = 0;
-        for(int i : params)
+        for(int i= 0; i<params.length-1; i++)
         {
-            if(i==0)
+            if(params[i] == SimulationParameters.ANGLE)
             {
-                break;
+                parameters[0] = params[i+1];
             }
-            if(i == SimulationParameters.ANGLE)
+            if(params[i] == SimulationParameters.WEIGHT)
             {
-                this.a = parameters[cnt+1];
+                parameters[1] = params[i+1];
             }
-            if(i == SimulationParameters.WEIGHT)
+            if(params[i] == SimulationParameters.FRICTION)
             {
-                this.w = parameters[cnt+1];
+                parameters[2] = params[i+1];
             }
-            if(i == SimulationParameters.FRICTION)
-            {
-                this.f = parameters[cnt+1];
-            }
-            cnt++;
         }
-        parameters[0] = a;
-        parameters[1] = w;
-        parameters[2] = f;
     }
 
 
@@ -137,14 +128,13 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
 
         if(!(w_text.matches("") || f_text.matches("") || a_text.matches("")))
         {
-            a = Integer.valueOf(a_text);
-            w = Integer.valueOf(w_text);
-            f = Integer.valueOf(f_text);
-            Toast.makeText(this.getContext(), "Parameters are set to: Angle: "+a+", Weight: "+w+", Coeff. Of Friction: "+f, Toast.LENGTH_SHORT).show();
             int[] params = new int[3];
-            params[0] = a;
-            params[1] = w;
-            params[2] = f;
+            params[0] = Integer.valueOf(a_text);
+            params[1] = Integer.valueOf(w_text);
+            params[2] = Integer.valueOf(f_text);
+            Toast.makeText(this.getContext(), "Parameters are set to: Angle: "+params[0]+
+                    ", Weight: "+params[1]+", Coeff. Of Friction: "+params[2], Toast.LENGTH_SHORT).show();
+
             return params;
         }else
         {

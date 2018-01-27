@@ -1,10 +1,7 @@
 package alpay.com.codenotesinteractive.compiler.Components;
+import android.util.Log;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CodeBlocksCompiler {
 
@@ -23,7 +20,7 @@ public class CodeBlocksCompiler {
     HashMap conditionalMap = new HashMap(8);
     HashMap outputMap = new HashMap(8);
     HashMap whileMap = new HashMap(8);
-    HashMap parameterMap = new HashMap(10);
+    HashMap parameterMap = new HashMap(8);
 
     public CodeBlocksCompiler() {
         /* init conditionalMap */
@@ -50,6 +47,9 @@ public class CodeBlocksCompiler {
         parameterMap.put("ANGLE", 51);
         parameterMap.put("FRICTION", 52);
         parameterMap.put("WEIGHT", 53);
+        parameterMap.put("POSITION", 54);
+        parameterMap.put("VELOCITY", 55);
+        parameterMap.put("ACCELERATION", 56);
     }
 
     public String createCodeFromText(String codeText) {
@@ -85,29 +85,23 @@ public class CodeBlocksCompiler {
 
     public int[] returnSetStatement(String codeline) {
         int param = mapIterator(parameterMap, codeline);
-        int[] out = {0, 0};
+        int[] out = {0,0};
         if (param < 50 || param > 60) {
-            return null;
+            Log.d("Hello", "returnSetStatement: ");
         } else {
             codeline = codeline.replaceAll("[^-?0-9]+", " ");
             List param_arr = Arrays.asList(codeline.trim().split(" "));
-            if (param_arr.size() > 1) {
-                //There must be exactly one parameter for each code line
-                return null;
-            } else if (param_arr.size() == 1) {
+            if (param_arr.size() == 1) {
                 //There is one integer in the codeline
                 try {
                     out[0] = param;
                     out[1] = Integer.valueOf((String) param_arr.get(0));
-                    System.out.println("1: " + out[0] + " 2: " + out[1]);
-                    return out;
                 } catch (NumberFormatException n) {
-                    return null;
+
                 }
             }
-            return null;
         }
-
+        return out;
     }
 
 
@@ -133,21 +127,22 @@ public class CodeBlocksCompiler {
                 out[1] = mapIterator(outputMap, codeAfterElse);
                 return out;
             }
-        } else if (subCode.contains("SET")) {
+        }
+        else if(subCode.contains("SET"))
+        {
             String[] setlines = code.split("-");
             int i = 0;
-            for (String line : setlines) {
-                System.out.println(line);
+            for(String line : setlines)
+            {
                 int[] params = returnSetStatement(line);
-                if (params != null) {
-                    param_out[i] = params[0];
-                    i++;
-                    param_out[i] = params[1];
-                    i++;
-                }
+                param_out[i] = params[0];
+                i++;
+                param_out[i] = params[1];
+                i++;
             }
             return param_out;
-        } else if (subCode.contains("FOR")) {
+        }
+        else if (subCode.contains("FOR")) {
             String times = code.substring(3, findFirstAppearence(code, "times"));
             int outNum = mapIterator(outputMap, code);
             out[0] = Integer.parseInt(times);
@@ -169,10 +164,11 @@ public class CodeBlocksCompiler {
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             if (code.contains((CharSequence) pair.getKey())) {
+                it.remove(); // avoids a ConcurrentModificationException
                 return (int) pair.getValue();
             }
-            it.remove(); // avoids a ConcurrentModificationException
         }
+        it.remove(); // avoids a ConcurrentModificationException
         return -1;
     }
 

@@ -199,7 +199,6 @@ function reactionStart () {
   var f = Android.getFriction();
   var forceviewselection = Android.getForceViewSelection();
   var slowmotion = Android.getSlowMotionSelection();
-
   switchButton2();                                         // Zustand des Schaltknopfs �ndern
   enableInput(false);                                      // Eingabefelder deaktivieren
   if (bu2.state == 1) startAnimation();                    // Entweder Animation starten bzw. fortsetzen ...
@@ -336,7 +335,7 @@ function inputNumber (ef, d, fix, min, max) {
 // Gesamte Eingabe:
 // Seiteneffekt alpha, fG, my
 
-function input (a,f, w) {
+function input (a,w, f) {
   alpha = a*DEG;                // angle
   fG = w;                       // weight force (N)
   my = f;                      // friction

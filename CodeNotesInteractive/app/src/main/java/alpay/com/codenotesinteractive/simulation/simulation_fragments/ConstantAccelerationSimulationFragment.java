@@ -4,6 +4,7 @@ package alpay.com.codenotesinteractive.simulation.simulation_fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,38 +31,28 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
     private EditText velocityText;
     private EditText accelerationText;
     public int[] parameters = new int[3];
-    private int p, v, a;
-    private static final String TAG = "InclinedPlaneSimulationFragment";
+    private static final String TAG = "ConstantAccSimulation";
 
     public ConstantAccelerationSimulationFragment() {
 
     }
 
     public void setParameters(int[] params) {
-        int cnt = 0;
-        for(int i : params)
+        for(int i= 0; i<params.length-1; i++)
         {
-            if(i==0)
+            if(params[i] == SimulationParameters.POSITION)
             {
-                break;
+                parameters[0] = params[i+1];
             }
-            if(i == SimulationParameters.POSITION)
+            if(params[i] == SimulationParameters.VELOCITY)
             {
-                this.p = parameters[cnt+1];
+                parameters[1] = params[i+1];
             }
-            if(i == SimulationParameters.VELOCITY)
+            if(params[i] == SimulationParameters.ACCELERATION)
             {
-                this.v = parameters[cnt+1];
+                parameters[2] = params[i+1];
             }
-            if(i == SimulationParameters.ACCELERATION)
-            {
-                this.a = parameters[cnt+1];
-            }
-            cnt++;
         }
-        parameters[0] = p;
-        parameters[1] = v;
-        parameters[2] = a;
     }
 
 
@@ -129,14 +120,11 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
 
         if(!(p_text.matches("") || v_text.matches("") || a_text.matches("")))
         {
-            p = Integer.valueOf(p_text);
-            v = Integer.valueOf(v_text);
-            a = Integer.valueOf(a_text);
-            Toast.makeText(this.getContext(), "Parameters are set to: Angle: "+ p +", Weight: "+ v +", Coeff. Of Friction: "+ a, Toast.LENGTH_SHORT).show();
             int[] params = new int[3];
-            params[0] = p;
-            params[1] = v;
-            params[2] = a;
+            params[0] = Integer.valueOf(p_text);
+            params[1] = Integer.valueOf(v_text);
+            params[2] = Integer.valueOf(a_text);
+            Toast.makeText(this.getContext(), "Parameters are set to: Position: "+ params[0] +", Velocity: "+ params[1] +", Acceleration: "+ params[2], Toast.LENGTH_SHORT).show();
             return params;
         }else
         {
@@ -151,9 +139,9 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         velocityText.setText("");
         positionText.setText("");
 
-        parameters[0] = 25; //angle
-        parameters[1] = 2; //weight
-        parameters[2] = 1; //friction
+        parameters[0] = 0; //position
+        parameters[1] = 10; //velocity
+        parameters[2] = 1; //acceleration
     }
 
     @Override

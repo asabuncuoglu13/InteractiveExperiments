@@ -190,7 +190,7 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
                 {
                     Intent intent = new Intent(getActivity(), SimulationActivity.class);
                     intent.putExtra("output", s);
-                    intent.putExtra("simulationID", 1001);
+                    intent.putExtra("simulationID", 1002);
                     startActivity(intent);
                 }
             }else
