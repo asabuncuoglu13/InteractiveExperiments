@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<title>Ohm's Law</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css" type="text/css">
+<style type="text/css">
+div#total { width: 400px; height: 400px; }
+div#canvas { width: 400px; height: 400px; }
+div#panel { top: 400px; width: 400px; height: 300px; }
+.pos1 { left: 10px; } 
+select { width: 180px; }
+button { width: 180px; }
+</style>
+<script src="ohmslaw.js"></script>
+<script src="ohmslaw_en.js"></script>
+<script src="page.js"></script>
+<meta name="description" content="HTML5 app: Ohm's Law">
+<meta name="author" content="Walter Fendt">
+<meta name="keywords" content="physics, electricity, electrodynamics, resistance, Ohm, voltage, Volt, voltmeter, amperage, Ampere, ammeter">
+</head>
+
+<body>
+
+<div id="total">
+  <div id="canvas"><canvas id="cv" width=400 height=400>This browser doesn't support HTML5 canvas!</canvas></div>
+  <div id="panel">
+    <div style="visibility: hidden; top: 0px;"><span class="pos1" id="lbU"></span></div>
+    <div style="visibility: hidden; top: 0px;"><select id="selU"></select></div>
+    <div style="visibility: hidden; top: 0px;"><span class="pos1" id="lbI"></span></div>
+    <div style="visibility: hidden; top: 0px;"><select id="selI"></select></div>
+    <div style="top: 10px;"><button id="buR1" style="background-color: #ffff00;"></button></div>
+    <div style="top: 60px;"><button id="buR2" style="background-color: #ffff00;"></button></div>
+    <div style="top: 110px;"><button id="buU1" style="background-color: #00ffff;"></button></div>
+    <div style="top: 160px;"><button id="buU2" style="background-color: #00ffff;"></button></div>
+    <div style="top: 210px; color: #0000ff;"><span class="pos1" id="opU"></span></div>
+    <div style="top: 230px; color: #ff0000;"><span class="pos1" id="opI"></span></div>
+    <div style="visibility: hidden;top: 360px;"><span class="pos1" id="author"></span></div>
+    <div style="visibility: hidden; top: 380px;"><span class="pos1" id="translator"></span></div>
+  </div>
+</div>
+
+</body>
+</html>

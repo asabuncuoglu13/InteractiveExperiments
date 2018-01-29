@@ -26,6 +26,7 @@ public class Simulation {
         // Add some sample items.
         addItem(new SimulationItem(String.valueOf(SimulationParameters.INCLINED_PLANE_SIMULATION),"Inclined Plane", "Experiment about Inclined Plane"));
         addItem(new SimulationItem(String.valueOf(SimulationParameters.CONSTANT_ACCELERATION_SIMULATION), "Constant Acceleration", "Experiment about Constant"));
+        addItem(new SimulationItem(String.valueOf(SimulationParameters.OHMS_LAW_SIMULATION), "Ohm's Law", "Experiment about Ohm's Law"));
     }
 
     private static void addItem(SimulationItem item) {

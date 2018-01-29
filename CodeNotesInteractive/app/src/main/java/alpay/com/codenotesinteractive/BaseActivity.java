@@ -22,6 +22,7 @@ import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneSimulationFragment;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.OhmsLawSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 
 
@@ -32,6 +33,7 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
     SimulationListFragment simulationListFragment;
     InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment;
     ConstantAccelerationSimulationFragment constantAccelerationSimulationFragment;
+    OhmsLawSimulationFragment ohmsLawSimulationFragment;
     CompilerFragment compilerFragment;
     ViewPager viewPager;
     BottomNavigationView bottomNavigation;
@@ -150,6 +152,9 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
         } else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
             constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
             ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
+        }else if (simulationID == SimulationParameters.OHMS_LAW_SIMULATION) {
+            ohmsLawSimulationFragment = new OhmsLawSimulationFragment();
+            ft.replace(R.id.fragment_container, ohmsLawSimulationFragment);
         }
         ft.addToBackStack(null);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
