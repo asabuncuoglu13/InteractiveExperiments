@@ -7,4 +7,14 @@
     <color name="textColorMid">#455a64</color>
     <color name="textColorLight">#62727b</color>
     <color name="cardview_initial_background">#e0e0e0</color>
+
+    <color name="tutorial_page1">#d84315</color>
+    <color name="tutorial_page2">#ff6f00</color>
+    <color name="tutorial_page3">#f9a825</color>
+    <color name="tutorial_page4">#9e9d24</color>
+    <color name="tutorial_page5">#00695c</color>
+    <color name="tutorial_page6">#0277bd</color>
+    <color name="tutorial_page7">#283593</color>
+    <color name="tutorial_page8">#6a1b9a</color>
+    <color name="tutorial_page9">#ad1457</color>
 </resources>

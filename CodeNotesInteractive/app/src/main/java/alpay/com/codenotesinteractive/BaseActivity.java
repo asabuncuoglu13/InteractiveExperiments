@@ -40,10 +40,20 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
     MenuItem prevMenuItem;
     static boolean showTapTarget = true;
     static boolean largeScreen = false;
+    static boolean experimentOn = false;
+
+    static final String STATE_TAP = "tapstate";
+    static final String STATE_SCREEN = "screenstate";
+    static final String STATE_EXPERIMENT = "experimentstate";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            showTapTarget = savedInstanceState.getBoolean(STATE_TAP);
+            largeScreen = savedInstanceState.getBoolean(STATE_SCREEN);
+            experimentOn = savedInstanceState.getBoolean(STATE_EXPERIMENT);
+        }
         setContentView(R.layout.activity_base);
         chatFragment = new ChatFragment();
         simulationListFragment = new SimulationListFragment();
@@ -59,10 +69,8 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
             ft.commit();
         }
 
-        if(!largeScreen)
-        {
-            findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);
-        }
+        if(!largeScreen){
+            findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);}
 
         if (showTapTarget) {
             TapTargetView.showFor(this,                 // `this` is an Activity
@@ -137,13 +145,22 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
         if (!Utility.isNetworkAvailable(this)) {
             Toast.makeText(this, R.string.connection_error, Toast.LENGTH_LONG).show();
         }
+    }
 
-
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current game state
+        savedInstanceState.putBoolean(STATE_EXPERIMENT, experimentOn);
+        savedInstanceState.putBoolean(STATE_TAP, showTapTarget);
+        savedInstanceState.putBoolean(STATE_SCREEN, largeScreen);
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     public void onListFragmentInteraction(Simulation.SimulationItem item) {
         int simulationID = Integer.valueOf(item.id);
+        experimentOn = true;
         findViewById(R.id.baseactivity_view).setVisibility(View.GONE);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {

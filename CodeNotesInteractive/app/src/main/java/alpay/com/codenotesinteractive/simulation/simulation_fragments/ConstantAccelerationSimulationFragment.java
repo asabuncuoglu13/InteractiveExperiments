@@ -70,8 +70,11 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         webView = (WebView) view.findViewById(R.id.web_view);
         webView.setWebChromeClient(new WebChromeClient() {});
         WebSettings webSettings = webView.getSettings();
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(true);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+        webView.setInitialScale(30);
         webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
 
         positionText = (EditText) view.findViewById(R.id.parameter1);
