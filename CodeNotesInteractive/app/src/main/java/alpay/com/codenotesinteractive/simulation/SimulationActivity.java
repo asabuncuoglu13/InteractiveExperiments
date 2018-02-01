@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,7 +14,6 @@ import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationRecyclerViewAdapter;
 
 public class SimulationActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener{
 

@@ -195,7 +195,7 @@
   /* Gesamte App */
      
   div#total {
-    position: relative;
+    position: absolute;
     margin-top: 20px;                              /* Abstand nach oben */
     margin-left: auto; margin-right: auto;         /* Waagrechte Zentrierung */
     }

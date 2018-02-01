@@ -11,11 +11,9 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.Toast;
 
 import alpay.com.codenotesinteractive.R;
+import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
 public class OhmsLawSimulationFragment extends Fragment implements View.OnClickListener{
@@ -24,8 +22,6 @@ public class OhmsLawSimulationFragment extends Fragment implements View.OnClickL
     private WebView webView;
 
     private String simulationName = "";
-    public int forceview_selection = -1;
-    public int slowmotion_selection = -1;
     public int[] parameters = {0,0,0}; // angle, weight, friction
     private static final String TAG = "OhmsLaw";
 
@@ -66,6 +62,9 @@ public class OhmsLawSimulationFragment extends Fragment implements View.OnClickL
         view.findViewById(R.id.parameter_layout).setVisibility(View.GONE);
         webView = (WebView) view.findViewById(R.id.web_view);
         webView.setWebChromeClient(new WebChromeClient() {});
+        webView.setPadding(0, 0, 0, 0);
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.OHMS_LAW_SCREEN_SIZE));
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
@@ -106,7 +105,6 @@ public class OhmsLawSimulationFragment extends Fragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         int i = v.getId();
-
     }
 
     @Override

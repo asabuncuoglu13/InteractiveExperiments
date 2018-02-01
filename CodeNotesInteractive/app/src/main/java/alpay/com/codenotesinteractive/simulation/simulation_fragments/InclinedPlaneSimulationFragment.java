@@ -12,12 +12,18 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
+import org.angmarch.views.NiceSpinner;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 import alpay.com.codenotesinteractive.R;
-import alpay.com.codenotesinteractive.simulation.Simulation;
+import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
 public class InclinedPlaneSimulationFragment extends Fragment implements View.OnClickListener{
@@ -26,12 +32,7 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
     private WebView webView;
 
     private String simulationName = "";
-    public int forceview_selection = -1;
-    public int slowmotion_selection = -1;
-    private EditText weightText;
-    private EditText frictionText;
-    private EditText angleText;
-    public int[] parameters = {0,0,0}; // angle, weight, friction
+    public double[] parameters = {0.0,0.0,0.0}; // angle, weight, friction
     private static final String TAG = "InclinedPlaneSimulation";
 
     public InclinedPlaneSimulationFragment() {
@@ -70,19 +71,46 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
         view = inflater.inflate(R.layout.fragment_web_simulation, container, false);
         webView = (WebView) view.findViewById(R.id.web_view);
         webView.setWebChromeClient(new WebChromeClient() {});
+        webView.setPadding(0, 0, 0, 0);
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.INCLINED_PLANE_SCREEN_SIZE));
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
 
-        angleText = (EditText) view.findViewById(R.id.parameter1);
-        weightText = (EditText) view.findViewById(R.id.parameter2);
-        frictionText = (EditText) view.findViewById(R.id.parameter3);
+        NiceSpinner angle_spinner = (NiceSpinner) view.findViewById(R.id.param1_spinner);
+        final List<Double> angle_dataset = new LinkedList<>(Arrays.asList(5.0,7.0,9.0));
+        angle_spinner.attachDataSource(angle_dataset);
 
-        angleText.setHint(R.string.incline_angle);
-        weightText.setHint(R.string.weight);
-        frictionText.setHint(R.string.coeff_friction);
+        angle_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                parameters[0] = angle_dataset.get(position);
+            }
+        });
 
+        NiceSpinner weight_spinner = (NiceSpinner) view.findViewById(R.id.param2_spinner);
+        final List<Double> weight_dataset = new LinkedList<>(Arrays.asList(2.0,3.0,4.0));
+        weight_spinner.attachDataSource(weight_dataset);
+
+        weight_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                parameters[1] = weight_dataset.get(position);
+            }
+        });
+
+        NiceSpinner friction_spinner = (NiceSpinner) view.findViewById(R.id.param3_spinner);
+        final List<Double> friction_dataset = new LinkedList<>(Arrays.asList(0.2, 0.4, 0.6, 0.8, 1.0));
+        friction_spinner.attachDataSource(friction_dataset);
+
+        friction_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                parameters[2] = friction_dataset.get(position);
+            }
+        });
 
         view.findViewById(R.id.setParameters).setOnClickListener(this);
         view.findViewById(R.id.resetButton).setOnClickListener(this);
@@ -99,56 +127,34 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
             mContext = c;
         }
         @JavascriptInterface
-        public int getAngle() {
+        public double getAngle() {
             return parameters[0];
         }
         @JavascriptInterface
-        public int getWeight() {
+        public double getWeight() {
             return parameters[1];
         }
         @JavascriptInterface
-        public int getFriction() {
+        public double getFriction() {
             return parameters[2];
-        }
-        @JavascriptInterface
-        public int getForceViewSelection() {
-            return forceview_selection;
-        }
-        @JavascriptInterface
-        public int getSlowMotionSelection() {
-            return forceview_selection;
         }
     }
 
-    public int[] getParameters()
+    public double[] getParameters()
     {
-        String w_text = weightText.getText().toString();
-        String a_text = angleText.getText().toString();
-        String f_text = frictionText.getText().toString();
 
-        if(!(w_text.matches("") || f_text.matches("") || a_text.matches("")))
+        if(parameters[0]>0 && parameters[1]> 0 && parameters[2]>0)
         {
-            int[] params = new int[3];
-            params[0] = Integer.valueOf(a_text);
-            params[1] = Integer.valueOf(w_text);
-            params[2] = Integer.valueOf(f_text);
-            Toast.makeText(this.getContext(), "Parameters are set to: Angle: "+params[0]+
-                    ", Weight: "+params[1]+", Coeff. Of Friction: "+params[2], Toast.LENGTH_SHORT).show();
-
-            return params;
+            return parameters;
         }else
         {
             Toast.makeText(this.getContext(), R.string.all_text_required, Toast.LENGTH_SHORT).show();
-            return null;
+            return parameters;
         }
     }
 
     public void setParametersToDefault()
     {
-        angleText.setText("");
-        frictionText.setText("");
-        weightText.setText("");
-
         parameters[0] = 25; //angle
         parameters[1] = 2; //weight
         parameters[2] = 1; //friction
@@ -157,24 +163,7 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if(i == R.id.forceview_selection)
-        {
-            boolean checked = ((RadioButton) view).isChecked();
-            // Check which radio button was clicked
-            switch(view.getId()) {
-                case R.id.forcevector:
-                    if (checked)
-                        forceview_selection = 1;
-                    break;
-                case R.id.springscale:
-                    if (checked)
-                        forceview_selection = 2;
-                    break;
-            }
-        }else if(i == R.id.slow_motion)
-        {
-            slowmotion_selection = 1;
-        }else if(i == R.id.setParameters)
+        if(i == R.id.setParameters)
         {
             parameters = getParameters();
         }else if(i == R.id.resetButton)

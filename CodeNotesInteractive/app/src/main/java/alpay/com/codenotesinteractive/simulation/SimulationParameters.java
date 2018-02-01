@@ -16,7 +16,9 @@ public class SimulationParameters {
     public static final int VOLT = 55;
     public static final int RESISTANCE = 56;
 
-
+    public static double CONSTANT_ACCELERATION_SCREEN_SIZE = 520;
+    public static double INCLINED_PLANE_SCREEN_SIZE = 400;
+    public static double OHMS_LAW_SCREEN_SIZE = 400;
 
     public static int INCLINED_PLANE_IMAGE = R.drawable.inclinedplane;
     public static int CONSTANT_ACCELERATION_IMAGE = R.drawable.acceleration;

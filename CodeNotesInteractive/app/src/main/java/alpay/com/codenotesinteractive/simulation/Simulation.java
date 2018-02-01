@@ -1,14 +1,8 @@
 package alpay.com.codenotesinteractive.simulation;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +14,6 @@ public class Simulation {
     public static final List<SimulationItem> ITEMS = new ArrayList<SimulationItem>();
     public static final Map<String, SimulationItem> ITEM_MAP = new HashMap<String, SimulationItem>();
     private static final String TAG = "Simulation";
-
 
     static {
         // Add some sample items.

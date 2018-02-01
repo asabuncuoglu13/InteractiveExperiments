@@ -1,7 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFF">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,6 +15,40 @@
             android:orientation="vertical"
             android:paddingBottom="10dp">
 
+        <LinearLayout
+            android:id="@+id/parameter_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/param1_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"/>
+
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/param2_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"/>
+
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/param3_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"/>
+
+            <Button
+                android:id="@+id/setParameters"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/round_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/setparams" />
+
+        </LinearLayout>
+
             <WebView
                 android:id="@+id/web_view"
                 android:layout_width="match_parent"
@@ -21,70 +56,12 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp" />
 
-            <LinearLayout
-                android:id="@+id/parameter_layout"
+            <Button
+                android:id="@+id/resetButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="@string/reset" />
 
-                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/forceview_selection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/springscale"
-                        android:checked="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/springscale" />
-
-                    <RadioButton
-                        android:id="@+id/forcevector"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/forcevector" />
-
-                </RadioGroup>
-
-                <CheckBox
-                    android:id="@+id/slow_motion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/slowmotion"/>
-
-                <EditText
-                    android:id="@+id/parameter1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-
-                <EditText
-                    android:id="@+id/parameter2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-
-                <EditText
-                    android:id="@+id/parameter3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-
-                <Button
-                    android:id="@+id/setParameters"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/setparams" />
-
-                <Button
-                    android:id="@+id/resetButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/reset" />
-
-            </LinearLayout>
 
         </LinearLayout>
 

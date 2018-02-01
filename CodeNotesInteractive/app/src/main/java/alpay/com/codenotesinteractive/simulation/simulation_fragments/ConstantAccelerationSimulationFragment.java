@@ -12,11 +12,22 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.franmontiel.fullscreendialog.FullScreenDialogFragment;
+
+import org.angmarch.views.NiceSpinner;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 import alpay.com.codenotesinteractive.R;
+import alpay.com.codenotesinteractive.Utility;
+import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
 public class ConstantAccelerationSimulationFragment extends Fragment implements View.OnClickListener{
@@ -25,12 +36,8 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
     private WebView webView;
 
     private String simulationName = "";
-    public int forceview_selection = -1;
-    public int slowmotion_selection = -1;
-    private EditText positionText;
-    private EditText velocityText;
-    private EditText accelerationText;
-    public int[] parameters = new int[3];
+    public double[] parameters = {0.0, 0.0, 0.0};
+    private FullScreenDialogFragment dialogFragment;
     private static final String TAG = "ConstantAccSimulation";
 
     public ConstantAccelerationSimulationFragment() {
@@ -69,22 +76,53 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         view = inflater.inflate(R.layout.fragment_web_simulation, container, false);
         webView = (WebView) view.findViewById(R.id.web_view);
         webView.setWebChromeClient(new WebChromeClient() {});
+        webView.setPadding(0, 0, 0, 0);
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.CONSTANT_ACCELERATION_SCREEN_SIZE));
+        webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+
+        NiceSpinner position_spinner = (NiceSpinner) view.findViewById(R.id.param1_spinner);
+        final List<Double> position_dataset = new LinkedList<>(Arrays.asList(5.0,7.0,9.0));
+        position_spinner.attachDataSource(position_dataset);
+
+        position_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: "+position_dataset.get(position));
+                parameters[0] = position_dataset.get(position);
+            }
+        });
+
+        NiceSpinner velocity_spinner = (NiceSpinner) view.findViewById(R.id.param2_spinner);
+        final List<Double> velocity_dataset = new LinkedList<>(Arrays.asList(2.0,3.0,4.0));
+        velocity_spinner.attachDataSource(velocity_dataset);
+
+        velocity_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: "+velocity_dataset.get(position));
+                parameters[1] = velocity_dataset.get(position);
+            }
+        });
+
+        NiceSpinner acceleration_spinner = (NiceSpinner) view.findViewById(R.id.param3_spinner);
+        final List<Double> acceleration_dataset = new LinkedList<>(Arrays.asList(0.2, 0.4, 0.6, 0.8, 1.0));
+        acceleration_spinner.attachDataSource(acceleration_dataset);
+
+        acceleration_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: "+acceleration_dataset.get(position));
+                parameters[2] = acceleration_dataset.get(position);
+            }
+        });
+
         WebSettings webSettings = webView.getSettings();
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUseWideViewPort(true);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-        webView.setInitialScale(30);
         webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
-
-        positionText = (EditText) view.findViewById(R.id.parameter1);
-        velocityText = (EditText) view.findViewById(R.id.parameter2);
-        accelerationText = (EditText) view.findViewById(R.id.parameter3);
-
-        positionText.setHint(R.string.position);
-        velocityText.setHint(R.string.velocity);
-        accelerationText.setHint(R.string.acceleration);
-
 
         view.findViewById(R.id.setParameters).setOnClickListener(this);
         view.findViewById(R.id.resetButton).setOnClickListener(this);
@@ -93,6 +131,7 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
 
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
+
         return view;
     }
 
@@ -102,46 +141,34 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
             mContext = c;
         }
         @JavascriptInterface
-        public int getPosition() {
+        public double getPosition() {
             return parameters[0];
         }
         @JavascriptInterface
-        public int getVelocity() {
+        public double getVelocity() {
             return parameters[1];
         }
         @JavascriptInterface
-        public int getAcceleration() {
+        public double getAcceleration() {
             return parameters[2];
         }
     }
 
-    public int[] getParameters()
+    public double[] getParameters()
     {
-        String p_text = positionText.getText().toString();
-        String a_text = accelerationText.getText().toString();
-        String v_text = velocityText.getText().toString();
 
-        if(!(p_text.matches("") || v_text.matches("") || a_text.matches("")))
+        if(parameters[0]>0 && parameters[1]> 0 && parameters[2]>0)
         {
-            int[] params = new int[3];
-            params[0] = Integer.valueOf(p_text);
-            params[1] = Integer.valueOf(v_text);
-            params[2] = Integer.valueOf(a_text);
-            Toast.makeText(this.getContext(), "Parameters are set to: Position: "+ params[0] +", Velocity: "+ params[1] +", Acceleration: "+ params[2], Toast.LENGTH_SHORT).show();
-            return params;
+            return parameters;
         }else
         {
             Toast.makeText(this.getContext(), R.string.all_text_required, Toast.LENGTH_SHORT).show();
-            return null;
+            return parameters;
         }
     }
 
     public void setParametersToDefault()
     {
-        accelerationText.setText("");
-        velocityText.setText("");
-        positionText.setText("");
-
         parameters[0] = 0; //position
         parameters[1] = 10; //velocity
         parameters[2] = 1; //acceleration
@@ -150,24 +177,7 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if(i == R.id.forceview_selection)
-        {
-            boolean checked = ((RadioButton) view).isChecked();
-            // Check which radio button was clicked
-            switch(view.getId()) {
-                case R.id.forcevector:
-                    if (checked)
-                        forceview_selection = 1;
-                    break;
-                case R.id.springscale:
-                    if (checked)
-                        forceview_selection = 2;
-                    break;
-            }
-        }else if(i == R.id.slow_motion)
-        {
-            slowmotion_selection = 1;
-        }else if(i == R.id.setParameters)
+        if(i == R.id.setParameters)
         {
             parameters = getParameters();
         }else if(i == R.id.resetButton)
