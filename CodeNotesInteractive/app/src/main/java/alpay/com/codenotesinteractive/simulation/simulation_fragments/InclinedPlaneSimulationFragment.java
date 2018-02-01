@@ -4,7 +4,6 @@ package alpay.com.codenotesinteractive.simulation.simulation_fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.angmarch.views.NiceSpinner;
@@ -39,7 +38,7 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
 
     }
 
-    public void setParameters(int[] params) {
+    public void setParameters(double[] params) {
         for (int i = 0; i < params.length - 1; i++) {
             if (params[i] == SimulationParameters.ANGLE) {
                 parameters[0] = params[i + 1];
@@ -64,6 +63,12 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_web_simulation, container, false);
+        TextView paramtext1 = (TextView) view.findViewById(R.id.param1_text);
+        TextView paramtext2 = (TextView) view.findViewById(R.id.param2_text);
+        TextView paramtext3 = (TextView) view.findViewById(R.id.param3_text);
+        paramtext1.setText(SimulationParameters.INCLINED_PLANE_PARAMETER_TEXTS[0]);
+        paramtext2.setText(SimulationParameters.INCLINED_PLANE_PARAMETER_TEXTS[1]);
+        paramtext3.setText(SimulationParameters.INCLINED_PLANE_PARAMETER_TEXTS[2]);
         webView = (WebView) view.findViewById(R.id.web_view);
         webView.setWebChromeClient(new WebChromeClient() {
         });
@@ -109,7 +114,6 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
         });
 
         view.findViewById(R.id.setParameters).setOnClickListener(this);
-        view.findViewById(R.id.resetButton).setOnClickListener(this);
 
         webView.loadUrl("file:///android_asset/InclinedPlane/index.html");
         webView.getSettings().setLoadWithOverviewMode(true);
@@ -161,8 +165,6 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
         int i = v.getId();
         if (i == R.id.setParameters) {
             parameters = getParameters();
-        } else if (i == R.id.resetButton) {
-            setParametersToDefault();
         }
     }
 

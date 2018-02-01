@@ -19,7 +19,6 @@ import com.getkeepsafe.taptargetview.TapTargetView;
 import alpay.com.codenotesinteractive.chat.ChatFragment;
 import alpay.com.codenotesinteractive.compiler.CompilerFragment;
 import alpay.com.codenotesinteractive.simulation.Simulation;
-import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.OhmsLawSimulationFragment;
@@ -99,6 +98,7 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                findViewById(R.id.viewpager).setVisibility(View.VISIBLE);
                 switch (item.getItemId()) {
                     case R.id.action_code:
                         viewPager.setCurrentItem(2);
@@ -147,6 +147,7 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
         }
     }
 
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current game state
@@ -162,20 +163,7 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
         int simulationID = Integer.valueOf(item.id);
         experimentOn = true;
         findViewById(R.id.baseactivity_view).setVisibility(View.GONE);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
-            inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
-            ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
-        } else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
-            constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
-            ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
-        }else if (simulationID == SimulationParameters.OHMS_LAW_SIMULATION) {
-            ohmsLawSimulationFragment = new OhmsLawSimulationFragment();
-            ft.replace(R.id.fragment_container, ohmsLawSimulationFragment);
-        }
-        ft.addToBackStack(null);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.commit();
+        Utility.callSimulationFragment(this, simulationID, null);
     }
 
     @Override

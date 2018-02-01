@@ -27,5 +27,6 @@ public class SimulationParameters {
     public static int[] images = {INCLINED_PLANE_IMAGE, CONSTANT_ACCELERATION_IMAGE, OHMS_LAW_IMAGE};
 
     public static String[] CONSTANT_ACCELERATION_PARAMETER_TEXTS = {"Position", "Velocity", "Acceleration"};
+    public static String[] INCLINED_PLANE_PARAMETER_TEXTS = {"Angle", "Weight", "Friction"};
 
 }

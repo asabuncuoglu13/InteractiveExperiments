@@ -13,14 +13,12 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.franmontiel.fullscreendialog.FullScreenDialogFragment;
 
 import org.angmarch.views.NiceSpinner;
-import org.w3c.dom.Text;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -28,7 +26,6 @@ import java.util.List;
 
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.Utility;
-import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
 public class ConstantAccelerationSimulationFragment extends Fragment implements View.OnClickListener {
@@ -45,7 +42,7 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
 
     }
 
-    public void setParameters(int[] params) {
+    public void setParameters(double[] params) {
         for (int i = 0; i < params.length - 1; i++) {
             if (params[i] == SimulationParameters.POSITION) {
                 parameters[0] = params[i + 1];
@@ -70,12 +67,12 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_web_simulation, container, false);
-        TextView positiontext = (TextView) view.findViewById(R.id.param1_text);
-        TextView velocitytext = (TextView) view.findViewById(R.id.param2_text);
-        TextView accelerationtext = (TextView) view.findViewById(R.id.param3_text);
-        positiontext.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[0]);
-        velocitytext.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[1]);
-        accelerationtext.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[2]);
+        TextView paramtext1 = (TextView) view.findViewById(R.id.param1_text);
+        TextView paramtext2 = (TextView) view.findViewById(R.id.param2_text);
+        TextView paramtext3 = (TextView) view.findViewById(R.id.param3_text);
+        paramtext1.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[0]);
+        paramtext2.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[1]);
+        paramtext3.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[2]);
 
         webView = (WebView) view.findViewById(R.id.web_view);
         webView.setWebChromeClient(new WebChromeClient() {
@@ -129,7 +126,6 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
 
         view.findViewById(R.id.setParameters).setOnClickListener(this);
-        view.findViewById(R.id.resetButton).setOnClickListener(this);
 
         webView.loadUrl("file:///android_asset/ConstantAcceleration/index.html");
 
@@ -183,8 +179,6 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         int i = v.getId();
         if (i == R.id.setParameters) {
             parameters = getParameters();
-        } else if (i == R.id.resetButton) {
-            setParametersToDefault();
         }
     }
 
