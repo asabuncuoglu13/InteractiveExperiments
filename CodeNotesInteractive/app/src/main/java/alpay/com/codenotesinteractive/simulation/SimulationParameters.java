@@ -17,13 +17,15 @@ public class SimulationParameters {
     public static final int RESISTANCE = 56;
 
     public static double CONSTANT_ACCELERATION_SCREEN_SIZE = 520;
-    public static double INCLINED_PLANE_SCREEN_SIZE = 400;
-    public static double OHMS_LAW_SCREEN_SIZE = 400;
+    public static double INCLINED_PLANE_SCREEN_SIZE = 650;
+    public static double OHMS_LAW_SCREEN_SIZE = 650;
 
-    public static int INCLINED_PLANE_IMAGE = R.drawable.inclinedplane;
-    public static int CONSTANT_ACCELERATION_IMAGE = R.drawable.acceleration;
-    public static int OHMS_LAW_IMAGE = R.drawable.ohmslaw;
+    public static int INCLINED_PLANE_IMAGE = R.drawable.inclined_plane;
+    public static int CONSTANT_ACCELERATION_IMAGE = R.drawable.constant_acceleration;
+    public static int OHMS_LAW_IMAGE = R.drawable.ohms_law;
 
     public static int[] images = {INCLINED_PLANE_IMAGE, CONSTANT_ACCELERATION_IMAGE, OHMS_LAW_IMAGE};
+
+    public static String[] CONSTANT_ACCELERATION_PARAMETER_TEXTS = {"Position", "Velocity", "Acceleration"};
 
 }

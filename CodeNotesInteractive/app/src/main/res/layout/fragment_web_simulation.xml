@@ -15,39 +15,94 @@
             android:orientation="vertical"
             android:paddingBottom="10dp">
 
-        <LinearLayout
-            android:id="@+id/parameter_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <org.angmarch.views.NiceSpinner
-                android:id="@+id/param1_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"/>
-
-            <org.angmarch.views.NiceSpinner
-                android:id="@+id/param2_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"/>
-
-            <org.angmarch.views.NiceSpinner
-                android:id="@+id/param3_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"/>
-
-            <Button
-                android:id="@+id/setParameters"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/round_button"
+            <LinearLayout
+                android:id="@+id/parameter_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/setparams" />
+                android:layout_height="120dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
 
-        </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/param1_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp" />
+
+                    <org.angmarch.views.NiceSpinner
+                        android:id="@+id/param1_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/param2_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp" />
+
+                    <org.angmarch.views.NiceSpinner
+                        android:id="@+id/param2_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/param3_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp" />
+
+                    <org.angmarch.views.NiceSpinner
+                        android:id="@+id/param3_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/setParameters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_button"
+                    android:text="@string/setparams" />
+
+            </LinearLayout>
 
             <WebView
                 android:id="@+id/web_view"

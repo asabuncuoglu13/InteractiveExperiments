@@ -16,13 +16,13 @@ import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
-public class OhmsLawSimulationFragment extends Fragment implements View.OnClickListener{
+public class OhmsLawSimulationFragment extends Fragment implements View.OnClickListener {
 
     public View view;
     private WebView webView;
 
     private String simulationName = "";
-    public int[] parameters = {0,0,0}; // angle, weight, friction
+    public int[] parameters = {0, 0, 0}; // angle, weight, friction
     private static final String TAG = "OhmsLaw";
 
     public OhmsLawSimulationFragment() {
@@ -30,26 +30,21 @@ public class OhmsLawSimulationFragment extends Fragment implements View.OnClickL
     }
 
     public void setParameters(int[] params) {
-        for(int i= 0; i<params.length-1; i++)
-        {
-            if(params[i] == SimulationParameters.ANGLE)
-            {
-                parameters[0] = params[i+1];
+        for (int i = 0; i < params.length - 1; i++) {
+            if (params[i] == SimulationParameters.ANGLE) {
+                parameters[0] = params[i + 1];
             }
-            if(params[i] == SimulationParameters.WEIGHT)
-            {
-                parameters[1] = params[i+1];
+            if (params[i] == SimulationParameters.WEIGHT) {
+                parameters[1] = params[i + 1];
             }
-            if(params[i] == SimulationParameters.FRICTION)
-            {
-                parameters[2] = params[i+1];
+            if (params[i] == SimulationParameters.FRICTION) {
+                parameters[2] = params[i + 1];
             }
         }
     }
 
 
-    public void setSimulation(String simulationName)
-    {
+    public void setSimulation(String simulationName) {
         this.simulationName = simulationName;
     }
 
@@ -61,7 +56,8 @@ public class OhmsLawSimulationFragment extends Fragment implements View.OnClickL
         view = inflater.inflate(R.layout.fragment_web_simulation, container, false);
         view.findViewById(R.id.parameter_layout).setVisibility(View.GONE);
         webView = (WebView) view.findViewById(R.id.web_view);
-        webView.setWebChromeClient(new WebChromeClient() {});
+        webView.setWebChromeClient(new WebChromeClient() {
+        });
         webView.setPadding(0, 0, 0, 0);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.OHMS_LAW_SCREEN_SIZE));
@@ -77,17 +73,21 @@ public class OhmsLawSimulationFragment extends Fragment implements View.OnClickL
 
     public class JavaScriptInterface {
         Context mContext;
+
         JavaScriptInterface(Context c) {
             mContext = c;
         }
+
         @JavascriptInterface
         public int getAmper() {
             return parameters[0];
         }
+
         @JavascriptInterface
         public int getVolt() {
             return parameters[1];
         }
+
         @JavascriptInterface
         public int getResistance() {
             return parameters[2];
@@ -95,8 +95,7 @@ public class OhmsLawSimulationFragment extends Fragment implements View.OnClickL
     }
 
 
-    public void setParametersToDefault()
-    {
+    public void setParametersToDefault() {
         parameters[0] = 0; //amper
         parameters[1] = 0; //volt
         parameters[2] = 1; //resistance
@@ -110,7 +109,7 @@ public class OhmsLawSimulationFragment extends Fragment implements View.OnClickL
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(getActivity().findViewById(R.id.baseactivity_view) != null)
+        if (getActivity().findViewById(R.id.baseactivity_view) != null)
             getActivity().findViewById(R.id.baseactivity_view).setVisibility(View.VISIBLE);
     }
 }

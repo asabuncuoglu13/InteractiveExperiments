@@ -19,55 +19,55 @@ public class HowToActivity extends TutorialActivity {
         addFragment(new Step.Builder().setTitle(getResources().getString(R.string.tut1_welcome_title))
                 .setContent(getResources().getString(R.string.tut1_welcome_content))
                 .setBackgroundColor(getResources().getColor(R.color.tutorial_page1)) // int background color
-                .setDrawable(R.drawable.acceleration) // int top drawable
+                .setDrawable(R.drawable.ic_launcher_color) // int top drawable
                 .build());
 
         addFragment(new Step.Builder().setTitle(getResources().getString(R.string.tut2_experiment_list_title))
                 .setContent(getResources().getString(R.string.tut2_experiment_list_content))
                 .setBackgroundColor(getResources().getColor(R.color.tutorial_page2)) // int background color
-                .setDrawable(R.drawable.inclinedplane) // int top drawable
+                .setDrawable(R.drawable.inclined_plane) // int top drawable
                 .build());
 
         addFragment(new Step.Builder().setTitle(getResources().getString(R.string.tut3_choose_experiment_title))
                 .setContent(getResources().getString(R.string.tut3_choose_experiment_content))
                 .setBackgroundColor(getResources().getColor(R.color.tutorial_page3)) // int background color
-                .setDrawable(R.drawable.ohmslaw) // int top drawable
+                .setDrawable(R.drawable.ohms_law) // int top drawable
                 .build());
 
         addFragment(new Step.Builder().setTitle(getResources().getString(R.string.tut4_parameters_title))
                 .setContent(getResources().getString(R.string.tut4_parameters_content))
                 .setBackgroundColor(getResources().getColor(R.color.tutorial_page4)) // int background color
-                .setDrawable(R.drawable.ohmslaw) // int top drawable
+                .setDrawable(R.drawable.ohms_law) // int top drawable
                 .build());
 
         addFragment(new Step.Builder().setTitle(getResources().getString(R.string.tut5_coding_parameters_title))
                 .setContent(getResources().getString(R.string.tut5_coding_parameters_content))
                 .setBackgroundColor(getResources().getColor(R.color.tutorial_page5)) // int background color
-                .setDrawable(R.drawable.ohmslaw) // int top drawable
+                .setDrawable(R.drawable.ohms_law) // int top drawable
                 .build());
 
         addFragment(new Step.Builder().setTitle(getResources().getString(R.string.tut6_experiment_result_title))
                 .setContent(getResources().getString(R.string.tut6_experiment_result_content))
                 .setBackgroundColor(getResources().getColor(R.color.tutorial_page6)) // int background color
-                .setDrawable(R.drawable.ohmslaw) // int top drawable
+                .setDrawable(R.drawable.ohms_law) // int top drawable
                 .build());
 
         addFragment(new Step.Builder().setTitle(getResources().getString(R.string.tut7_chatbot_title))
                 .setContent(getResources().getString(R.string.tut7_chatbot_content))
                 .setBackgroundColor(getResources().getColor(R.color.tutorial_page7)) // int background color
-                .setDrawable(R.drawable.ohmslaw) // int top drawable
+                .setDrawable(R.drawable.ohms_law) // int top drawable
                 .build());
 
         addFragment(new Step.Builder().setTitle(getResources().getString(R.string.tut8_navigation_title))
                 .setContent(getResources().getString(R.string.tut8_navigation_title))
                 .setBackgroundColor(getResources().getColor(R.color.tutorial_page8)) // int background color
-                .setDrawable(R.drawable.ohmslaw) // int top drawable
+                .setDrawable(R.drawable.ohms_law) // int top drawable
                 .build());
 
         addFragment(new Step.Builder().setTitle(getResources().getString(R.string.tut9_finish_title))
                 .setContent(getResources().getString(R.string.tut9_finish_content))
                 .setBackgroundColor(getResources().getColor(R.color.tutorial_page9)) // int background color
-                .setDrawable(R.drawable.ohmslaw) // int top drawable
+                .setDrawable(R.drawable.ohms_law) // int top drawable
                 .build());
     }
 
