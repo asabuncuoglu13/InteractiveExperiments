@@ -38,6 +38,7 @@ import alpay.com.codenotesinteractive.HowToActivity;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.compiler.CompilerActivity;
 import alpay.com.codenotesinteractive.simulation.SimulationActivity;
+import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
 public class ChatFragment extends Fragment implements AIListener, View.OnClickListener {
 
@@ -139,6 +140,27 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
                                 }else if (reply.contains("Simulation-Area"))
                                 {
                                     Intent intent = new Intent(getActivity(), SimulationActivity.class);
+                                    startActivity(intent);
+                                    return;
+                                }
+                                else if (reply.contains("Ohms-Law-Experiment"))
+                                {
+                                    Intent intent = new Intent(getActivity(), SimulationActivity.class);
+                                    intent.putExtra("simulationID", SimulationParameters.OHMS_LAW_SIMULATION);
+                                    startActivity(intent);
+                                    return;
+                                }
+                                else if (reply.contains("Inclined-Plane-Experiment"))
+                                {
+                                    Intent intent = new Intent(getActivity(), SimulationActivity.class);
+                                    intent.putExtra("simulationID", SimulationParameters.INCLINED_PLANE_SIMULATION);
+                                    startActivity(intent);
+                                    return;
+                                }
+                                else if (reply.contains("Constant-Acceleration-Experiment"))
+                                {
+                                    Intent intent = new Intent(getActivity(), SimulationActivity.class);
+                                    intent.putExtra("simulationID", SimulationParameters.CONSTANT_ACCELERATION_SIMULATION);
                                     startActivity(intent);
                                     return;
                                 }

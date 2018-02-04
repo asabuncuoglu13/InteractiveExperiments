@@ -21,7 +21,10 @@ public class Utility {
         Display display = ((WindowManager) activity.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         int width = display.getWidth();
         Double val = new Double(width)/new Double(simulation_size);
-        val = val * 100d;
+        if(activity.findViewById(R.id.fragment_chat_container) != null)
+            val = val * 50d;
+        else
+            val = val * 100d;
         return val.intValue();
     }
 
@@ -34,51 +37,4 @@ public class Utility {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-
-    public static void callSimulationFragment(FragmentActivity fragmentActivity, int simulationID, double[] parameters)
-    {
-        InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment;
-        ConstantAccelerationSimulationFragment constantAccelerationSimulationFragment;
-        OhmsLawSimulationFragment ohmsLawSimulationFragment;
-        SimulationListFragment simulationListFragment;
-        FragmentTransaction ft = fragmentActivity.getSupportFragmentManager().beginTransaction();
-        if(simulationID >0)
-        {
-            if(parameters != null)
-            {
-                if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
-                    inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
-                    inclinedPlaneSimulationFragment.setParameters(parameters);
-                    ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
-                } else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
-                    constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
-                    constantAccelerationSimulationFragment.setParameters(parameters);
-                    ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
-                }else if (simulationID == SimulationParameters.OHMS_LAW_SIMULATION) {
-                    ohmsLawSimulationFragment = new OhmsLawSimulationFragment();
-                    ft.replace(R.id.fragment_container, ohmsLawSimulationFragment);
-                }
-            }else
-            {
-                if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
-                    inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
-                    ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
-                } else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
-                    constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
-                    ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
-                }else if (simulationID == SimulationParameters.OHMS_LAW_SIMULATION) {
-                    ohmsLawSimulationFragment = new OhmsLawSimulationFragment();
-                    ft.replace(R.id.fragment_container, ohmsLawSimulationFragment);
-                }
-            }
-        }
-        else
-        {
-            simulationListFragment = new SimulationListFragment();
-            ft.replace(R.id.fragment_container, simulationListFragment);
-        }
-        ft.addToBackStack(null);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.commit();
-    }
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<title>Pulley system</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css" type="text/css">
+<style>
+div#total { width: 620px; height: 420px; }
+div#canvas { width: 400px; height: 420px; }
+div#panel { left: 400px; width: 220px; height: 420px; } 
+.pos1 { left: 10px; }
+.pos2 { left: 40px; }
+.pos3 { left: 160px; }
+.w1 { color: #ff0000; }
+.w2 { color: #c00080; }
+.f { color: #0000ff; }
+select { left: 10px; width: 200px; }
+input[type="text"] { left: 40px; width: 100px; }
+</style>
+<script src="page.js"></script>
+<script src="pulley.js"></script>
+<script src="pulley_en.js"></script>
+<meta name="description" content="HTML5 app: Pulley system">
+<meta name="author" content="Walter Fendt">
+<meta name="keywords" content="app, physics, mechanics, force, pulley system">
+</head>
+
+<body>
+<div id="total">
+  <div id="canvas"><canvas id="cv" width=400 height=420>This browser doesn't support HTML5 canvas!</canvas></div>
+  <div id="panel">
+    <div style="top: 20px;"><select id="ch">
+      <option id="r2">2</option>
+      <option id="r4">4</option>
+      <option id="r6">6</option>
+    </select></div>
+    <div style="top: 60px;"><span class="pos1 w1" id="ip1a"></span></div>
+    <div style="top: 90px;"><input type="text" id="ip1b" class="w1"><span class="pos3 w1" id="ip1c"></span></div>
+    <div style="top: 130px;"><span class="pos1 w2" id="ip2a"></span></div>
+    <div style="top: 160px;"><input type="text" id="ip2b" class="w2"><span class="pos3 w2" id="ip2c"></span></div>
+    <div style="top: 210px;"><span class="pos1 f" id="opa"></span></div>
+    <div style="top: 250px;"><span id="opb" class="pos1 f"></span></div>
+    <div style="top: 290px;"><input type="radio" id="rb1" name="bg" value=""><label for="rb1" id="lb1"></label></div>
+    <div style="top: 320px;"><input type="radio" id="rb2" name="bg" value=""><label for="rb2" id="lb2"></label></div>
+    <div style="top: 370px;"><span class="pos1" id="author"></span></div>
+    <div style="top: 390px;"><span class="pos1" id="translator"></span></div>
+  </div>
+</div>
+</body>
+</html>

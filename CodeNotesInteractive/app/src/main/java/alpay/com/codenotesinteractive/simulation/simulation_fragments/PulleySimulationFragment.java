@@ -4,7 +4,6 @@ package alpay.com.codenotesinteractive.simulation.simulation_fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.franmontiel.fullscreendialog.FullScreenDialogFragment;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
 
@@ -30,31 +28,26 @@ import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
-public class ConstantAccelerationSimulationFragment extends Fragment implements View.OnClickListener {
+public class PulleySimulationFragment extends Fragment implements View.OnClickListener {
 
     public View view;
     private WebView webView;
-
-    private String simulationName = "";
-    public double[] parameters = {0.0, 0.0, 0.0};
-    private FullScreenDialogFragment dialogFragment;
-    private static final String TAG = "ConstantAccSimulation";
     private boolean showTapTarget = true;
+    private String simulationName = "";
+    public double[] parameters = {0.0, 0.0}; // weight, pulley_weight
+    private static final String TAG = "PulleySimulation";
 
-    public ConstantAccelerationSimulationFragment() {
+    public PulleySimulationFragment() {
 
     }
 
     public void setParameters(double[] params) {
         for (int i = 0; i < params.length - 1; i++) {
-            if (params[i] == SimulationParameters.POSITION) {
+            if (params[i] == SimulationParameters.PULLEY_WEIGHT) {
                 parameters[0] = params[i + 1];
             }
-            if (params[i] == SimulationParameters.VELOCITY) {
+            if (params[i] == SimulationParameters.WEIGHT) {
                 parameters[1] = params[i + 1];
-            }
-            if (params[i] == SimulationParameters.ACCELERATION) {
-                parameters[2] = params[i + 1];
             }
         }
     }
@@ -72,11 +65,8 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         view = inflater.inflate(R.layout.fragment_web_simulation, container, false);
         TextView paramtext1 = (TextView) view.findViewById(R.id.param1_text);
         TextView paramtext2 = (TextView) view.findViewById(R.id.param2_text);
-        TextView paramtext3 = (TextView) view.findViewById(R.id.param3_text);
-        paramtext1.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[0]);
-        paramtext2.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[1]);
-        paramtext3.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[2]);
-
+        paramtext1.setText(SimulationParameters.PULLEY_PARAMETER_TEXTS[0]);
+        paramtext2.setText(SimulationParameters.PULLEY_PARAMETER_TEXTS[1]);
         if (showTapTarget) {
             TapTargetView.showFor(getActivity(),                 // `this` is an Activity
                     TapTarget.forView(view.findViewById(R.id.setParameters), getString(R.string.tap_target_title), getString(R.string.tap_target_detail))
@@ -98,90 +88,71 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         }
 
         showTapTarget = false;
-
         webView = (WebView) view.findViewById(R.id.web_view);
         webView.setWebChromeClient(new WebChromeClient() {
         });
         webView.setPadding(0, 0, 0, 0);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.CONSTANT_ACCELERATION_SCREEN_SIZE));
-        webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-
-        NiceSpinner position_spinner = (NiceSpinner) view.findViewById(R.id.param1_spinner);
-        final List<Double> position_dataset = new LinkedList<>(Arrays.asList(5.0, 7.0, 9.0));
-        position_spinner.attachDataSource(position_dataset);
-
-        position_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: " + position_dataset.get(position));
-                parameters[0] = position_dataset.get(position);
-            }
-        });
-
-        NiceSpinner velocity_spinner = (NiceSpinner) view.findViewById(R.id.param2_spinner);
-        final List<Double> velocity_dataset = new LinkedList<>(Arrays.asList(2.0, 3.0, 4.0));
-        velocity_spinner.attachDataSource(velocity_dataset);
-
-        velocity_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: " + velocity_dataset.get(position));
-                parameters[1] = velocity_dataset.get(position);
-            }
-        });
-
-        NiceSpinner acceleration_spinner = (NiceSpinner) view.findViewById(R.id.param3_spinner);
-        final List<Double> acceleration_dataset = new LinkedList<>(Arrays.asList(0.2, 0.4, 0.6, 0.8, 1.0));
-        acceleration_spinner.attachDataSource(acceleration_dataset);
-
-        acceleration_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: " + acceleration_dataset.get(position));
-                parameters[2] = acceleration_dataset.get(position);
-            }
-        });
-
+        webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.PULLEY_SCREEN_SIZE));
         WebSettings webSettings = webView.getSettings();
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setUseWideViewPort(true);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
 
+        NiceSpinner weight_spinner = (NiceSpinner) view.findViewById(R.id.param1_spinner);
+        final List<Double> weight_dataset = new LinkedList<>(Arrays.asList(12.0, 14.0, 16.0));
+        weight_spinner.attachDataSource(weight_dataset);
+
+        weight_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                parameters[0] = weight_dataset.get(position);
+            }
+        });
+
+        NiceSpinner pulleyweight_spinner = (NiceSpinner) view.findViewById(R.id.param2_spinner);
+        final List<Double> pulleyweight_dataset = new LinkedList<>(Arrays.asList(4.0, 6.0, 8.0));
+        pulleyweight_spinner.attachDataSource(pulleyweight_dataset);
+
+        pulleyweight_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                parameters[1] = pulleyweight_dataset.get(position);
+            }
+        });
+
+        view.findViewById(R.id.param3_spinner).setVisibility(View.GONE);
+
         view.findViewById(R.id.setParameters).setOnClickListener(this);
 
-        webView.loadUrl("file:///android_asset/ConstantAcceleration/index.html");
-
+        webView.loadUrl("file:///android_asset/Pulley/index.html");
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
-
         return view;
     }
 
     public class JavaScriptInterface {
         Context mContext;
+
         JavaScriptInterface(Context c) {
             mContext = c;
         }
+
         @JavascriptInterface
-        public double getPosition() {
+        public double getPulleyWeight() {
             return parameters[0];
         }
+
         @JavascriptInterface
-        public double getVelocity() {
+        public double getWeight() {
             return parameters[1];
         }
-        @JavascriptInterface
-        public double getAcceleration() {
-            return parameters[2];
-        }
+
     }
 
     public double[] getParameters() {
 
-        if (parameters[0] > 0 && parameters[1] > 0 && parameters[2] > 0) {
+        if (parameters[0] > 0 && parameters[1] > 0) {
             return parameters;
         } else {
             Toast.makeText(this.getContext(), R.string.all_text_required, Toast.LENGTH_SHORT).show();
@@ -190,9 +161,8 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
     }
 
     public void setParametersToDefault() {
-        parameters[0] = 0; //position
-        parameters[1] = 10; //velocity
-        parameters[2] = 1; //acceleration
+        parameters[0] = 10; //weight
+        parameters[1] = 5; //pulley_weight
     }
 
     @Override

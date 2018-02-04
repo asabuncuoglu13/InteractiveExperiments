@@ -2,11 +2,20 @@ package alpay.com.codenotesinteractive.simulation;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import alpay.com.codenotesinteractive.R;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneSimulationFragment;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.OhmsLawSimulationFragment;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.PulleySimulationFragment;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 
 
 public class Simulation {
@@ -17,14 +26,76 @@ public class Simulation {
 
     static {
         // Add some sample items.
-        addItem(new SimulationItem(String.valueOf(SimulationParameters.INCLINED_PLANE_SIMULATION),"Inclined Plane", "Experiment about Inclined Plane"));
-        addItem(new SimulationItem(String.valueOf(SimulationParameters.CONSTANT_ACCELERATION_SIMULATION), "Constant Acceleration", "Experiment about Constant"));
-        addItem(new SimulationItem(String.valueOf(SimulationParameters.OHMS_LAW_SIMULATION), "Ohm's Law", "Experiment about Ohm's Law"));
+        addItem(new SimulationItem(String.valueOf(SimulationParameters.INCLINED_PLANE_SIMULATION),
+                SimulationParameters.SIMULATION1_NAME, SimulationParameters.SIMULATION1_DETAIL));
+        addItem(new SimulationItem(String.valueOf(SimulationParameters.CONSTANT_ACCELERATION_SIMULATION),
+                SimulationParameters.SIMULATION2_NAME, SimulationParameters.SIMULATION2_DETAIL));
+        addItem(new SimulationItem(String.valueOf(SimulationParameters.OHMS_LAW_SIMULATION),
+                SimulationParameters.SIMULATION3_NAME, SimulationParameters.SIMULATION3_DETAIL));
+        addItem(new SimulationItem(String.valueOf(SimulationParameters.PULLEY_SIMULATION),
+                SimulationParameters.SIMULATION4_NAME, SimulationParameters.SIMULATION4_DETAIL));
     }
 
     private static void addItem(SimulationItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
+    }
+
+    public static void callSimulationFragment(FragmentActivity fragmentActivity, int simulationID, double[] parameters)
+    {
+        InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment;
+        ConstantAccelerationSimulationFragment constantAccelerationSimulationFragment;
+        OhmsLawSimulationFragment ohmsLawSimulationFragment;
+        SimulationListFragment simulationListFragment;
+        PulleySimulationFragment pulleySimulationFragment;
+        FragmentTransaction ft = fragmentActivity.getSupportFragmentManager().beginTransaction();
+        if(simulationID >0)
+        {
+            if(parameters != null)
+            {
+                if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
+                    inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
+                    inclinedPlaneSimulationFragment.setParameters(parameters);
+                    ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
+                } else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
+                    constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
+                    constantAccelerationSimulationFragment.setParameters(parameters);
+                    ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
+                }else if (simulationID == SimulationParameters.OHMS_LAW_SIMULATION) {
+                    ohmsLawSimulationFragment = new OhmsLawSimulationFragment();
+                    ft.replace(R.id.fragment_container, ohmsLawSimulationFragment);
+                }
+                else if (simulationID == SimulationParameters.PULLEY_SIMULATION) {
+                    pulleySimulationFragment = new PulleySimulationFragment();
+                    pulleySimulationFragment.setParameters(parameters);
+                    ft.replace(R.id.fragment_container, pulleySimulationFragment);
+                }
+            }else
+            {
+                if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
+                    inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
+                    ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
+                } else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
+                    constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
+                    ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
+                }else if (simulationID == SimulationParameters.OHMS_LAW_SIMULATION) {
+                    ohmsLawSimulationFragment = new OhmsLawSimulationFragment();
+                    ft.replace(R.id.fragment_container, ohmsLawSimulationFragment);
+                }
+                else if (simulationID == SimulationParameters.PULLEY_SIMULATION) {
+                    pulleySimulationFragment = new PulleySimulationFragment();
+                    ft.replace(R.id.fragment_container, pulleySimulationFragment);
+                }
+            }
+        }
+        else
+        {
+            simulationListFragment = new SimulationListFragment();
+            ft.replace(R.id.fragment_container, simulationListFragment);
+        }
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
     }
 
 

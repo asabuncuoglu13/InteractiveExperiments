@@ -13,15 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetView;
-
 import alpay.com.codenotesinteractive.chat.ChatFragment;
 import alpay.com.codenotesinteractive.compiler.CompilerFragment;
 import alpay.com.codenotesinteractive.simulation.Simulation;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneSimulationFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.OhmsLawSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 
 
@@ -30,18 +24,13 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
 
     ChatFragment chatFragment;
     SimulationListFragment simulationListFragment;
-    InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment;
-    ConstantAccelerationSimulationFragment constantAccelerationSimulationFragment;
-    OhmsLawSimulationFragment ohmsLawSimulationFragment;
     CompilerFragment compilerFragment;
     ViewPager viewPager;
     BottomNavigationView bottomNavigation;
     MenuItem prevMenuItem;
-    static boolean showTapTarget = true;
     static boolean largeScreen = false;
     static boolean experimentOn = false;
 
-    static final String STATE_TAP = "tapstate";
     static final String STATE_SCREEN = "screenstate";
     static final String STATE_EXPERIMENT = "experimentstate";
 
@@ -49,7 +38,6 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            showTapTarget = savedInstanceState.getBoolean(STATE_TAP);
             largeScreen = savedInstanceState.getBoolean(STATE_SCREEN);
             experimentOn = savedInstanceState.getBoolean(STATE_EXPERIMENT);
         }
@@ -70,28 +58,6 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
 
         if(!largeScreen){
             findViewById(R.id.bottom_navigation).setVisibility(View.VISIBLE);}
-
-        if (showTapTarget) {
-            TapTargetView.showFor(this,                 // `this` is an Activity
-                    TapTarget.forView(findViewById(R.id.fragment_container), getString(R.string.tap_target_title), getString(R.string.tap_target_detail))
-                            // All options below are optional
-                            .outerCircleColor(R.color.colorPrimaryDark)      // Specify a color for the outer circle
-                            .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
-                            .drawShadow(true)                   // Whether to draw a drop shadow or not
-                            .cancelable(true)                  // Whether tapping outside the outer circle dismisses the view
-                            .tintTarget(true)                   // Whether to tint the target view's color
-                            .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
-                            .targetRadius(10),                  // Specify the target radius (in dp)
-                    new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
-                        @Override
-                        public void onTargetClick(TapTargetView view) {
-                            super.onTargetClick(view);      // This call is optional
-                            //
-                        }
-                    });
-        }
-
-        showTapTarget = false;
 
 
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -152,7 +118,6 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current game state
         savedInstanceState.putBoolean(STATE_EXPERIMENT, experimentOn);
-        savedInstanceState.putBoolean(STATE_TAP, showTapTarget);
         savedInstanceState.putBoolean(STATE_SCREEN, largeScreen);
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
@@ -163,7 +128,7 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
         int simulationID = Integer.valueOf(item.id);
         experimentOn = true;
         findViewById(R.id.baseactivity_view).setVisibility(View.GONE);
-        Utility.callSimulationFragment(this, simulationID, null);
+        Simulation.callSimulationFragment(this, simulationID, null);
     }
 
     @Override

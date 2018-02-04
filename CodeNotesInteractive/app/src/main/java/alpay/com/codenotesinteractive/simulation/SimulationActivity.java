@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import alpay.com.codenotesinteractive.R;
-import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 
 public class SimulationActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener{
@@ -21,13 +20,13 @@ public class SimulationActivity extends AppCompatActivity implements SimulationL
             parameters = bundle.getDoubleArray("output");
             simulation = bundle.getInt("simulationID");
         }
-        Utility.callSimulationFragment(this,simulation,parameters);
+        Simulation.callSimulationFragment(this,simulation,parameters);
     }
 
     @Override
     public void onListFragmentInteraction(Simulation.SimulationItem item) {
         int simulationID = Integer.valueOf(item.id);
-        Utility.callSimulationFragment(this, simulationID, parameters);
+        Simulation.callSimulationFragment(this, simulationID, parameters);
     }
 
 }

@@ -15,6 +15,9 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
+
 import org.angmarch.views.NiceSpinner;
 
 import java.util.Arrays;
@@ -29,7 +32,7 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
 
     public View view;
     private WebView webView;
-
+    private boolean showTapTarget = true;
     private String simulationName = "";
     public double[] parameters = {0.0, 0.0, 0.0}; // angle, weight, friction
     private static final String TAG = "InclinedPlaneSimulation";
@@ -69,6 +72,27 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
         paramtext1.setText(SimulationParameters.INCLINED_PLANE_PARAMETER_TEXTS[0]);
         paramtext2.setText(SimulationParameters.INCLINED_PLANE_PARAMETER_TEXTS[1]);
         paramtext3.setText(SimulationParameters.INCLINED_PLANE_PARAMETER_TEXTS[2]);
+        if (showTapTarget) {
+            TapTargetView.showFor(getActivity(),                 // `this` is an Activity
+                    TapTarget.forView(view.findViewById(R.id.setParameters), getString(R.string.tap_target_title), getString(R.string.tap_target_detail))
+                            // All options below are optional
+                            .outerCircleColor(R.color.colorPrimaryDark)      // Specify a color for the outer circle
+                            .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
+                            .drawShadow(true)                   // Whether to draw a drop shadow or not
+                            .cancelable(true)                  // Whether tapping outside the outer circle dismisses the view
+                            .tintTarget(true)                   // Whether to tint the target view's color
+                            .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
+                            .targetRadius(10),                  // Specify the target radius (in dp)
+                    new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
+                        @Override
+                        public void onTargetClick(TapTargetView view) {
+                            super.onTargetClick(view);      // This call is optional
+                            //
+                        }
+                    });
+        }
+
+        showTapTarget = false;
         webView = (WebView) view.findViewById(R.id.web_view);
         webView.setWebChromeClient(new WebChromeClient() {
         });

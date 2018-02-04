@@ -42,6 +42,8 @@
 
             <TextView
                 android:id="@+id/detail"
+                android:maxLines="5"
+                android:ellipsize="end"
                 style="@style/CardTextDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

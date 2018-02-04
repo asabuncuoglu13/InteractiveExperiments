@@ -13,7 +13,7 @@
         <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="CardTextDetail" parent="@android:style/TextAppearance.Medium">
+    <style name="CardTextDetail" parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">@color/textColorLight</item>
         <item name="android:typeface">monospace</item>
     </style>
