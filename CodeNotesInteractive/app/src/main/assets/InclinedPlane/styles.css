@@ -10,303 +10,303 @@
 /* Alle Elemente */
 
 * {
-    margin: 0;                                     /* Vorgaben für Außenabstand löschen */
-    padding: 0;                                    /* Vorgaben für Innenabstand löschen */
-    }
-    
-  /* Überschriften, Absätze, Listen */
-    
-  h1, h2, h3, h4, p, ol, ul, dl {
-    margin: 10px 20px 10px 20px;                   /* Außenabstand */
-    }
-    
-  /* Einzelne Listeneinträge */
-    
-  li {
-    margin-left: 30px;                             /* Außenabstand links */
-    }
-    
-  /* Überschrift Definitionsliste */
+  margin: 0;                                     /* Vorgaben für Außenabstand löschen */
+  padding: 0;                                    /* Vorgaben für Innenabstand löschen */
+  }
   
-  dt {
-    margin-bottom: 8px;                            /* Außenabstand unten */
-    font-size: 18px;                               /* Schrifthöhe */
-    font-weight: bold;                             /* Fettdruck */
-    }
-    
-  /* Eintrag Definitionsliste */
+/* Überschriften, Absätze, Listen */
   
-  dd {
-    margin-bottom: 25px;
-    }
-    
-  /* Seiteninhalt */
+h1, h2, h3, h4, p, ol, ul, dl {
+  margin: 10px 20px 10px 20px;                   /* Außenabstand */
+  }
   
-  body {                                   
-    background-color: white;                       /* Hintergrundfarbe */
-    font-family: Arial, Helvetica, sans-serif;     /* Serifenlose Schrift */
-    font-size: 16px;                               /* Schrifthöhe */
-    font-weight: normal;                           /* Kein Fettdruck */
-    }
-    
-  /* Überschriften 1. Ordnung */
+/* Einzelne Listeneinträge */
   
-  h1 {                                       
-    background-color: yellow;                      /* Hintergrundfarbe */
-    border: 10px solid blue;                       /* Rand */
-    padding: 5px;                                  /* Innenabstand */
-    text-align: center;                            /* Text zentriert */
-    font-size: 24px;                               /* Schrifthöhe */
-    font-weight: bold;                             /* Fettdruck */
-    }
-    
-  /* Absätze */
+li {
+  margin-left: 30px;                             /* Außenabstand links */
+  }
   
-  p {                      
-    line-height: 1.3;                              /* Zeilenabstand */
-    }
-    
-  /* Ungeordnete und geordnete Listen */
+/* Überschrift Definitionsliste */
+
+dt {
+  margin-bottom: 8px;                            /* Außenabstand unten */
+  font-size: 18px;                               /* Schrifthöhe */
+  font-weight: bold;                             /* Fettdruck */
+  }
   
-  ul, ol {                                     
-    line-height: 1.4;                              /* Zeilenabstand */
-    }
-    
-  /* Hervorhebung von Begriffen */
-    
-  em.Begriff {                          
-    font-style: normal;                            /* Normale Schrift (nicht kursiv) */
-    color: blue;                                   /* Schriftfarbe */
-    }
-    
-  /* Trennlinie */
-    
-  hr.Trennlinie {                        
-    margin: 20px auto 20px auto;                   /* Außenrand */
-    width: 40%;                                    /* Breite */
-    border-bottom: solid thin blue;                /* Linie durchgezogen, dünn, blau */
-    }
+/* Eintrag Definitionsliste */
+
+dd {
+  margin-bottom: 25px;
+  }
   
-  /* Noch nicht besuchte Links */
+/* Seiteninhalt */
+
+body {                                   
+  background-color: white;                       /* Hintergrundfarbe */
+  font-family: Arial, Helvetica, sans-serif;     /* Serifenlose Schrift */
+  font-size: 16px;                               /* Schrifthöhe */
+  font-weight: normal;                           /* Kein Fettdruck */
+  }
   
-  a:link {                    
-    color: blue;                                   /* Farbe blau */
-    }
+/* Überschriften 1. Ordnung */
+
+h1 {                                       
+  background-color: yellow;                      /* Hintergrundfarbe */
+  border: 10px solid blue;                       /* Rand */
+  padding: 5px;                                  /* Innenabstand */
+  text-align: center;                            /* Text zentriert */
+  font-size: 24px;                               /* Schrifthöhe */
+  font-weight: bold;                             /* Fettdruck */
+  }
   
-  /* Schon besuchte Links */  
-    
-  a:visited {                            
-    color: blue;                                   /* Farbe blau */
-    }
-    
-  /* Mauszeiger auf Links */
+/* Absätze */
+
+p {                      
+  line-height: 1.3;                              /* Zeilenabstand */
+  font-size: 24px;
+  }
   
-  a:hover {                                   
-    color: #ff0000;                                /* Farbe rot */
-    text-decoration: underline;                    /* Text unterstrichen */
-    }
-    
-  /* Inline-Elemente ohne automatischen Zeilenumbruch */
-    
-  span.nobr {
-    white-space: nowrap;                           /* Kein automatischer Zeilenumbruch */
-    }
-    
-  /*-------------------------------------------------------------------------------------------------
-    Vorgaben für spezielle Bereiche
-    -------------------------------------------------------------------------------------------------*/
-    
-  /* Eingerahmte Formel */
-    
-  span.Formel {
-    background-color: #00e0ff;                     /* Hintergrundfarbe */
-    border: 4px solid #000000;                     /* Rand */
-    padding: 8px;                                  /* Innenabstand */
-    text-align: center;                            /* Zentrierung */
-    font-size: 20px;                               /* Schriftgröße */
-    }
-    
-  /* Liste der Symbole in einer Formel */
-    
-  p.Formel {
-    font-family: monospace;                        /* Zeichensatz */
-    font-size: 14px;                               /* Schriftgröße */
-    font-weight: normal;                           /* Schrift normal */
-    }
-    
-  /* Eingerahmte Definition */
+/* Ungeordnete und geordnete Listen */
+
+ul, ol {                                     
+  line-height: 1.4;                              /* Zeilenabstand */
+  }
   
-  div.Def {
-    margin-left: auto;                             /* Zentrierung */
-    margin-right: auto;                            /* Zentrierung */
-    padding: 10px;                                 /* Innenabstand */
-    background-color: #80ffa0;                     /* Hintergrundfarbe */
-    border: 8px double #000000;                    /* Rand */
-    font-size: 18px;                               /* Schriftgröße */
-    }
-    
-  /* Eingerahmter Satz */
+/* Hervorhebung von Begriffen */
   
-  div.Satz {
-    margin-left: auto;                             /* Zentrierung */
-    margin-right: auto;                            /* Zentrierung */
-    padding: 10px;                                 /* Innenabstand */
-    background-color: #ff80a0;                     /* Hintergrundfarbe */
-    border: 8px double #000000;                    /* Rand */
-    font-size: 18px;                               /* Schriftgröße */
-    }
-      
-  /* Logo mit Link zum Inhaltsverzeichnis */
+em.Begriff {                          
+  font-style: normal;                            /* Normale Schrift (nicht kursiv) */
+  color: blue;                                   /* Schriftfarbe */
+  }
   
-  div#Index {
-    width: 170px; 
-    margin: 20px auto 20px auto;
-    border: 5px double #000000;
-    background-color: silver;
-    }
+/* Trennlinie */
+  
+hr.Trennlinie {                        
+  margin: 20px auto 20px auto;                   /* Außenrand */
+  width: 40%;                                    /* Breite */
+  border-bottom: solid thin blue;                /* Linie durchgezogen, dünn, blau */
+  }
+
+/* Noch nicht besuchte Links */
+
+a:link {                    
+  color: blue;                                   /* Farbe blau */
+  }
+
+/* Schon besuchte Links */  
+  
+a:visited {                            
+  color: blue;                                   /* Farbe blau */
+  }
+  
+/* Mauszeiger auf Links */
+
+a:hover {                                   
+  color: #ff0000;                                /* Farbe rot */
+  text-decoration: underline;                    /* Text unterstrichen */
+  }
+  
+/* Inline-Elemente ohne automatischen Zeilenumbruch */
+  
+span.nobr {
+  white-space: nowrap;                           /* Kein automatischer Zeilenumbruch */
+  }
+  
+/*-------------------------------------------------------------------------------------------------
+  Vorgaben für spezielle Bereiche
+  -------------------------------------------------------------------------------------------------*/
+  
+/* Eingerahmte Formel */
+  
+span.Formel {
+  background-color: #00e0ff;                     /* Hintergrundfarbe */
+  border: 4px solid #000000;                     /* Rand */
+  padding: 8px;                                  /* Innenabstand */
+  text-align: center;                            /* Zentrierung */
+  font-size: 20px;                               /* Schriftgröße */
+  }
+  
+/* Liste der Symbole in einer Formel */
+  
+p.Formel {
+  font-family: monospace;                        /* Zeichensatz */
+  font-size: 14px;                               /* Schriftgröße */
+  font-weight: normal;                           /* Schrift normal */
+  }
+  
+/* Eingerahmte Definition */
+
+div.Def {
+  margin-left: auto;                             /* Zentrierung */
+  margin-right: auto;                            /* Zentrierung */
+  padding: 10px;                                 /* Innenabstand */
+  background-color: #80ffa0;                     /* Hintergrundfarbe */
+  border: 8px double #000000;                    /* Rand */
+  font-size: 18px;                               /* Schriftgröße */
+  }
+  
+/* Eingerahmter Satz */
+
+div.Satz {
+  margin-left: auto;                             /* Zentrierung */
+  margin-right: auto;                            /* Zentrierung */
+  padding: 10px;                                 /* Innenabstand */
+  background-color: #ff80a0;                     /* Hintergrundfarbe */
+  border: 8px double #000000;                    /* Rand */
+  font-size: 18px;                               /* Schriftgröße */
+  }
     
-  div#Index1 {
-    padding: 12px;
-    background-color: #ffff00;
-    border: 1px solid #000000;
-    text-align: center;
-    }
-    
-  div#Index2 {
-    padding: 8px;
-    background-color: #ffff00;
-    border: 1px solid #000000;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: #0000ff;
-    }
-     
-  /* Absatz für URL usw. */
-    
-  p.Ende {                                
-    font-size: 10pt;                               /* Schriftgröße */
-    }
-    
-  /*-------------------------------------------------------------------------------------------------
-    Vorgaben für Apps
-    -------------------------------------------------------------------------------------------------*/
+/* Logo mit Link zum Inhaltsverzeichnis */
+
+div#Index {
+  width: 170px; 
+  margin: 20px auto 20px auto;
+  border: 5px double #000000;
+  background-color: silver;
+  }
+  
+div#Index1 {
+  padding: 12px;
+  background-color: #ffff00;
+  border: 1px solid #000000;
+  text-align: center;
+  }
+  
+div#Index2 {
+  padding: 8px;
+  background-color: #ffff00;
+  border: 1px solid #000000;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #0000ff;
+  }
    
-  /* Gesamte App */
-     
-  div#total {
-    position: absolute;
-    margin-top: 20px;                              /* Abstand nach oben */
-    margin-left: auto; margin-right: auto;         /* Waagrechte Zentrierung */
-    }
-    
-  /* Zeichenfläche */
+/* Absatz für URL usw. */
   
-  div#canvas {
-    position: absolute;
-    background-color: #ffff00;                     /* Hintergrundfarbe */
-    border: 1px solid #000000;                     /* Rand */
-    }
-    
-  /* Schaltfläche */
-    
-  div#panel, div#panel1, div#panel2 {
-    position: absolute;
-    background-color: #00ff00;                     /* Hintergrundfarbe */
-    border: 1px solid #000000;                     /* Rand */
-    font-size: 12px;                               /* Schriftgröße */
-    font-weight: bold;                             /* Fettdruck */
-    }
-    
-  /* Zeile einer Schaltfläche */
-    
-  div#panel div , div#panel1 div, div#panel2 div {
-    position: absolute;
-    }
-    
-  /* Inline-Element einer Schaltfläche */
-    
-  div#panel span, div#panel1 span, div#panel2 span {
-    position: absolute;
-    white-space: nowrap;                           /* Kein Zeilenumbruch bei Leerzeichen */
-    font-family: sans-serif;
-    font-size: 12px;
-    }
-    
-  /* Schaltknopf */
-    
-  button {
-    height: 30px;                                  /* Höhe */
-    border-radius: 0px;                            /* Abgerundete Ecken verhindern */
-    margin-left: 10px;                             /* Abstand vom linken Rand */
-    font-family: sans-serif;                       /* Schriftart */
-    font-size: 12px;                               /* Schriftgröße */
-    font-weight: bold;                             /* Fettdruck */
-    } 
-    
-  /* Optionsfeld */
+p.Ende {                                
+  font-size: 10pt;                               /* Schriftgröße */
+  }
   
-  input[type="checkbox"] {
-    margin-left: 10px;                             /* Abstand vom linken Rand */
-    border-radius: 0px;                            /* Abgerundete Ecken verhindern */
-    }
-    
-  /* Radiobutton */
+/*-------------------------------------------------------------------------------------------------
+  Vorgaben für Apps
+  -------------------------------------------------------------------------------------------------*/
+ 
+/* Gesamte App */
+   
+div#total {
+  position: absolute;
+  margin-top: 20px;                              /* Abstand nach oben */
+  margin-left: auto; margin-right: auto;         /* Waagrechte Zentrierung */
+  }
   
-  input[type="radio"] {
-    margin-left: 10px;                             /* Abstand vom linken Rand */
-    }
-    
-  /* Text für Optionsfeld oder Radiobutton */
-    
-  label {
-    margin-left: 5px;                              /* Abstand zum Optionsfeld bzw. Radiobutton */
-    vertical-align: 2px;                           /* Kleine Korrektur der Höhe */
-    } 
-    
-  /* Eingabefeld */
+/* Zeichenfläche */
+
+div#canvas {
+  position: absolute;
+  border: 1px solid #000000;                     /* Rand */
+  }
   
-  input[type="text"] {
-    position: absolute;
-    padding-left: 2px;                             /* Innenabstand links */
-    height: 14px;                                  /* Höhe */
-    border-radius: 0px;                            /* Abgerundete Ecken verhindern */
-    font-family: sans-serif;                       /* Schriftart */
-    font-size: 12px;                               /* Schriftgröße */
-    font-weight: bold;                             /* Fettdruck */
-    } 
-    
-  /* Auswahlfeld */
+/* Schaltfläche */
   
-  select {
-    position: absolute;
-    top: -2px;                                     /* Kleine Korrektur der Höhe */
-    left: 10px;                                    /* Abstand zum linken Rand */
-    height: 20px;                                  /* Höhe */
-    border-radius: 0px;                            /* Abgerundete Ecken verhindern */
-    font-family: sans-serif;                       /* Schriftart */
-    font-size: 12px;                               /* Schriftgröße */
-    font-weight: bold;                             /* Fettdruck */
-    }
-    
-  /* Schieberegler */
+div#panel, div#panel1, div#panel2 {
+  position: absolute;
+  background-color: #BDBDBD;                     /* Hintergrundfarbe */
+  border: 1px solid #000000;                     /* Rand */
+  font-size: 14px;                               /* Schriftgröße */
+  font-weight: bold;                             /* Fettdruck */
+  }
   
-  input[type="range"] {
-    position: absolute;
-    left: 10px;
-    }
-    
-  /* Textbereich */
+/* Zeile einer Schaltfläche */
   
-  textarea {
-    position: absolute;
-    padding: 3px;                                  /* Innenabstand */
-    left: 10px;                                    /* Abstand zum linken Rand */
-    border-radius: 0px;                            /* Abgerundete Ecken verhindern */
-    font-family: sans-serif;                       /* Schriftart */
-    font-size: 12px;                               /* Schriftgröße */
-    font-weight: bold;                             /* Fettdruck */
-    }
-    
-    
-    
+div#panel div , div#panel1 div, div#panel2 div {
+  position: absolute;
+  }
+  
+/* Inline-Element einer Schaltfläche */
+  
+div#panel span, div#panel1 span, div#panel2 span {
+  position: absolute;
+  white-space: nowrap;                           /* Kein Zeilenumbruch bei Leerzeichen */
+  font-family: sans-serif;
+  font-size: 14px;
+  }
+  
+/* Schaltknopf */
+  
+button {
+  height: 40px;                                  /* Höhe */
+  border-radius: 0px;                            /* Abgerundete Ecken verhindern */
+  margin-left: 10px;                             /* Abstand vom linken Rand */
+  font-family: sans-serif;                       /* Schriftart */
+  font-size: 24px;                               /* Schriftgröße */
+  font-weight: bold;                             /* Fettdruck */
+  } 
+  
+/* Optionsfeld */
+
+input[type="checkbox"] {
+  margin-left: 10px;                             /* Abstand vom linken Rand */
+  border-radius: 0px;                            /* Abgerundete Ecken verhindern */
+  }
+  
+/* Radiobutton */
+
+input[type="radio"] {
+  margin-left: 10px;                             /* Abstand vom linken Rand */
+  }
+  
+/* Text für Optionsfeld oder Radiobutton */
+  
+label {
+  margin-left: 3px;                              /* Abstand zum Optionsfeld bzw. Radiobutton */
+  vertical-align: 2px;                           /* Kleine Korrektur der Höhe */
+  } 
+  
+/* Eingabefeld */
+
+input[type="text"] {
+  position: absolute;
+  padding-left: 2px;                             /* Innenabstand links */
+  height: 14px;                                  /* Höhe */
+  border-radius: 0px;                            /* Abgerundete Ecken verhindern */
+  font-family: sans-serif;                       /* Schriftart */
+  font-size: 12px;                               /* Schriftgröße */
+  font-weight: bold;                             /* Fettdruck */
+  } 
+  
+/* Auswahlfeld */
+
+select {
+  position: absolute;
+  top: -2px;                                     /* Kleine Korrektur der Höhe */
+  left: 10px;                                    /* Abstand zum linken Rand */
+  height: 20px;                                  /* Höhe */
+  border-radius: 0px;                            /* Abgerundete Ecken verhindern */
+  font-family: sans-serif;                       /* Schriftart */
+  font-size: 12px;                               /* Schriftgröße */
+  font-weight: bold;                             /* Fettdruck */
+  }
+  
+/* Schieberegler */
+
+input[type="range"] {
+  position: absolute;
+  left: 10px;
+  }
+  
+/* Textbereich */
+
+textarea {
+  position: absolute;
+  padding: 3px;                                  /* Innenabstand */
+  left: 10px;                                    /* Abstand zum linken Rand */
+  border-radius: 0px;                            /* Abgerundete Ecken verhindern */
+  font-family: sans-serif;                       /* Schriftart */
+  font-size: 12px;                               /* Schriftgröße */
+  font-weight: bold;                             /* Fettdruck */
+  }
+  
+  
+  

@@ -4,16 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Display;
 import android.view.WindowManager;
-
-import alpay.com.codenotesinteractive.simulation.SimulationParameters;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneSimulationFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.OhmsLawSimulationFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 
 public class Utility {
 

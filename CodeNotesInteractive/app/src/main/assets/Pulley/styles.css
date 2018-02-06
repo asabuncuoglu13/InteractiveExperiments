@@ -64,6 +64,7 @@ h1 {
 
 p {                      
   line-height: 1.3;                              /* Zeilenabstand */
+  font-size: 24px;
   }
   
 /* Ungeordnete und geordnete Listen */
@@ -204,7 +205,6 @@ div#total {
 
 div#canvas {
   position: absolute;
-  background-color: #ffff00;                     /* Hintergrundfarbe */
   border: 1px solid #000000;                     /* Rand */
   }
   
@@ -212,9 +212,9 @@ div#canvas {
   
 div#panel, div#panel1, div#panel2 {
   position: absolute;
-  background-color: #00ff00;                     /* Hintergrundfarbe */
+  background-color: #BDBDBD;                     /* Hintergrundfarbe */
   border: 1px solid #000000;                     /* Rand */
-  font-size: 12px;                               /* Schriftgröße */
+  font-size: 14px;                               /* Schriftgröße */
   font-weight: bold;                             /* Fettdruck */
   }
   
@@ -230,17 +230,17 @@ div#panel span, div#panel1 span, div#panel2 span {
   position: absolute;
   white-space: nowrap;                           /* Kein Zeilenumbruch bei Leerzeichen */
   font-family: sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   }
   
 /* Schaltknopf */
   
 button {
-  height: 30px;                                  /* Höhe */
+  height: 40px;                                  /* Höhe */
   border-radius: 0px;                            /* Abgerundete Ecken verhindern */
   margin-left: 10px;                             /* Abstand vom linken Rand */
   font-family: sans-serif;                       /* Schriftart */
-  font-size: 12px;                               /* Schriftgröße */
+  font-size: 24px;                               /* Schriftgröße */
   font-weight: bold;                             /* Fettdruck */
   } 
   
@@ -260,7 +260,7 @@ input[type="radio"] {
 /* Text für Optionsfeld oder Radiobutton */
   
 label {
-  margin-left: 5px;                              /* Abstand zum Optionsfeld bzw. Radiobutton */
+  margin-left: 3px;                              /* Abstand zum Optionsfeld bzw. Radiobutton */
   vertical-align: 2px;                           /* Kleine Korrektur der Höhe */
   } 
   

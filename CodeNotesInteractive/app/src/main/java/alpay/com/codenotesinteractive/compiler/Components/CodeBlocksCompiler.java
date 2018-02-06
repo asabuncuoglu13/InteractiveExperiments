@@ -1,6 +1,5 @@
 package alpay.com.codenotesinteractive.compiler.Components;
 
-import android.util.Log;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -103,7 +102,7 @@ public class CodeBlocksCompiler {
         int param = mapIterator(parameterMap, codeline);
         double[] out = {0.0, 0.0};
         if (param < 49 || param > 60) {
-            Log.d("Hello", "returnSetStatement: ");
+            //do smth
         } else {
             codeline = codeline.replaceAll("[^-?0-9]+", " ");
             List param_arr = Arrays.asList(codeline.trim().split(" "));

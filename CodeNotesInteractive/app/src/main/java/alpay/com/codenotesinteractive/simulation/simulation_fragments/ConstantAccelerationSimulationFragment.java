@@ -4,7 +4,6 @@ package alpay.com.codenotesinteractive.simulation.simulation_fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ import java.util.List;
 
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.Utility;
-import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
 public class ConstantAccelerationSimulationFragment extends Fragment implements View.OnClickListener {
@@ -114,7 +112,6 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         position_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: " + position_dataset.get(position));
                 parameters[0] = position_dataset.get(position);
             }
         });
@@ -126,7 +123,6 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         velocity_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: " + velocity_dataset.get(position));
                 parameters[1] = velocity_dataset.get(position);
             }
         });
@@ -138,7 +134,6 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         acceleration_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: " + acceleration_dataset.get(position));
                 parameters[2] = acceleration_dataset.get(position);
             }
         });

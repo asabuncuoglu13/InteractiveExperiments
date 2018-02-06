@@ -4,10 +4,8 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +56,6 @@ public class Simulation {
 
     public static void callSimulationFragment(FragmentActivity fragmentActivity, int simulationID, double[] parameters)
     {
-        Log.d(TAG, "callSimulationFragment: "+ Arrays.toString(parameters));
         if(simulationID == -1)
         {
             simulationID = getSimulationID(parameters);

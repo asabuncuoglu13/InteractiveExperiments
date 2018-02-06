@@ -13,7 +13,7 @@
 
 // Farben:
 
-var colorBackground = "#ffff00";                           // Hintergrundfarbe
+var colorBackground = "#F5F5F5";                           // Hintergrundfarbe
 var colorLever1 = "#00ff00";                               // Farbe f�r Hebel (1)
 var colorLever2 = "#ffc040";                               // Farbe f�r Hebel (2)
 var colorLever3 = "#c0c0c0";                               // Farbe f�r Stativ
@@ -443,7 +443,6 @@ function paint () {
   output(1);                                               // Ausgabe: Berechnung des rechtsdrehenden Drehmoments
   ctx.fillStyle = "#000000";                               // Schriftfarbe
   ctx.textAlign = "right";                                 // Textausrichtung
-  ctx.fillText(author,width-30,height-30);                 // Autor (und �bersetzer)
   if (drag) mass(mouseX,mouseY);                           // Bewegtes Massenst�ck 
   }
 

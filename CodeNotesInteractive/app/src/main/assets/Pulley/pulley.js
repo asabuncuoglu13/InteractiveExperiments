@@ -13,7 +13,7 @@
 
 // Farben:
 
-var colorBackground = "#ffff00";                           // Hintergrundfarbe
+var colorBackground = "#F5F5F5";                           // Hintergrundfarbe
 var colorLoad = "#ffffff";                                 // Farbe f�r Last
 var colorWeight = "#ff0000";                               // Farbe f�r Gewichtskraft
 var colorForce = "#0000ff";                                // Farbe f�r ben�tigte Kraft

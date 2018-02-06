@@ -13,13 +13,13 @@
 
 // Farben:
 
-var colorBackground = "#ffff00";                           // Hintergrundfarbe
+var colorBackground = "#F5F5F5";                           // Hintergrundfarbe
 var colorVoltage = "#0000ff";                              // Farbe f�r Spannung
 var colorAmperage = "#ff0000";                             // Farbe f�r Stromst�rke
 
 // Sonstige Konstanten:
 
-var FONT1 = "normal normal bold 12px sans-serif";          // Zeichensatz
+var FONT1 = "normal normal bold 14px sans-serif";          // Zeichensatz
 var MAX_U = [1000, 300, 100, 30, 10, 3, 1];                // Messbereiche Spannung (V)
 var MAX_I = [10, 3, 1, 0.3, 0.1, 0.03, 0.01, 0.003, 0.001];// Messbereiche Stromst�rke (A)
 

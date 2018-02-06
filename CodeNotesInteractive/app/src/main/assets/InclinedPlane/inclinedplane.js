@@ -13,7 +13,7 @@
 
 // Farben:
 
-var colorBackground = "#ffff00";                           // Hintergrundfarbe
+var colorBackground = "#F5F5F5";                           // Hintergrundfarbe
 var colorPlane = "#ffc800";                                // Farbe f�r schiefe Ebene
 var colorBlock = "#ffffff";                                // Farbe f�r Block
 var colorSpringscale = "#8080ff";                          // Farbe f�r Geh�use der Federwaage

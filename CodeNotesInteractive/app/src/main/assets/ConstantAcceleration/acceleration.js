@@ -13,7 +13,7 @@
 
 // Farben:
 
-var colorBackground = "#ffff00";                           // Hintergrundfarbe
+var colorBackground = "#F5F5F5";                           // Hintergrundfarbe
 var colorCar = "#c0c0c0";                                  // Farbe der Autokarosserie
 var colorWindow = "#00ffff";                               // Farbe des Autofensters
 var colorLightBarrier1 = "#00ff00";                        // Farbe der ersten Lichtschranke
