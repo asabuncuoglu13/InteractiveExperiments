@@ -32,7 +32,6 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
 
     public View view;
     private WebView webView;
-    private boolean showTapTarget = true;
     private String simulationName = "";
     public double[] parameters = {0.0, 0.0, 0.0}; // angle, weight, friction
     private static final String TAG = "InclinedPlaneSimulation";
@@ -72,7 +71,7 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
         paramtext1.setText(SimulationParameters.INCLINED_PLANE_PARAMETER_TEXTS[0]);
         paramtext2.setText(SimulationParameters.INCLINED_PLANE_PARAMETER_TEXTS[1]);
         paramtext3.setText(SimulationParameters.INCLINED_PLANE_PARAMETER_TEXTS[2]);
-        if (showTapTarget) {
+        if (SimulationParameters.showTapTarget) {
             TapTargetView.showFor(getActivity(),                 // `this` is an Activity
                     TapTarget.forView(view.findViewById(R.id.setParameters), getString(R.string.tap_target_title), getString(R.string.tap_target_detail))
                             // All options below are optional
@@ -92,7 +91,7 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
                     });
         }
 
-        showTapTarget = false;
+        SimulationParameters.showTapTarget = false;
         webView = (WebView) view.findViewById(R.id.web_view);
         webView.setWebChromeClient(new WebChromeClient() {
         });

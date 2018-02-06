@@ -4,8 +4,10 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ import java.util.Map;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneSimulationFragment;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.LeverSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.OhmsLawSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.PulleySimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
@@ -34,6 +37,8 @@ public class Simulation {
                 SimulationParameters.SIMULATION3_NAME, SimulationParameters.SIMULATION3_DETAIL));
         addItem(new SimulationItem(String.valueOf(SimulationParameters.PULLEY_SIMULATION),
                 SimulationParameters.SIMULATION4_NAME, SimulationParameters.SIMULATION4_DETAIL));
+        addItem(new SimulationItem(String.valueOf(SimulationParameters.LEVER_SIMULATION),
+                SimulationParameters.SIMULATION5_NAME, SimulationParameters.SIMULATION5_DETAIL));
     }
 
     private static void addItem(SimulationItem item) {
@@ -41,13 +46,29 @@ public class Simulation {
         ITEM_MAP.put(item.id, item);
     }
 
+    private static int getSimulationID(double[] params) {
+        int simulationID = -1;
+        for (int i = 0; i < params.length - 1; i++) {
+            if (params[i] == SimulationParameters.EXPERIMENT) {
+                simulationID = (int) params[i + 1];
+            }
+        }
+        return simulationID;
+    }
+
     public static void callSimulationFragment(FragmentActivity fragmentActivity, int simulationID, double[] parameters)
     {
+        Log.d(TAG, "callSimulationFragment: "+ Arrays.toString(parameters));
+        if(simulationID == -1)
+        {
+            simulationID = getSimulationID(parameters);
+        }
         InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment;
         ConstantAccelerationSimulationFragment constantAccelerationSimulationFragment;
         OhmsLawSimulationFragment ohmsLawSimulationFragment;
         SimulationListFragment simulationListFragment;
         PulleySimulationFragment pulleySimulationFragment;
+        LeverSimulationFragment leverSimulationFragment;
         FragmentTransaction ft = fragmentActivity.getSupportFragmentManager().beginTransaction();
         if(simulationID >0)
         {
@@ -70,6 +91,10 @@ public class Simulation {
                     pulleySimulationFragment.setParameters(parameters);
                     ft.replace(R.id.fragment_container, pulleySimulationFragment);
                 }
+                else if (simulationID == SimulationParameters.LEVER_SIMULATION) {
+                    leverSimulationFragment = new LeverSimulationFragment();
+                    ft.replace(R.id.fragment_container, leverSimulationFragment);
+                }
             }else
             {
                 if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
@@ -85,6 +110,10 @@ public class Simulation {
                 else if (simulationID == SimulationParameters.PULLEY_SIMULATION) {
                     pulleySimulationFragment = new PulleySimulationFragment();
                     ft.replace(R.id.fragment_container, pulleySimulationFragment);
+                }
+                else if (simulationID == SimulationParameters.LEVER_SIMULATION) {
+                    leverSimulationFragment = new LeverSimulationFragment();
+                    ft.replace(R.id.fragment_container, leverSimulationFragment);
                 }
             }
         }

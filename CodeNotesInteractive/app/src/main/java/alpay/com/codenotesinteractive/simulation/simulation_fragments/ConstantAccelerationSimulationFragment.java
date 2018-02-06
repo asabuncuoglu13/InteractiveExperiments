@@ -28,6 +28,7 @@ import java.util.List;
 
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.Utility;
+import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
 public class ConstantAccelerationSimulationFragment extends Fragment implements View.OnClickListener {
@@ -39,7 +40,6 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
     public double[] parameters = {0.0, 0.0, 0.0};
     private FullScreenDialogFragment dialogFragment;
     private static final String TAG = "ConstantAccSimulation";
-    private boolean showTapTarget = true;
 
     public ConstantAccelerationSimulationFragment() {
 
@@ -77,7 +77,7 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         paramtext2.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[1]);
         paramtext3.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[2]);
 
-        if (showTapTarget) {
+        if (SimulationParameters.showTapTarget) {
             TapTargetView.showFor(getActivity(),                 // `this` is an Activity
                     TapTarget.forView(view.findViewById(R.id.setParameters), getString(R.string.tap_target_title), getString(R.string.tap_target_detail))
                             // All options below are optional
@@ -97,7 +97,7 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
                     });
         }
 
-        showTapTarget = false;
+        SimulationParameters.showTapTarget = false;
 
         webView = (WebView) view.findViewById(R.id.web_view);
         webView.setWebChromeClient(new WebChromeClient() {

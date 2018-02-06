@@ -182,15 +182,14 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
         {
             if(code != null)
             {
-                int[] s = c.compile(code);
-                if(s[0] == -1)
+                double[] s = c.compile(code);
+                if(s[0] == -1.0)
                 {
                     createAlertDialog(R.string.no_code_dialog_title, R.string.no_code_dialog_message);
                 }else
                 {
                     Intent intent = new Intent(getActivity(), SimulationActivity.class);
                     intent.putExtra("output", s);
-                    intent.putExtra("simulationID", 1002);
                     startActivity(intent);
                 }
             }else

@@ -16,15 +16,15 @@ import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
-public class OhmsLawSimulationFragment extends Fragment implements View.OnClickListener {
+public class LeverSimulationFragment extends Fragment implements View.OnClickListener {
 
     public View view;
     private WebView webView;
 
     private String simulationName = "";
-    private static final String TAG = "OhmsLaw";
+    private static final String TAG = "Lever";
 
-    public OhmsLawSimulationFragment() {
+    public LeverSimulationFragment() {
 
     }
 
@@ -44,11 +44,11 @@ public class OhmsLawSimulationFragment extends Fragment implements View.OnClickL
         });
         webView.setPadding(0, 0, 0, 0);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.OHMS_LAW_SCREEN_SIZE));
+        webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.LEVER_SCREEN_SIZE));
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-        webView.loadUrl("file:///android_asset/OhmsLaw/index.html");
+        webView.loadUrl("file:///android_asset/Lever/index.html");
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
         return view;

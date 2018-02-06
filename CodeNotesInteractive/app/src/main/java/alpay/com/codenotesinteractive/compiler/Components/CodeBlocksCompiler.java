@@ -22,6 +22,15 @@ public class CodeBlocksCompiler {
     int l_for = 3;
     int l_while = 5;
 
+    final int EXPERIMENT = 50;
+    final int ANGLE = 51;
+    final int FRICTION = 52;
+    final int WEIGHT = 53;
+    final int POSITION = 54;
+    final int VELOCITY = 55;
+    final int ACCELERATION = 56;
+    final int PULLEY_WEIGHT = 57;
+
     HashMap conditionalMap = new HashMap(8);
     HashMap outputMap = new HashMap(8);
     HashMap whileMap = new HashMap(8);
@@ -49,12 +58,14 @@ public class CodeBlocksCompiler {
         outputMap.put("Coldplay", 107);
         outputMap.put("Mor", 108);
 
-        parameterMap.put("ANGLE", 51);
-        parameterMap.put("FRICTION", 52);
-        parameterMap.put("WEIGHT", 53);
-        parameterMap.put("POSITION", 54);
-        parameterMap.put("VELOCITY", 55);
-        parameterMap.put("ACCELERATION", 56);
+        parameterMap.put("EXPERIMENT", EXPERIMENT);
+        parameterMap.put("ANGLE", ANGLE);
+        parameterMap.put("FRICTION", FRICTION);
+        parameterMap.put("WEIGHT", WEIGHT);
+        parameterMap.put("POSITION", POSITION);
+        parameterMap.put("VELOCITY", VELOCITY);
+        parameterMap.put("ACCELER", ACCELERATION);
+        parameterMap.put("PULLEY", PULLEY_WEIGHT);
     }
 
     public String createCodeFromText(String codeText) {
@@ -88,10 +99,10 @@ public class CodeBlocksCompiler {
         return false;
     }
 
-    public int[] returnSetStatement(String codeline) {
+    public double[] returnSetStatement(String codeline) {
         int param = mapIterator(parameterMap, codeline);
-        int[] out = {0,0};
-        if (param < 50 || param > 60) {
+        double[] out = {0.0, 0.0};
+        if (param < 49 || param > 60) {
             Log.d("Hello", "returnSetStatement: ");
         } else {
             codeline = codeline.replaceAll("[^-?0-9]+", " ");
@@ -99,8 +110,8 @@ public class CodeBlocksCompiler {
             if (param_arr.size() == 1) {
                 //There is one integer in the codeline
                 try {
-                    out[0] = param;
-                    out[1] = Integer.valueOf((String) param_arr.get(0));
+                    out[0] = (double) param;
+                    out[1] = Double.valueOf((String) param_arr.get(0));
                 } catch (NumberFormatException n) {
 
                 }
@@ -110,54 +121,29 @@ public class CodeBlocksCompiler {
     }
 
 
-    public int[] returnOutput(String code) {
-        int[] out = {1, 0};
-        int[] param_out = new int[20];
+    public double[] returnOutput(String code) {
+        double[] out = {1.0, 0.0};
+        double[] param_out = new double[20];
         String subCode = "subcode";
         if (code != null) {
             subCode = code.substring(0, l_while);
         } else {
-            out[0] = -1;
+            out[0] = -1.0;
             return out;
         }
-        if (subCode.contains("IF")) {
-            int elsePosition = code.indexOf("ELSE-");
-            String ifConditionalText = code.substring(0 + l_if, findFirstAppearence(code, "-"));
-            if (returnValueOfIfStatement(ifConditionalText)) {
-                String codeAfterIf = code.substring(0 + 2, elsePosition);
-                out[1] = mapIterator(outputMap, codeAfterIf);
-                return out;
-            } else {
-                String codeAfterElse = code.substring(elsePosition + l_else, code.length());
-                out[1] = mapIterator(outputMap, codeAfterElse);
-                return out;
-            }
-        }
-        else if(subCode.contains("SET"))
+        if(subCode.contains("SET"))
         {
             String[] setlines = code.split("-");
             int i = 0;
             for(String line : setlines)
             {
-                int[] params = returnSetStatement(line);
+                double[] params = returnSetStatement(line);
                 param_out[i] = params[0];
                 i++;
                 param_out[i] = params[1];
                 i++;
             }
             return param_out;
-        }
-        else if (subCode.contains("FOR")) {
-            String times = code.substring(3, findFirstAppearence(code, "times"));
-            int outNum = mapIterator(outputMap, code);
-            out[0] = Integer.parseInt(times);
-            out[1] = outNum;
-            return out;
-        } else if (subCode.contains("WHILE")) {
-            int outNum = mapIterator(outputMap, code);
-            out[0] = 50;
-            out[1] = outNum;
-            return out;
         } else {
             out[1] = mapIterator(outputMap, code);
             return out;
@@ -184,13 +170,13 @@ public class CodeBlocksCompiler {
         return -1;
     }
 
-    public int[] compile(String code) {
+    public double[] compile(String code) {
         if (code != null) {
             code = createCodeFromText(code);
             code = checkStartEndThenReturnSubCode(code);
             return returnOutput(code);
         } else {
-            int[] out = {-1, -1};
+            double[] out = {-1.0, -1.0};
             return out;
         }
 

@@ -8,8 +8,7 @@ import alpay.com.codenotesinteractive.simulation.simulation_fragments.Simulation
 
 public class SimulationActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener{
 
-    double[] parameters = null;
-    int simulation = -1;
+    double[] parameters = new double[20];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +17,8 @@ public class SimulationActivity extends AppCompatActivity implements SimulationL
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             parameters = bundle.getDoubleArray("output");
-            simulation = bundle.getInt("simulationID");
         }
-        Simulation.callSimulationFragment(this,simulation,parameters);
+        Simulation.callSimulationFragment(this, -1, parameters);
     }
 
     @Override

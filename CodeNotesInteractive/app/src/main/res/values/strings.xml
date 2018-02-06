@@ -56,7 +56,7 @@
     <string name="tut7_chatbot_title">Chatbot</string>
     <string name="tut7_chatbot_content">You can do small talks or conversations about experiments.</string>
     <string name="tut8_navigation_title">Navigation</string>
-    <string name="tut8_navigation_content">You can navigate through Chatbot or bottombar.</string>
+    <string name="tut8_navigation_content">You can navigate through Chatbot. Try to say "Open Experiments" or "Start Coding". Or you can swipe through bottom bar elements.</string>
     <string name="tut9_finish_title">That is All!</string>
     <string name="tut9_finish_content">Press FINISH to continue to the app.</string>
 

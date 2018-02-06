@@ -32,7 +32,6 @@ public class PulleySimulationFragment extends Fragment implements View.OnClickLi
 
     public View view;
     private WebView webView;
-    private boolean showTapTarget = true;
     private String simulationName = "";
     public double[] parameters = {0.0, 0.0}; // weight, pulley_weight
     private static final String TAG = "PulleySimulation";
@@ -67,7 +66,7 @@ public class PulleySimulationFragment extends Fragment implements View.OnClickLi
         TextView paramtext2 = (TextView) view.findViewById(R.id.param2_text);
         paramtext1.setText(SimulationParameters.PULLEY_PARAMETER_TEXTS[0]);
         paramtext2.setText(SimulationParameters.PULLEY_PARAMETER_TEXTS[1]);
-        if (showTapTarget) {
+        if (SimulationParameters.showTapTarget) {
             TapTargetView.showFor(getActivity(),                 // `this` is an Activity
                     TapTarget.forView(view.findViewById(R.id.setParameters), getString(R.string.tap_target_title), getString(R.string.tap_target_detail))
                             // All options below are optional
@@ -87,7 +86,7 @@ public class PulleySimulationFragment extends Fragment implements View.OnClickLi
                     });
         }
 
-        showTapTarget = false;
+        SimulationParameters.showTapTarget = false;
         webView = (WebView) view.findViewById(R.id.web_view);
         webView.setWebChromeClient(new WebChromeClient() {
         });
