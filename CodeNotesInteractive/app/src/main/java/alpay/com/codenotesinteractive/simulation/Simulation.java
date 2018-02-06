@@ -50,7 +50,7 @@ public class Simulation {
         int simulationID = -1;
         for (int i = 0; i < params.length - 1; i++) {
             if (params[i] == SimulationParameters.EXPERIMENT) {
-                simulationID = (int) params[i + 1];
+                simulationID = (int) params[i + 1] + 1000;
             }
         }
         return simulationID;
