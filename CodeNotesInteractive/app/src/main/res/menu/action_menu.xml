@@ -3,5 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_howto"
         android:title="@string/howto"
-        android:icon="@drawable/ic_howto" />
+        android:icon="@drawable/ic_howto"
+        app:showAsAction="ifRoom"/>
 </menu>

@@ -16,14 +16,14 @@
         <activity android:name=".BaseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AccelerometerPlayActivity" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".simulation.SimulationActivity" />
         <activity android:name=".compiler.CompilerActivity" />
-        <activity android:name=".HowToActivity"></activity>
+        <activity android:name=".HowToActivity" />
     </application>
 
 </manifest>

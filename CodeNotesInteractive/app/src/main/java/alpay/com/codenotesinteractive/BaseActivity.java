@@ -113,7 +113,6 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
         }
     }
 
-
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current game state
@@ -147,7 +146,7 @@ public class BaseActivity extends AppCompatActivity implements SimulationListFra
                 startActivity(intent);
                 break;
             default:
-                break;
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }

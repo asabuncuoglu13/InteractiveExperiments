@@ -12,6 +12,7 @@ import java.util.Map;
 
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
+import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneCanvasFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.LeverSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.OhmsLawSimulationFragment;
@@ -37,6 +38,8 @@ public class Simulation {
                 SimulationParameters.SIMULATION4_NAME, SimulationParameters.SIMULATION4_DETAIL));
         addItem(new SimulationItem(String.valueOf(SimulationParameters.LEVER_SIMULATION),
                 SimulationParameters.SIMULATION5_NAME, SimulationParameters.SIMULATION5_DETAIL));
+        addItem(new SimulationItem(String.valueOf(SimulationParameters.INCLINED_CANVAS_SIMULATION),
+                SimulationParameters.SIMULATION6_NAME, SimulationParameters.SIMULATION6_DETAIL));
     }
 
     private static void addItem(SimulationItem item) {
@@ -61,6 +64,7 @@ public class Simulation {
             simulationID = getSimulationID(parameters);
         }
         InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment;
+        InclinedPlaneCanvasFragment inInclinedPlaneCanvasFragment;
         ConstantAccelerationSimulationFragment constantAccelerationSimulationFragment;
         OhmsLawSimulationFragment ohmsLawSimulationFragment;
         SimulationListFragment simulationListFragment;
@@ -75,7 +79,10 @@ public class Simulation {
                     inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
                     inclinedPlaneSimulationFragment.setParameters(parameters);
                     ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
-                } else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
+                } else if (simulationID == SimulationParameters.INCLINED_CANVAS_SIMULATION) {
+                    inInclinedPlaneCanvasFragment = new InclinedPlaneCanvasFragment();
+                    ft.replace(R.id.fragment_container, inInclinedPlaneCanvasFragment);
+                }else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
                     constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
                     constantAccelerationSimulationFragment.setParameters(parameters);
                     ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
@@ -97,7 +104,10 @@ public class Simulation {
                 if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
                     inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
                     ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
-                } else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
+                } else if (simulationID == SimulationParameters.INCLINED_CANVAS_SIMULATION) {
+                    inInclinedPlaneCanvasFragment = new InclinedPlaneCanvasFragment();
+                    ft.replace(R.id.fragment_container, inInclinedPlaneCanvasFragment);
+                }else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
                     constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
                     ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
                 }else if (simulationID == SimulationParameters.OHMS_LAW_SIMULATION) {

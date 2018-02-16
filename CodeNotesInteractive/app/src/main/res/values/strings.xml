@@ -15,7 +15,8 @@
     <string name="no_code_dialog_message">I am sorry! I could not recognize a meaningful code...</string>
     <string name="no_code_dialog_title">I could not recognize the code</string>
     <string name="all_text_required">All fields are required</string>
-    <string name="howto">How To Guide</string>
+    <string name="howto">Tutorial</string>
+    <string name="acceleremoter_error">We could not detect your accelerometer sensor.</string>
 
     <string name="response_type_error">Returned response type was not compatible for this chat.</string>
     <string name="connection_error">There is no active internet connection.</string>
