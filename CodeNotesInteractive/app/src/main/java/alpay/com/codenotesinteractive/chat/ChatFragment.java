@@ -48,18 +48,20 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
     DatabaseReference ref;
     FirebaseRecyclerAdapter<ChatMessage, ChatViewHolder> adapter;
     Boolean flagFab = true;
+    Boolean translateToTurkish = false;
 
     public View view;
     private AIService aiService;
+    AIDataService aiDataService;
+    AIRequest aiRequest;
     final AIConfiguration config = new AIConfiguration("cbecec58c68d40a3b4fbdd71723c4a34",
             AIConfiguration.SupportedLanguages.English,
             AIConfiguration.RecognitionEngine.System);
 
 
-    public ChatFragment(){
+    public ChatFragment() {
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,7 +70,6 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
         view = inflater.inflate(R.layout.fragment_chat, container, false);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         //database.setPersistenceEnabled(true);
-
         ActivityCompat.requestPermissions(this.getActivity(), new String[]{android.Manifest.permission.RECORD_AUDIO}, 1);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -87,94 +88,10 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
         aiService.setListener(this);
 
 
-        final AIDataService aiDataService = new AIDataService(this.getContext(), config);
-        final AIRequest aiRequest = new AIRequest();
+        aiDataService = new AIDataService(this.getContext(), config);
+        aiRequest = new AIRequest();
 
-
-
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String message = editText.getText().toString().trim();
-
-                if (!message.equals("")) {
-
-                    ChatMessage chatMessage = new ChatMessage(message, "user");
-                    ref.child("chat").push().setValue(chatMessage);
-
-                    aiRequest.setQuery(message);
-                    new AsyncTask<AIRequest, Void, AIResponse>() {
-
-                        @Override
-                        protected AIResponse doInBackground(AIRequest... aiRequests) {
-                            final AIRequest request = aiRequests[0];
-                            try {
-                                final AIResponse response = aiDataService.request(aiRequest);
-                                return response;
-                            } catch (AIServiceException e) {
-                            } catch (NumberFormatException n)
-                            {
-                                Toast.makeText(getContext(), R.string.response_type_error, Toast.LENGTH_SHORT).show();
-                            }
-                            return null;
-                        }
-
-                        @Override
-                        protected void onPostExecute(AIResponse response) {
-                            if (response != null) {
-                                Result result = response.getResult();
-                                String reply = result.getFulfillment().getSpeech();
-                                ChatMessage chatMessage = new ChatMessage(reply, "bot");
-                                ref.child("chat").push().setValue(chatMessage);
-                                if(reply.contains("How-To-Guide"))
-                                {
-                                    Intent intent = new Intent(getActivity(), HowToActivity.class);
-                                    startActivity(intent);
-                                    return;
-                                }else if(reply.contains("Coding-Area"))
-                                {
-                                    Intent intent = new Intent(getActivity(), CompilerActivity.class);
-                                    startActivity(intent);
-                                    return;
-                                }else if (reply.contains("Simulation-Area"))
-                                {
-                                    Intent intent = new Intent(getActivity(), SimulationActivity.class);
-                                    startActivity(intent);
-                                    return;
-                                }
-                                else if (reply.contains("Ohms-Law-Experiment"))
-                                {
-                                    Intent intent = new Intent(getActivity(), SimulationActivity.class);
-                                    intent.putExtra("simulationID", SimulationParameters.OHMS_LAW_SIMULATION);
-                                    startActivity(intent);
-                                    return;
-                                }
-                                else if (reply.contains("Inclined-Plane-Experiment"))
-                                {
-                                    Intent intent = new Intent(getActivity(), SimulationActivity.class);
-                                    intent.putExtra("simulationID", SimulationParameters.INCLINED_PLANE_SIMULATION);
-                                    startActivity(intent);
-                                    return;
-                                }
-                                else if (reply.contains("Constant-Acceleration-Experiment"))
-                                {
-                                    Intent intent = new Intent(getActivity(), SimulationActivity.class);
-                                    intent.putExtra("simulationID", SimulationParameters.CONSTANT_ACCELERATION_SIMULATION);
-                                    startActivity(intent);
-                                    return;
-                                }
-                            }
-                        }
-                    }.execute(aiRequest);
-                } else {
-                    aiService.startListening();
-                }
-
-                editText.setText("");
-
-            }
-        });
+        addBtn.setOnClickListener(this);
 
 
         editText.addTextChangedListener(new TextWatcher() {
@@ -187,7 +104,7 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ImageView fab_img = (ImageView) view.findViewById(R.id.fab_img);
                 Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.ic_send_white_24dp);
-                Bitmap img1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_mic_white_24dp);
+                Bitmap img1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_translate);
 
                 if (s.toString().trim().length() != 0 && flagFab) {
                     ImageViewAnimatedChange(getActivity(), fab_img, img);
@@ -277,20 +194,46 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
 
     @Override
     public void onResult(AIResponse response) {
-
-
         Result result = response.getResult();
 
         String message = result.getResolvedQuery();
         ChatMessage chatMessage0 = new ChatMessage(message, "user");
         ref.child("chat").push().setValue(chatMessage0);
 
-
         String reply = result.getFulfillment().getSpeech();
         ChatMessage chatMessage = new ChatMessage(reply, "bot");
         ref.child("chat").push().setValue(chatMessage);
+    }
 
-
+    private void handleNavigation(String reply) {
+        if (reply.contains("How-To-Guide")) {
+            Intent intent = new Intent(getActivity(), HowToActivity.class);
+            startActivity(intent);
+            return;
+        } else if (reply.contains("Coding-Area")) {
+            Intent intent = new Intent(getActivity(), CompilerActivity.class);
+            startActivity(intent);
+            return;
+        } else if (reply.contains("Simulation-Area")) {
+            Intent intent = new Intent(getActivity(), SimulationActivity.class);
+            startActivity(intent);
+            return;
+        } else if (reply.contains("Ohms-Law-Experiment")) {
+            Intent intent = new Intent(getActivity(), SimulationActivity.class);
+            intent.putExtra("simulationID", SimulationParameters.OHMS_LAW_SIMULATION);
+            startActivity(intent);
+            return;
+        } else if (reply.contains("Inclined-Plane-Experiment")) {
+            Intent intent = new Intent(getActivity(), SimulationActivity.class);
+            intent.putExtra("simulationID", SimulationParameters.INCLINED_PLANE_SIMULATION);
+            startActivity(intent);
+            return;
+        } else if (reply.contains("Constant-Acceleration-Experiment")) {
+            Intent intent = new Intent(getActivity(), SimulationActivity.class);
+            intent.putExtra("simulationID", SimulationParameters.CONSTANT_ACCELERATION_SIMULATION);
+            startActivity(intent);
+            return;
+        }
     }
 
     @Override
@@ -321,5 +264,44 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
     @Override
     public void onClick(View v) {
         int i = v.getId();
+        if (i == R.id.addBtn) {
+            String message = editText.getText().toString().trim();
+            if (!message.equals("")) {
+                ChatMessage chatMessage = new ChatMessage(message, "user");
+                ref.child("chat").push().setValue(chatMessage);
+
+                aiRequest.setQuery(message);
+                new AsyncTask<AIRequest, Void, AIResponse>() {
+
+                    @Override
+                    protected AIResponse doInBackground(AIRequest... aiRequests) {
+                        final AIRequest request = aiRequests[0];
+                        try {
+                            final AIResponse response = aiDataService.request(aiRequest);
+                            return response;
+                        } catch (AIServiceException e) {
+                        } catch (NumberFormatException n) {
+                            Toast.makeText(getContext(), R.string.response_type_error, Toast.LENGTH_SHORT).show();
+                        }
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(AIResponse response) {
+                        if (response != null) {
+                            Result result = response.getResult();
+                            String reply = result.getFulfillment().getSpeech();
+                            ChatMessage chatMessage = new ChatMessage(reply, "bot");
+                            ref.child("chat").push().setValue(chatMessage);
+                            handleNavigation(reply);
+                        }
+                    }
+                }.execute(aiRequest);
+            } else {
+                aiService.startListening();
+            }
+            editText.setText("");
+        }
+
     }
 }

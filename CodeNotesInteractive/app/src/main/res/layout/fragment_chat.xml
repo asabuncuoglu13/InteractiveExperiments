@@ -47,6 +47,7 @@
 
         <RelativeLayout
             android:id="@+id/addBtn"
+            android:clickable="true"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
@@ -61,8 +62,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_mic_white_24dp"
-                android:tint="#fff"/>
+                android:src="@drawable/ic_translate" />
         </RelativeLayout>
 
     </RelativeLayout>
