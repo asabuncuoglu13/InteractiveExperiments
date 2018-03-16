@@ -84,10 +84,4 @@ public class InclinedPlaneCanvasFragment extends Fragment implements View.OnClic
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (getActivity().findViewById(R.id.baseactivity_view) != null)
-            getActivity().findViewById(R.id.baseactivity_view).setVisibility(View.VISIBLE);
-    }
 }

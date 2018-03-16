@@ -73,7 +73,7 @@ public class HowToActivity extends TutorialActivity {
 
     @Override
     public void finishTutorial() {
-        Intent intent = new Intent(this, BaseActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 }

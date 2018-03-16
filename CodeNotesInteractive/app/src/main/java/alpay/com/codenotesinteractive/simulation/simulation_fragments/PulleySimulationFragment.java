@@ -172,10 +172,4 @@ public class PulleySimulationFragment extends Fragment implements View.OnClickLi
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (getActivity().findViewById(R.id.baseactivity_view) != null)
-            getActivity().findViewById(R.id.baseactivity_view).setVisibility(View.VISIBLE);
-    }
 }

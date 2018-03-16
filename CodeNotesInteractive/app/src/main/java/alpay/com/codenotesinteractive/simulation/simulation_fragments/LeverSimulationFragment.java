@@ -57,10 +57,4 @@ public class LeverSimulationFragment extends Fragment implements View.OnClickLis
         int i = v.getId();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (getActivity().findViewById(R.id.baseactivity_view) != null)
-            getActivity().findViewById(R.id.baseactivity_view).setVisibility(View.VISIBLE);
-    }
 }

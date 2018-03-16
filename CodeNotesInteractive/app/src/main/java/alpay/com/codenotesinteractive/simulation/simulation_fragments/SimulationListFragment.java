@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import alpay.com.codenotesinteractive.HomeActivity;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.Simulation.SimulationItem;
@@ -31,6 +32,12 @@ public class SimulationListFragment extends Fragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public SimulationListFragment() {
+
+    }
+
+    public void setSimulationFragment(double[] output)
+    {
+        Simulation.callSimulationFragment(getActivity(), -1, output);
     }
 
     @Override
