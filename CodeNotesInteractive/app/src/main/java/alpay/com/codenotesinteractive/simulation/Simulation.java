@@ -78,56 +78,56 @@ public class Simulation {
                 if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
                     inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
                     inclinedPlaneSimulationFragment.setParameters(parameters);
-                    ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
+                    ft.replace(R.id.fragment_container_home, inclinedPlaneSimulationFragment);
                 } else if (simulationID == SimulationParameters.INCLINED_CANVAS_SIMULATION) {
                     inInclinedPlaneCanvasFragment = new InclinedPlaneCanvasFragment();
-                    ft.replace(R.id.fragment_container, inInclinedPlaneCanvasFragment);
+                    ft.replace(R.id.fragment_container_home, inInclinedPlaneCanvasFragment);
                 }else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
                     constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
                     constantAccelerationSimulationFragment.setParameters(parameters);
-                    ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
+                    ft.replace(R.id.fragment_container_home, constantAccelerationSimulationFragment);
                 }else if (simulationID == SimulationParameters.OHMS_LAW_SIMULATION) {
                     ohmsLawSimulationFragment = new OhmsLawSimulationFragment();
-                    ft.replace(R.id.fragment_container, ohmsLawSimulationFragment);
+                    ft.replace(R.id.fragment_container_home, ohmsLawSimulationFragment);
                 }
                 else if (simulationID == SimulationParameters.PULLEY_SIMULATION) {
                     pulleySimulationFragment = new PulleySimulationFragment();
                     pulleySimulationFragment.setParameters(parameters);
-                    ft.replace(R.id.fragment_container, pulleySimulationFragment);
+                    ft.replace(R.id.fragment_container_home, pulleySimulationFragment);
                 }
                 else if (simulationID == SimulationParameters.LEVER_SIMULATION) {
                     leverSimulationFragment = new LeverSimulationFragment();
-                    ft.replace(R.id.fragment_container, leverSimulationFragment);
+                    ft.replace(R.id.fragment_container_home, leverSimulationFragment);
                 }
             }else
             {
                 if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
                     inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
-                    ft.replace(R.id.fragment_container, inclinedPlaneSimulationFragment);
+                    ft.replace(R.id.fragment_container_home, inclinedPlaneSimulationFragment);
                 } else if (simulationID == SimulationParameters.INCLINED_CANVAS_SIMULATION) {
                     inInclinedPlaneCanvasFragment = new InclinedPlaneCanvasFragment();
-                    ft.replace(R.id.fragment_container, inInclinedPlaneCanvasFragment);
+                    ft.replace(R.id.fragment_container_home, inInclinedPlaneCanvasFragment);
                 }else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
                     constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
-                    ft.replace(R.id.fragment_container, constantAccelerationSimulationFragment);
+                    ft.replace(R.id.fragment_container_home, constantAccelerationSimulationFragment);
                 }else if (simulationID == SimulationParameters.OHMS_LAW_SIMULATION) {
                     ohmsLawSimulationFragment = new OhmsLawSimulationFragment();
-                    ft.replace(R.id.fragment_container, ohmsLawSimulationFragment);
+                    ft.replace(R.id.fragment_container_home, ohmsLawSimulationFragment);
                 }
                 else if (simulationID == SimulationParameters.PULLEY_SIMULATION) {
                     pulleySimulationFragment = new PulleySimulationFragment();
-                    ft.replace(R.id.fragment_container, pulleySimulationFragment);
+                    ft.replace(R.id.fragment_container_home, pulleySimulationFragment);
                 }
                 else if (simulationID == SimulationParameters.LEVER_SIMULATION) {
                     leverSimulationFragment = new LeverSimulationFragment();
-                    ft.replace(R.id.fragment_container, leverSimulationFragment);
+                    ft.replace(R.id.fragment_container_home, leverSimulationFragment);
                 }
             }
         }
         else
         {
             simulationListFragment = new SimulationListFragment();
-            ft.replace(R.id.fragment_container, simulationListFragment);
+            ft.replace(R.id.fragment_container_home, simulationListFragment);
         }
         ft.addToBackStack(null);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);

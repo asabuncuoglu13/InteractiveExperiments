@@ -191,10 +191,4 @@ public class InclinedPlaneSimulationFragment extends Fragment implements View.On
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (getActivity().findViewById(R.id.baseactivity_view) != null)
-            getActivity().findViewById(R.id.baseactivity_view).setVisibility(View.VISIBLE);
-    }
 }

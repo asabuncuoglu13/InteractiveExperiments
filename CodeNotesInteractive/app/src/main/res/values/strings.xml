@@ -41,6 +41,7 @@
     <string name="next">Next</string>
     <string name="cancel">Cancel</string>
     <string name="finish">Finish</string>
+    <string name="action_howto">App Manual</string>
 
     <string name="tut1_welcome_title">Welcome!</string>
     <string name="tut1_welcome_content">Interactive Experiments is an educational app with physics simulations.</string>
@@ -60,5 +61,16 @@
     <string name="tut8_navigation_content">You can navigate through Chatbot. Try to say "Open Experiments" or "Start Coding". Or you can swipe through bottom bar elements.</string>
     <string name="tut9_finish_title">That is All!</string>
     <string name="tut9_finish_content">Press FINISH to continue to the app.</string>
+
+    <!-- categories -->
+    <string name="category_all">All</string>
+    <string name="category_featured">Featured</string>
+    <string name="category_section_categories">CATEGORIES</string>
+    <string name="category_buildings">Buildings</string>
+    <string name="category_food">Food &amp; Drink</string>
+    <string name="category_nature">Nature</string>
+    <string name="category_objects">Objects</string>
+    <string name="category_people">People</string>
+    <string name="category_technology">Technology</string>
 
 </resources>
