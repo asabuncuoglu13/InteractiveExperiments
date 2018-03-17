@@ -3,6 +3,7 @@
     <string name="bottom_menu_chat">ChatBot</string>
     <string name="bottom_menu_codenotes">Code</string>
     <string name="bottom_menu_simulation">Simulation</string>
+    <string name="bottom_menu_notes">Take Notes</string>
     <string name="detector_dependency">Dependencies are not met</string>
 
     <string name="tap_target_title">Set Parameters before tapping START.</string>
@@ -72,5 +73,26 @@
     <string name="category_objects">Objects</string>
     <string name="category_people">People</string>
     <string name="category_technology">Technology</string>
+
+
+    <string-array name="snooze_options">
+        <item>10 Minutes</item>
+        <item>30 Minutes</item>
+        <item>1 Hour</item>
+    </string-array>
+
+    <string name="snooze">Snooze</string>
+    <string name="remove">Remove</string>
+    <string name="todo_error">Please enter a Todo</string>
+
+    <string name="no_to_dos">You don\'t have any todos</string>
+    <string name="title">Title</string>
+    <string name="remind_me">Remind Me</string>
+    <string name="choose_date">Date</string>
+    <string name="choose_time">Time</string>
+    <string name="done_label">Done</string>
+    <string name="date_reminder_default">Today</string>
+    <string name="date_error_check_again">The date you entered is in the past.</string>
+    <string name="remind_date_and_time">Reminder set for %1$s, %2$s %3$s</string>
 
 </resources>

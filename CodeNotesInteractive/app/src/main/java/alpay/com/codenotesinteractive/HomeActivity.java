@@ -22,6 +22,7 @@ import alpay.com.codenotesinteractive.chat.ChatFragment;
 import alpay.com.codenotesinteractive.compiler.CompilerFragment;
 import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
+import alpay.com.codenotesinteractive.studynotes.TodoNotesFragment;
 
 
 public class HomeActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener {
@@ -29,15 +30,18 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     ChatFragment chatFragment;
     SimulationListFragment simulationListFragment;
     CompilerFragment compilerFragment;
+    TodoNotesFragment todoNotesFragment;
     static boolean largeScreen = false;
     static boolean experimentOn = false;
     static final String STATE_SCREEN = "screenstate";
     static final String STATE_EXPERIMENT = "experimentstate";
 
-    public static enum Category {
+    public enum Category {
         CHAT(1),
         SIMULATION(2),
-        PROGRAMMING(3);
+        PROGRAMMING(3),
+        NOTE(4);
+
         public final int id;
         static int currentCategoryID;
         Category(int id) {
@@ -62,6 +66,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         chatFragment = new ChatFragment();
         simulationListFragment = new SimulationListFragment();
         compilerFragment = new CompilerFragment();
+        todoNotesFragment = new TodoNotesFragment();
         setNavigationDrawer();
         selectFragmentWithCategoryID(Category.CHAT.id);
         if (!Utility.isNetworkAvailable(this)) {
@@ -81,7 +86,8 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.bottom_menu_chat).withIdentifier(Category.CHAT.id),
                         new PrimaryDrawerItem().withName(R.string.bottom_menu_simulation).withIdentifier(Category.SIMULATION.id),
-                        new SectionDrawerItem().withName(R.string.bottom_menu_codenotes).withIdentifier(Category.PROGRAMMING.id)
+                        new PrimaryDrawerItem().withName(R.string.bottom_menu_codenotes).withIdentifier(Category.PROGRAMMING.id),
+                        new PrimaryDrawerItem().withName(R.string.bottom_menu_notes).withIdentifier(Category.NOTE.id)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
 
@@ -123,6 +129,11 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         {
             ft.replace(R.id.fragment_container_home, compilerFragment);
             Category.currentCategoryID = 3;
+        }
+        else if(id == Category.NOTE.id && Category.currentCategoryID != Category.NOTE.id)
+        {
+            ft.replace(R.id.fragment_container_home, todoNotesFragment);
+            Category.currentCategoryID = 4;
         }
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
