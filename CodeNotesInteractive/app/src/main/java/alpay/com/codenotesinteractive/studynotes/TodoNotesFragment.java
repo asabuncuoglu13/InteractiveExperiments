@@ -1,26 +1,25 @@
 package alpay.com.codenotesinteractive.studynotes;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.os.SystemClock;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -74,14 +73,12 @@ public class TodoNotesFragment extends Fragment {
 
     public static ArrayList<ToDoItem> getLocallyStoredData(StoreRetrieveData storeRetrieveData) {
         ArrayList<ToDoItem> items = null;
-
         try {
             items = storeRetrieveData.loadFromFile();
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-
         if (items == null) {
             items = new ArrayList<>();
         }
@@ -102,8 +99,6 @@ public class TodoNotesFragment extends Fragment {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(CHANGE_OCCURED, false);
             editor.apply();
-
-
         }
     }
 
@@ -118,7 +113,7 @@ public class TodoNotesFragment extends Fragment {
                     Intent i = new Intent(getActivity(), TodoNotificationService.class);
                     i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
                     i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
-                    createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
+                    scheduleNotification(getNotification("Hello"), i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
                 }
             }
         }
@@ -142,7 +137,6 @@ public class TodoNotesFragment extends Fragment {
 
         mCoordLayout = (CoordinatorLayout) view.findViewById(R.id.myCoordinatorLayout);
         mAddToDoItemFAB = (FloatingActionButton) view.findViewById(R.id.addToDoItemFAB);
-
         mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
 
             @SuppressWarnings("deprecation")
@@ -166,32 +160,39 @@ public class TodoNotesFragment extends Fragment {
         customRecyclerScrollViewListener = new CustomRecyclerScrollViewListener() {
             @Override
             public void show() {
-
                 mAddToDoItemFAB.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-//                mAddToDoItemFAB.animate().translationY(0).setInterpolator(new AccelerateInterpolator(2.0f)).start();
             }
-
             @Override
             public void hide() {
-
                 CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) mAddToDoItemFAB.getLayoutParams();
                 int fabMargin = lp.bottomMargin;
                 mAddToDoItemFAB.animate().translationY(mAddToDoItemFAB.getHeight() + fabMargin).setInterpolator(new AccelerateInterpolator(2.0f)).start();
             }
         };
         mRecyclerView.addOnScrollListener(customRecyclerScrollViewListener);
-
-
         ItemTouchHelper.Callback callback = new ItemTouchHelperClass(adapter);
         itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
-
-
         mRecyclerView.setAdapter(adapter);
-//        setUpTransitions();
-
-
         return view;
+    }
+
+    private Notification getNotification(String content) {
+        Notification.Builder builder = new Notification.Builder(getActivity());
+        builder.setContentTitle("Scheduled Notification");
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.ic_add_alarm_grey_200_24dp);
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+        return builder.build();
+    }
+
+    private void scheduleNotification(Notification notification, Intent i, int requestCode, long timeInMillis) {
+        Intent notificationIntent = new Intent(getActivity(), NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
     }
 
 
@@ -209,8 +210,7 @@ public class TodoNotesFragment extends Fragment {
                 Intent i = new Intent(getActivity(), TodoNotificationService.class);
                 i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
                 i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
-                createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
-//                Log.d("OskarSchindler", "Alarm Created: "+item.getToDoText()+" at "+item.getToDoDate());
+                scheduleNotification(getNotification("Hello"), i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
             }
 
             for (int i = 0; i < mToDoItemsArrayList.size(); i++) {
@@ -238,13 +238,6 @@ public class TodoNotesFragment extends Fragment {
         return pi != null;
     }
 
-    private void createAlarm(Intent i, int requestCode, long timeInMillis) {
-        AlarmManager am = getAlarmManager();
-        PendingIntent pi = PendingIntent.getService(getActivity(), requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
-        am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pi);
-//        Log.d("OskarSchindler", "createAlarm "+requestCode+" time: "+timeInMillis+" PI "+pi.toString());
-    }
-
     private void deleteAlarm(Intent i, int requestCode) {
         if (doesPendingIntentExist(i, requestCode)) {
             PendingIntent pi = PendingIntent.getService(getActivity(), requestCode, i, PendingIntent.FLAG_NO_CREATE);
@@ -264,8 +257,6 @@ public class TodoNotesFragment extends Fragment {
     public void makeUpItems(ArrayList<ToDoItem> items, int len) {
         for (String testString : testStrings) {
             ToDoItem item = new ToDoItem(testString, false, new Date());
-            //noinspection ResourceType
-//            item.setTodoColor(getResources().getString(R.color.red_secondary));
             items.add(item);
         }
 
@@ -301,13 +292,12 @@ public class TodoNotesFragment extends Fragment {
                     .setAction("UNDO", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
                             items.add(mIndexOfDeletedToDoItem, mJustDeletedToDoItem);
                             if (mJustDeletedToDoItem.getToDoDate() != null && mJustDeletedToDoItem.hasReminder()) {
                                 Intent i = new Intent(getActivity(), TodoNotificationService.class);
                                 i.putExtra(TodoNotificationService.TODOTEXT, mJustDeletedToDoItem.getToDoText());
                                 i.putExtra(TodoNotificationService.TODOUUID, mJustDeletedToDoItem.getIdentifier());
-                                createAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode(), mJustDeletedToDoItem.getToDoDate().getTime());
+                                scheduleNotification(getNotification("Hello"), i, mJustDeletedToDoItem.getIdentifier().hashCode(), mJustDeletedToDoItem.getToDoDate().getTime());
                             }
                             notifyItemInserted(mIndexOfDeletedToDoItem);
                         }
@@ -368,17 +358,13 @@ public class TodoNotesFragment extends Fragment {
             this.items = items;
         }
 
-
-        @SuppressWarnings("deprecation")
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             View mView;
             LinearLayout linearLayout;
             TextView mToDoTextview;
-            //            TextView mColorTextView;
             ImageView mColorImageView;
             TextView mTimeTextView;
-//            int color = -1;
 
             public ViewHolder(View v) {
                 super(v);
@@ -397,7 +383,6 @@ public class TodoNotesFragment extends Fragment {
                 mColorImageView = (ImageView) v.findViewById(R.id.toDoListItemColorImageView);
                 linearLayout = (LinearLayout) v.findViewById(R.id.listItemLinearLayout);
             }
-
 
         }
     }

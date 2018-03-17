@@ -24,6 +24,8 @@
         <activity android:name=".compiler.CompilerActivity" />
         <activity android:name=".HowToActivity" />
         <activity android:name=".studynotes.AddToDoActivity"/>
+
+        <receiver android:name=".studynotes.NotificationPublisher" />
     </application>
 
 </manifest>
