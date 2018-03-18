@@ -16,6 +16,17 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
+import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionLayout;
+import com.robertlevonyan.views.customfloatingactionbutton.FloatingLayout;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import alpay.com.codenotesinteractive.chat.ChatFragment;
 import alpay.com.codenotesinteractive.compiler.CompilerFragment;
@@ -30,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     SimulationListFragment simulationListFragment;
     CompilerFragment compilerFragment;
     StudyNotesFragment studyNotesFragment;
+    FloatingLayout floatingActionButton;
     static boolean largeScreen = false;
     static boolean experimentOn = false;
     static final String STATE_SCREEN = "screenstate";
@@ -66,6 +78,8 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         simulationListFragment = new SimulationListFragment();
         compilerFragment = new CompilerFragment();
         studyNotesFragment = new StudyNotesFragment();
+        floatingActionButton = (FloatingLayout) findViewById(R.id.home_fab);
+        floatingActionButton.setFabAnimationStyle(FloatingLayout.ANIMATION_POP_RIGHT);
         setNavigationDrawer();
         selectFragmentWithCategoryID(Category.CHAT.id);
         if (!Utility.isNetworkAvailable(this)) {

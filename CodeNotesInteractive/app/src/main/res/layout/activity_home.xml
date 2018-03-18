@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:rfal="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,11 +13,56 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:layout_editor_absoluteX="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        rfal:layout_constraintTop_toTopOf="@+id/fragment_container_home" />
 
     <FrameLayout
         android:id="@+id/fragment_container_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+
+    <com.robertlevonyan.views.customfloatingactionbutton.FloatingLayout
+        android:id="@+id/home_fab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:fabMenuGravity="bottom|right">
+
+        <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton
+            android:id="@+id/fab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabColor="#acdace"
+            app:fabIcon="@drawable/ic_chat" />
+
+        <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton
+            android:id="@+id/fab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabColor="#ff9c10"
+            app:fabIcon="@drawable/ic_chat"
+            app:fabSizes="mini" />
+
+        <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton
+            android:id="@+id/fab3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabColor="#0b7bc1"
+            app:fabIcon="@drawable/ic_chat"
+            app:fabSizes="mini" />
+
+        <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton
+            android:id="@+id/fab4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabColor="#ea201c"
+            app:fabIcon="@drawable/ic_chat"
+            app:fabSizes="mini" />
+
+    </com.robertlevonyan.views.customfloatingactionbutton.FloatingLayout>
+
 </RelativeLayout>
+

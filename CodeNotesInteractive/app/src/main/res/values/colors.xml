@@ -47,4 +47,6 @@
     <color name="error_view_text_light">#ffffffff</color>
     <color name="error_view_text_dark">#DEDEDE</color>
 
+    <color name="home_fab_color">#5c6bc0</color>
+
 </resources>
