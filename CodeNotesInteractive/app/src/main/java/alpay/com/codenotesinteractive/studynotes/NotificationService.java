@@ -12,15 +12,15 @@ import java.util.UUID;
 
 import alpay.com.codenotesinteractive.R;
 
-public class TodoNotificationService extends IntentService {
+public class NotificationService extends IntentService {
     public static final String TODOTEXT = "com.avjindersekhon.todonotificationservicetext";
     public static final String TODOUUID = "com.avjindersekhon.todonotificationserviceuuid";
     private String mTodoText;
     private UUID mTodoUUID;
     private Context mContext;
 
-    public TodoNotificationService(){
-        super("TodoNotificationService");
+    public NotificationService(){
+        super("NotificationService");
     }
     @Override
     protected void onHandleIntent(Intent intent) {

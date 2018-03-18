@@ -10,8 +10,8 @@ import java.util.UUID;
 public class DeleteNotificationService extends IntentService {
 
     private StoreRetrieveData storeRetrieveData;
-    private ArrayList<ToDoItem> mToDoItems;
-    private ToDoItem mItem;
+    private ArrayList<StudyNoteItem> mStudyNoteItems;
+    private StudyNoteItem mItem;
 
     public DeleteNotificationService(){
         super("DeleteNotificationService");
@@ -19,12 +19,12 @@ public class DeleteNotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        storeRetrieveData = new StoreRetrieveData(this, TodoNotesFragment.FILENAME);
-        UUID todoID = (UUID)intent.getSerializableExtra(TodoNotificationService.TODOUUID);
+        storeRetrieveData = new StoreRetrieveData(this, StudyNotesFragment.FILENAME);
+        UUID todoID = (UUID)intent.getSerializableExtra(NotificationService.TODOUUID);
 
-        mToDoItems = loadData();
-        if(mToDoItems!=null){
-            for(ToDoItem item : mToDoItems){
+        mStudyNoteItems = loadData();
+        if(mStudyNoteItems !=null){
+            for(StudyNoteItem item : mStudyNoteItems){
                 if(item.getIdentifier().equals(todoID)){
                     mItem = item;
                     break;
@@ -32,7 +32,7 @@ public class DeleteNotificationService extends IntentService {
             }
 
             if(mItem!=null){
-                mToDoItems.remove(mItem);
+                mStudyNoteItems.remove(mItem);
                 dataChanged();
                 saveData();
             }
@@ -42,15 +42,15 @@ public class DeleteNotificationService extends IntentService {
     }
 
     private void dataChanged(){
-        SharedPreferences sharedPreferences = getSharedPreferences(TodoNotesFragment.SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(StudyNotesFragment.SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(TodoNotesFragment.CHANGE_OCCURED, true);
+        editor.putBoolean(StudyNotesFragment.CHANGE_OCCURED, true);
         editor.apply();
     }
 
     private void saveData(){
         try{
-            storeRetrieveData.saveToFile(mToDoItems);
+            storeRetrieveData.saveToFile(mStudyNoteItems);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -63,7 +63,7 @@ public class DeleteNotificationService extends IntentService {
         saveData();
     }
 
-    private ArrayList<ToDoItem> loadData(){
+    private ArrayList<StudyNoteItem> loadData(){
         try{
             return storeRetrieveData.loadFromFile();
         }

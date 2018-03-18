@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
@@ -22,7 +21,7 @@ import alpay.com.codenotesinteractive.chat.ChatFragment;
 import alpay.com.codenotesinteractive.compiler.CompilerFragment;
 import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
-import alpay.com.codenotesinteractive.studynotes.TodoNotesFragment;
+import alpay.com.codenotesinteractive.studynotes.StudyNotesFragment;
 
 
 public class HomeActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener {
@@ -30,7 +29,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     ChatFragment chatFragment;
     SimulationListFragment simulationListFragment;
     CompilerFragment compilerFragment;
-    TodoNotesFragment todoNotesFragment;
+    StudyNotesFragment studyNotesFragment;
     static boolean largeScreen = false;
     static boolean experimentOn = false;
     static final String STATE_SCREEN = "screenstate";
@@ -66,7 +65,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         chatFragment = new ChatFragment();
         simulationListFragment = new SimulationListFragment();
         compilerFragment = new CompilerFragment();
-        todoNotesFragment = new TodoNotesFragment();
+        studyNotesFragment = new StudyNotesFragment();
         setNavigationDrawer();
         selectFragmentWithCategoryID(Category.CHAT.id);
         if (!Utility.isNetworkAvailable(this)) {
@@ -132,7 +131,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         }
         else if(id == Category.NOTE.id && Category.currentCategoryID != Category.NOTE.id)
         {
-            ft.replace(R.id.fragment_container_home, todoNotesFragment);
+            ft.replace(R.id.fragment_container_home, studyNotesFragment);
             Category.currentCategoryID = 4;
         }
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);

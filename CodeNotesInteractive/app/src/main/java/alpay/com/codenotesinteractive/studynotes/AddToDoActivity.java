@@ -18,10 +18,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,21 +35,14 @@ import java.util.Date;
 import alpay.com.codenotesinteractive.R;
 
 public class AddToDoActivity extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
-    private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
     private SwitchCompat mToDoDateSwitch;
-//    private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
     private TextView mReminderTextView;
 
     private EditText mDateEditText;
     private EditText mTimeEditText;
-    private String mDefaultTimeOptions12H[];
-    private String mDefaultTimeOptions24H[];
-
-    private Button mChooseDateButton;
-    private Button mChooseTimeButton;
-    private ToDoItem mUserToDoItem;
+    private StudyNoteItem mUserStudyNoteItem;
     private FloatingActionButton mToDoSendFloatingActionButton;
     public static final String DATE_FORMAT = "MMM d, yyyy";
     public static final String DATE_FORMAT_MONTH_DAY = "MMM d";
@@ -62,11 +53,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     private Toolbar mToolbar;
     private Date mUserReminderDate;
     private int mUserColor;
-    private boolean setDateButtonClickedOnce = false;
-    private boolean setTimeButtonClickedOnce = false;
     private LinearLayout mContainerLayout;
-    private String theme;
-
 
     @SuppressWarnings("deprecation")
     @Override
@@ -74,7 +61,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_test);
 
-        //Show an X in place of <-
         final Drawable cross = getResources().getDrawable(R.drawable.ic_clear_white_24dp);
         if(cross !=null){
             cross.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
@@ -92,12 +78,12 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         }
 
 
-        mUserToDoItem = (ToDoItem)getIntent().getSerializableExtra(TodoNotesFragment.TODOITEM);
+        mUserStudyNoteItem = (StudyNoteItem)getIntent().getSerializableExtra(StudyNotesFragment.TODOITEM);
 
-        mUserEnteredText = mUserToDoItem.getToDoText();
-        mUserHasReminder = mUserToDoItem.hasReminder();
-        mUserReminderDate = mUserToDoItem.getToDoDate();
-        mUserColor = mUserToDoItem.getTodoColor();
+        mUserEnteredText = mUserStudyNoteItem.getToDoText();
+        mUserHasReminder = mUserStudyNoteItem.hasReminder();
+        mUserReminderDate = mUserStudyNoteItem.getToDoDate();
+        mUserColor = mUserStudyNoteItem.getTodoColor();
 
         mContainerLayout = (LinearLayout)findViewById(R.id.todoReminderAndDateContainerLayout);
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
@@ -194,8 +180,8 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
                 Date date;
                 hideKeyboard(mToDoTextBodyEditText);
-                if(mUserToDoItem.getToDoDate()!=null){
-//                    date = mUserToDoItem.getToDoDate();
+                if(mUserStudyNoteItem.getToDoDate()!=null){
+//                    date = mUserStudyNoteItem.getToDoDate();
                     date = mUserReminderDate;
                 }
                 else{
@@ -221,7 +207,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
                 Date date;
                 hideKeyboard(mToDoTextBodyEditText);
-                if(mUserToDoItem.getToDoDate()!=null){
+                if(mUserStudyNoteItem.getToDoDate()!=null){
                     date = mUserReminderDate;
                 }
                 else{
@@ -244,7 +230,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
     private void setDateAndTimeEditText(){
 
-        if(mUserToDoItem.hasReminder() && mUserReminderDate!=null){
+        if(mUserStudyNoteItem.hasReminder() && mUserReminderDate!=null){
             String userDate = formatDate("d MMM, yyyy", mUserReminderDate);
             String formatToUse;
             if(DateFormat.is24HourFormat(this)){
@@ -391,29 +377,29 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         if(mUserEnteredText.length()>0){
 
             String capitalizedString = Character.toUpperCase(mUserEnteredText.charAt(0))+mUserEnteredText.substring(1);
-            mUserToDoItem.setToDoText(capitalizedString);
+            mUserStudyNoteItem.setToDoText(capitalizedString);
         }
         else{
-            mUserToDoItem.setToDoText(mUserEnteredText);
+            mUserStudyNoteItem.setToDoText(mUserEnteredText);
         }
-//        mUserToDoItem.setLastEdited(mLastEdited);
+//        mUserStudyNoteItem.setLastEdited(mLastEdited);
         if(mUserReminderDate!=null){
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(mUserReminderDate);
             calendar.set(Calendar.SECOND, 0);
             mUserReminderDate = calendar.getTime();
         }
-        mUserToDoItem.setHasReminder(mUserHasReminder);
-        mUserToDoItem.setToDoDate(mUserReminderDate);
-        mUserToDoItem.setTodoColor(mUserColor);
-        i.putExtra(TodoNotesFragment.TODOITEM, mUserToDoItem);
+        mUserStudyNoteItem.setHasReminder(mUserHasReminder);
+        mUserStudyNoteItem.setToDoDate(mUserReminderDate);
+        mUserStudyNoteItem.setTodoColor(mUserColor);
+        i.putExtra(StudyNotesFragment.TODOITEM, mUserStudyNoteItem);
         setResult(result, i);
     }
 
     @Override
     public void onBackPressed() {
         if(mUserReminderDate.before(new Date())){
-            mUserToDoItem.setToDoDate(null);
+            mUserStudyNoteItem.setToDoDate(null);
         }
         makeResult(RESULT_OK);
         super.onBackPressed();
