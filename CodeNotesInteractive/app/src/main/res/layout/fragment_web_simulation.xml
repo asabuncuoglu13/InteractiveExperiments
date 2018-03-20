@@ -1,126 +1,139 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF">
+    android:orientation="vertical">
 
-    <ScrollView
+    <View
+        android:id="@+id/empty_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?attr/actionBarSize"/>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingBottom="10dp">
+            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/parameter_layout"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:orientation="vertical">
-
+                    android:id="@+id/parameter_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:weightSum="3"
-                        android:orientation="horizontal">
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/param1_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:paddingBottom="8dp"
-                            android:paddingTop="8dp" />
 
-                        <TextView
-                            android:id="@+id/param2_text"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingBottom="8dp"
-                            android:layout_weight="1"
-                            android:paddingTop="8dp" />
+                            android:layout_margin="8dp"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
 
-                        <TextView
-                            android:id="@+id/param3_text"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/param1_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:paddingBottom="8dp"
+                                android:paddingTop="8dp" />
+
+                            <TextView
+                                android:id="@+id/param2_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:paddingBottom="8dp"
+                                android:paddingTop="8dp" />
+
+                            <TextView
+                                android:id="@+id/param3_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:paddingBottom="8dp"
+                                android:paddingTop="8dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingBottom="8dp"
-                            android:layout_weight="1"
-                            android:paddingTop="8dp" />
+                            android:layout_margin="8dp"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <org.angmarch.views.NiceSpinner
+                                android:id="@+id/param1_spinner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:paddingBottom="8dp" />
+
+                            <org.angmarch.views.NiceSpinner
+                                android:id="@+id/param2_spinner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:paddingBottom="8dp" />
+
+                            <org.angmarch.views.NiceSpinner
+                                android:id="@+id/param3_spinner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:paddingBottom="8dp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/setParameters"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_margin="8dp"
-                        android:weightSum="3"
-                        android:orientation="horizontal">
-
-                        <org.angmarch.views.NiceSpinner
-                            android:id="@+id/param1_spinner"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:paddingBottom="8dp" />
-
-                        <org.angmarch.views.NiceSpinner
-                            android:id="@+id/param2_spinner"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:paddingBottom="8dp" />
-
-                        <org.angmarch.views.NiceSpinner
-                            android:id="@+id/param3_spinner"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:paddingBottom="8dp"/>
-
-                    </LinearLayout>
+                        android:layout_weight="1"
+                        android:background="@drawable/round_button"
+                        android:text="@string/setparams" />
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/setParameters"
-                    android:layout_width="wrap_content"
+                <WebView
+                    android:id="@+id/web_view"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_button"
-                    android:text="@string/setparams" />
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp" />
 
             </LinearLayout>
 
-            <WebView
-                android:id="@+id/web_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp" />
+        </ScrollView>
 
-        </LinearLayout>
+    </FrameLayout>
 
-    </ScrollView>
-
-</FrameLayout>
+</LinearLayout>

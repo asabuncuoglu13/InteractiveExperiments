@@ -2,6 +2,7 @@ package alpay.com.codenotesinteractive.simulation.simulation_fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,6 +51,8 @@ public class SimulationListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_simulation_list, container, false);
+        final FloatingActionButton floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
+        floatingActionButton.setVisibility(View.VISIBLE);
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();

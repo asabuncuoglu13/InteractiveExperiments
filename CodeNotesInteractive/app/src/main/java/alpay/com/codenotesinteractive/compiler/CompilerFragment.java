@@ -8,6 +8,7 @@ import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -74,6 +75,8 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_compiler, container, false);
 
+        final FloatingActionButton floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
+        floatingActionButton.setVisibility(View.GONE);
         cameraView = (SurfaceView) view.findViewById(R.id.surface_view);
         textView = (TextView) view.findViewById(R.id.text_view);
         view.findViewById(R.id.read_code_button).setOnClickListener(this);

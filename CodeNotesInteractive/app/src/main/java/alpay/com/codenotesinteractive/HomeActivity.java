@@ -16,32 +16,24 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
-import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionLayout;
-import com.robertlevonyan.views.customfloatingactionbutton.FloatingLayout;
-import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
-import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
-import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
-import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
-import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import alpay.com.codenotesinteractive.chat.ChatFragment;
 import alpay.com.codenotesinteractive.compiler.CompilerFragment;
 import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 import alpay.com.codenotesinteractive.studynotes.StudyNotesFragment;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class HomeActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener {
+
+    @BindView(R.id.activity_main_toolbar) Toolbar toolbar;
 
     ChatFragment chatFragment;
     SimulationListFragment simulationListFragment;
     CompilerFragment compilerFragment;
     StudyNotesFragment studyNotesFragment;
-    FloatingLayout floatingActionButton;
+
     static boolean largeScreen = false;
     static boolean experimentOn = false;
     static final String STATE_SCREEN = "screenstate";
@@ -74,12 +66,8 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
             experimentOn = savedInstanceState.getBoolean(STATE_EXPERIMENT);
         }
         setContentView(R.layout.activity_home);
-        chatFragment = new ChatFragment();
-        simulationListFragment = new SimulationListFragment();
-        compilerFragment = new CompilerFragment();
-        studyNotesFragment = new StudyNotesFragment();
-        floatingActionButton = (FloatingLayout) findViewById(R.id.home_fab);
-        floatingActionButton.setFabAnimationStyle(FloatingLayout.ANIMATION_POP_RIGHT);
+        ButterKnife.bind(this);
+        createFragments();
         setNavigationDrawer();
         selectFragmentWithCategoryID(Category.CHAT.id);
         if (!Utility.isNetworkAvailable(this)) {
@@ -87,9 +75,16 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         }
     }
 
+    public void createFragments()
+    {
+        chatFragment = new ChatFragment();
+        simulationListFragment = new SimulationListFragment();
+        compilerFragment = new CompilerFragment();
+        studyNotesFragment = new StudyNotesFragment();
+    }
+
     public void setNavigationDrawer()
     {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         navigationDrawer = new DrawerBuilder()

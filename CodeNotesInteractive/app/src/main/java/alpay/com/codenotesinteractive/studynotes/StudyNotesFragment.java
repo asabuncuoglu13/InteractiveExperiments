@@ -38,6 +38,10 @@ import java.util.Collections;
 import java.util.Date;
 
 import alpay.com.codenotesinteractive.R;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.content.Context.ALARM_SERVICE;
@@ -45,11 +49,13 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class StudyNotesFragment extends Fragment {
 
-    public View view;
-    private RecyclerViewEmptySupport mRecyclerView;
-    private FloatingActionButton mAddToDoItemFAB;
+    private Unbinder unbinder;
+
+    @BindView(R.id.toDoRecyclerView) RecyclerViewEmptySupport mRecyclerView;
+    @BindView(R.id.myCoordinatorLayout) CoordinatorLayout mCoordLayout;
+    @BindView(R.id.toDoEmptyView) LinearLayout emptyLayout;
+
     private ArrayList<StudyNoteItem> mStudyNoteItemsArrayList;
-    private CoordinatorLayout mCoordLayout;
     public static final String TODOITEM = "MainFragment";
     private BasicListAdapter adapter;
     private static final int REQUEST_ID_TODO_ITEM = 100;
@@ -64,20 +70,55 @@ public class StudyNotesFragment extends Fragment {
     public static final String SHARED_PREF_DATA_SET_CHANGED = "datasetchanged";
     public static final String CHANGE_OCCURED = "changeoccured";
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_todonotes, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        final FloatingActionButton floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
 
-    public static ArrayList<StudyNoteItem> getLocallyStoredData(StoreRetrieveData storeRetrieveData) {
-        ArrayList<StudyNoteItem> items = null;
-        try {
-            items = storeRetrieveData.loadFromFile();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(CHANGE_OCCURED, false);
+        editor.apply();
 
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-        if (items == null) {
-            items = new ArrayList<>();
-        }
-        return items;
+        storeRetrieveData = new StoreRetrieveData(getActivity(), FILENAME);
+        mStudyNoteItemsArrayList = getLocallyStoredData(storeRetrieveData);
+        adapter = new BasicListAdapter(mStudyNoteItemsArrayList);
+        setAlarms();
 
+        floatingActionButton.setVisibility(View.VISIBLE);
+        floatingActionButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_add_white_24dp));
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addStudyNote();
+            }
+        });
+        mRecyclerView.setEmptyView(emptyLayout);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        customRecyclerScrollViewListener = new CustomRecyclerScrollViewListener() {
+            @Override
+            public void show() {
+                floatingActionButton.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+            }
+            @Override
+            public void hide() {
+                CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) floatingActionButton.getLayoutParams();
+                int fabMargin = lp.bottomMargin;
+                floatingActionButton.animate().translationY(floatingActionButton.getHeight() + fabMargin).setInterpolator(new AccelerateInterpolator(2.0f)).start();
+            }
+        };
+        mRecyclerView.addOnScrollListener(customRecyclerScrollViewListener);
+        ItemTouchHelper.Callback callback = new ItemTouchHelperClass(adapter);
+        itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+        mRecyclerView.setAdapter(adapter);
+        return view;
     }
 
     @Override
@@ -96,6 +137,22 @@ public class StudyNotesFragment extends Fragment {
         }
     }
 
+
+    public static ArrayList<StudyNoteItem> getLocallyStoredData(StoreRetrieveData storeRetrieveData) {
+        ArrayList<StudyNoteItem> items = null;
+        try {
+            items = storeRetrieveData.loadFromFile();
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+        return items;
+
+    }
+
     private void setAlarms() {
         if (mStudyNoteItemsArrayList != null) {
             for (StudyNoteItem item : mStudyNoteItemsArrayList) {
@@ -111,64 +168,6 @@ public class StudyNotesFragment extends Fragment {
                 }
             }
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_todonotes, container, false);
-
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(CHANGE_OCCURED, false);
-        editor.apply();
-
-        storeRetrieveData = new StoreRetrieveData(getActivity(), FILENAME);
-        mStudyNoteItemsArrayList = getLocallyStoredData(storeRetrieveData);
-        adapter = new BasicListAdapter(mStudyNoteItemsArrayList);
-        setAlarms();
-
-        mCoordLayout = (CoordinatorLayout) view.findViewById(R.id.myCoordinatorLayout);
-        mAddToDoItemFAB = (FloatingActionButton) view.findViewById(R.id.addToDoItemFAB);
-        mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
-
-            @SuppressWarnings("deprecation")
-            @Override
-            public void onClick(View v) {
-                Intent newTodo = new Intent(getActivity(), AddToDoActivity.class);
-                StudyNoteItem item = new StudyNoteItem("", false, null);
-                int color = ColorGenerator.MATERIAL.getRandomColor();
-                item.setTodoColor(color);
-                newTodo.putExtra(TODOITEM, item);
-                startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
-            }
-        });
-
-        mRecyclerView = (RecyclerViewEmptySupport) view.findViewById(R.id.toDoRecyclerView);
-        mRecyclerView.setEmptyView(view.findViewById(R.id.toDoEmptyView));
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        customRecyclerScrollViewListener = new CustomRecyclerScrollViewListener() {
-            @Override
-            public void show() {
-                mAddToDoItemFAB.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-            }
-            @Override
-            public void hide() {
-                CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) mAddToDoItemFAB.getLayoutParams();
-                int fabMargin = lp.bottomMargin;
-                mAddToDoItemFAB.animate().translationY(mAddToDoItemFAB.getHeight() + fabMargin).setInterpolator(new AccelerateInterpolator(2.0f)).start();
-            }
-        };
-        mRecyclerView.addOnScrollListener(customRecyclerScrollViewListener);
-        ItemTouchHelper.Callback callback = new ItemTouchHelperClass(adapter);
-        itemTouchHelper = new ItemTouchHelper(callback);
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
-        mRecyclerView.setAdapter(adapter);
-        return view;
     }
 
     private Notification getNotification(String content) {
@@ -379,6 +378,16 @@ public class StudyNotesFragment extends Fragment {
 
     }
 
+    public void addStudyNote()
+    {
+        Intent newTodo = new Intent(getActivity(), AddToDoActivity.class);
+        StudyNoteItem item = new StudyNoteItem("", false, null);
+        int color = ColorGenerator.MATERIAL.getRandomColor();
+        item.setTodoColor(color);
+        newTodo.putExtra(TODOITEM, item);
+        startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -389,11 +398,11 @@ public class StudyNotesFragment extends Fragment {
         }
     }
 
-
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         mRecyclerView.removeOnScrollListener(customRecyclerScrollViewListener);
+        unbinder.unbind();
     }
 
 }
