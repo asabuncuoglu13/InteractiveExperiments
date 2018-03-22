@@ -2,22 +2,11 @@ package alpay.com.codenotesinteractive.simulation;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import alpay.com.codenotesinteractive.R;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneCanvasFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneSimulationFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.LeverSimulationFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.OhmsLawSimulationFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.PulleySimulationFragment;
-import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 
 
 public class Simulation {
@@ -57,87 +46,6 @@ public class Simulation {
         return simulationID;
     }
 
-    public static void callSimulationFragment(FragmentActivity fragmentActivity, int simulationID, double[] parameters)
-    {
-        if(simulationID == -1)
-        {
-            simulationID = getSimulationID(parameters);
-        }
-        InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment;
-        InclinedPlaneCanvasFragment inInclinedPlaneCanvasFragment;
-        ConstantAccelerationSimulationFragment constantAccelerationSimulationFragment;
-        OhmsLawSimulationFragment ohmsLawSimulationFragment;
-        SimulationListFragment simulationListFragment;
-        PulleySimulationFragment pulleySimulationFragment;
-        LeverSimulationFragment leverSimulationFragment;
-        FragmentTransaction ft = fragmentActivity.getSupportFragmentManager().beginTransaction();
-        if(simulationID >0)
-        {
-            if(parameters != null)
-            {
-                if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
-                    inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
-                    inclinedPlaneSimulationFragment.setParameters(parameters);
-                    ft.replace(R.id.fragment_container_home, inclinedPlaneSimulationFragment);
-                } else if (simulationID == SimulationParameters.INCLINED_CANVAS_SIMULATION) {
-                    inInclinedPlaneCanvasFragment = new InclinedPlaneCanvasFragment();
-                    ft.replace(R.id.fragment_container_home, inInclinedPlaneCanvasFragment);
-                }else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
-                    constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
-                    constantAccelerationSimulationFragment.setParameters(parameters);
-                    ft.replace(R.id.fragment_container_home, constantAccelerationSimulationFragment);
-                }else if (simulationID == SimulationParameters.OHMS_LAW_SIMULATION) {
-                    ohmsLawSimulationFragment = new OhmsLawSimulationFragment();
-                    ft.replace(R.id.fragment_container_home, ohmsLawSimulationFragment);
-                }
-                else if (simulationID == SimulationParameters.PULLEY_SIMULATION) {
-                    pulleySimulationFragment = new PulleySimulationFragment();
-                    pulleySimulationFragment.setParameters(parameters);
-                    ft.replace(R.id.fragment_container_home, pulleySimulationFragment);
-                }
-                else if (simulationID == SimulationParameters.LEVER_SIMULATION) {
-                    leverSimulationFragment = new LeverSimulationFragment();
-                    ft.replace(R.id.fragment_container_home, leverSimulationFragment);
-                }
-            }else
-            {
-                if (simulationID == SimulationParameters.INCLINED_PLANE_SIMULATION) {
-                    inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
-                    ft.replace(R.id.fragment_container_home, inclinedPlaneSimulationFragment);
-                } else if (simulationID == SimulationParameters.INCLINED_CANVAS_SIMULATION) {
-                    inInclinedPlaneCanvasFragment = new InclinedPlaneCanvasFragment();
-                    ft.replace(R.id.fragment_container_home, inInclinedPlaneCanvasFragment);
-                }else if (simulationID == SimulationParameters.CONSTANT_ACCELERATION_SIMULATION) {
-                    constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
-                    ft.replace(R.id.fragment_container_home, constantAccelerationSimulationFragment);
-                }else if (simulationID == SimulationParameters.OHMS_LAW_SIMULATION) {
-                    ohmsLawSimulationFragment = new OhmsLawSimulationFragment();
-                    ft.replace(R.id.fragment_container_home, ohmsLawSimulationFragment);
-                }
-                else if (simulationID == SimulationParameters.PULLEY_SIMULATION) {
-                    pulleySimulationFragment = new PulleySimulationFragment();
-                    ft.replace(R.id.fragment_container_home, pulleySimulationFragment);
-                }
-                else if (simulationID == SimulationParameters.LEVER_SIMULATION) {
-                    leverSimulationFragment = new LeverSimulationFragment();
-                    ft.replace(R.id.fragment_container_home, leverSimulationFragment);
-                }
-            }
-        }
-        else
-        {
-            simulationListFragment = new SimulationListFragment();
-            ft.replace(R.id.fragment_container_home, simulationListFragment);
-        }
-        ft.addToBackStack(null);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.commit();
-    }
-
-
-    /**
-     * A dummy item representing a piece of content.
-     */
     public static class SimulationItem {
         public final String id;
         public Drawable image;

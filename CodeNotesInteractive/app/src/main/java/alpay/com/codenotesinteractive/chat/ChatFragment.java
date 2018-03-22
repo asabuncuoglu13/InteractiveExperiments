@@ -35,11 +35,8 @@ import ai.api.android.AIService;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
 import ai.api.model.Result;
-import alpay.com.codenotesinteractive.HowToActivity;
+import alpay.com.codenotesinteractive.HomeActivity;
 import alpay.com.codenotesinteractive.R;
-import alpay.com.codenotesinteractive.compiler.CompilerActivity;
-import alpay.com.codenotesinteractive.simulation.SimulationActivity;
-import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 
 public class ChatFragment extends Fragment implements AIListener, View.OnClickListener {
 
@@ -49,8 +46,6 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
     DatabaseReference ref;
     FirebaseRecyclerAdapter<ChatMessage, ChatViewHolder> adapter;
     Boolean flagFab = true;
-    Boolean translateToTurkish = false;
-
     public View view;
     private AIService aiService;
     AIDataService aiDataService;
@@ -69,15 +64,14 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_chat, container, false);
-        final FloatingActionButton floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
-        floatingActionButton.setVisibility(View.GONE);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //database.setPersistenceEnabled(true);
         ActivityCompat.requestPermissions(this.getActivity(), new String[]{android.Manifest.permission.RECORD_AUDIO}, 1);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         editText = (EditText) view.findViewById(R.id.editText);
         addBtn = (RelativeLayout) view.findViewById(R.id.addBtn);
+        final FloatingActionButton floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
+        floatingActionButton.setVisibility(View.GONE);
 
         recyclerView.setHasFixedSize(true);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
@@ -209,33 +203,12 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
     }
 
     private void handleNavigation(String reply) {
-        if (reply.contains("How-To-Guide")) {
-            Intent intent = new Intent(getActivity(), HowToActivity.class);
+        if (reply.contains("How-To-Guide") || reply.contains("Coding-Area")
+                || reply.contains("Simulation-Area") || reply.contains("Ohms-Law-Experiment")
+                || reply.contains("Inclined-Plane-Experiment") || reply.contains("Constant-Acceleration-Experiment")) {
+            Intent intent = new Intent(getActivity(), HomeActivity.class);
+            intent.putExtra("reply", reply);
             startActivity(intent);
-            return;
-        } else if (reply.contains("Coding-Area")) {
-            Intent intent = new Intent(getActivity(), CompilerActivity.class);
-            startActivity(intent);
-            return;
-        } else if (reply.contains("Simulation-Area")) {
-            Intent intent = new Intent(getActivity(), SimulationActivity.class);
-            startActivity(intent);
-            return;
-        } else if (reply.contains("Ohms-Law-Experiment")) {
-            Intent intent = new Intent(getActivity(), SimulationActivity.class);
-            intent.putExtra("simulationID", SimulationParameters.OHMS_LAW_SIMULATION);
-            startActivity(intent);
-            return;
-        } else if (reply.contains("Inclined-Plane-Experiment")) {
-            Intent intent = new Intent(getActivity(), SimulationActivity.class);
-            intent.putExtra("simulationID", SimulationParameters.INCLINED_PLANE_SIMULATION);
-            startActivity(intent);
-            return;
-        } else if (reply.contains("Constant-Acceleration-Experiment")) {
-            Intent intent = new Intent(getActivity(), SimulationActivity.class);
-            intent.putExtra("simulationID", SimulationParameters.CONSTANT_ACCELERATION_SIMULATION);
-            startActivity(intent);
-            return;
         }
     }
 

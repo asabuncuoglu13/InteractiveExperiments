@@ -27,10 +27,10 @@ import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
 
+import alpay.com.codenotesinteractive.HomeActivity;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.compiler.Components.CameraSource;
 import alpay.com.codenotesinteractive.compiler.Components.CodeBlocksCompiler;
-import alpay.com.codenotesinteractive.simulation.SimulationActivity;
 
 
 public class CompilerFragment extends Fragment implements View.OnClickListener{
@@ -77,6 +77,7 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
 
         final FloatingActionButton floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
         floatingActionButton.setVisibility(View.GONE);
+
         cameraView = (SurfaceView) view.findViewById(R.id.surface_view);
         textView = (TextView) view.findViewById(R.id.text_view);
         view.findViewById(R.id.read_code_button).setOnClickListener(this);
@@ -191,7 +192,7 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
                     createAlertDialog(R.string.no_code_dialog_title, R.string.no_code_dialog_message);
                 }else
                 {
-                    Intent intent = new Intent(getActivity(), SimulationActivity.class);
+                    Intent intent = new Intent(getActivity(), HomeActivity.class);
                     intent.putExtra("output", s);
                     startActivity(intent);
                 }

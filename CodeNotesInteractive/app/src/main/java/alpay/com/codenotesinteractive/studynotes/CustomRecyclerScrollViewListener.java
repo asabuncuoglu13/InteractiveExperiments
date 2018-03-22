@@ -1,7 +1,6 @@
 package alpay.com.codenotesinteractive.studynotes;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 public abstract class CustomRecyclerScrollViewListener extends RecyclerView.OnScrollListener {
     int scrollDist = 0;

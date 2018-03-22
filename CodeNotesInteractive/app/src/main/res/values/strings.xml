@@ -95,4 +95,6 @@
     <string name="date_error_check_again">The date you entered is in the past.</string>
     <string name="remind_date_and_time">Reminder set for %1$s, %2$s %3$s</string>
 
+    <string name="text_exit_from_app">Press back again to exit from app</string>
+
 </resources>

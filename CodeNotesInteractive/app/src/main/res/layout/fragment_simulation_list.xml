@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
+    android:id="@+id/list"
     android:layout_width="match_parent"
-    android:orientation="vertical">
-
-    <View
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/simulation_cardview" />
-
-</LinearLayout>
+    android:layout_height="match_parent"
+    android:layout_margin="12dp"
+    app:layoutManager="LinearLayoutManager"
+    tools:listitem="@layout/simulation_cardview" />

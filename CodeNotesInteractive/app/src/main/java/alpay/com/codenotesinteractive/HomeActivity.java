@@ -3,6 +3,7 @@ package alpay.com.codenotesinteractive;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,52 +12,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.hololo.tutorial.library.TutorialActivity;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import alpay.com.codenotesinteractive.chat.ChatFragment;
-import alpay.com.codenotesinteractive.compiler.CompilerFragment;
+
 import alpay.com.codenotesinteractive.simulation.Simulation;
+import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
-import alpay.com.codenotesinteractive.studynotes.StudyNotesFragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class HomeActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener {
 
-    @BindView(R.id.activity_main_toolbar) Toolbar toolbar;
-
-    ChatFragment chatFragment;
-    SimulationListFragment simulationListFragment;
-    CompilerFragment compilerFragment;
-    StudyNotesFragment studyNotesFragment;
-
+    android.support.design.widget.FloatingActionButton floatingActionButton;
     static boolean largeScreen = false;
     static boolean experimentOn = false;
+    static boolean comingFromHomeScreen = true;
     static final String STATE_SCREEN = "screenstate";
     static final String STATE_EXPERIMENT = "experimentstate";
-
-    public enum Category {
-        CHAT(1),
-        SIMULATION(2),
-        PROGRAMMING(3),
-        NOTE(4);
-
-        public final int id;
-        static int currentCategoryID;
-        Category(int id) {
-            this.id = id;
-        }
-    }
-
     public Drawer navigationDrawer;
-    private OnFilterChangedListener onFilterChangedListener;
-    public void setOnFilterChangedListener(OnFilterChangedListener onFilterChangedListener) {
-        this.onFilterChangedListener = onFilterChangedListener;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,26 +41,31 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
             largeScreen = savedInstanceState.getBoolean(STATE_SCREEN);
             experimentOn = savedInstanceState.getBoolean(STATE_EXPERIMENT);
         }
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            selectFragmentFromChatBundle( bundle.getString("reply"));
+        }
         setContentView(R.layout.activity_home);
-        ButterKnife.bind(this);
-        createFragments();
+        floatingActionButton = (android.support.design.widget.FloatingActionButton) findViewById(R.id.button_fab);
         setNavigationDrawer();
-        selectFragmentWithCategoryID(Category.CHAT.id);
+        if(comingFromHomeScreen)
+        {
+            selectFragmentWithCategoryID(FragmentManager.Category.NOTE.id);
+            comingFromHomeScreen = false;
+        }
         if (!Utility.isNetworkAvailable(this)) {
             Toast.makeText(this, R.string.connection_error, Toast.LENGTH_LONG).show();
         }
     }
 
-    public void createFragments()
-    {
-        chatFragment = new ChatFragment();
-        simulationListFragment = new SimulationListFragment();
-        compilerFragment = new CompilerFragment();
-        studyNotesFragment = new StudyNotesFragment();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        comingFromHomeScreen = true;
     }
 
-    public void setNavigationDrawer()
-    {
+    public void setNavigationDrawer() {
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         navigationDrawer = new DrawerBuilder()
@@ -92,13 +73,12 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                 .withToolbar(toolbar)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_chat).withIdentifier(Category.CHAT.id),
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_simulation).withIdentifier(Category.SIMULATION.id),
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_codenotes).withIdentifier(Category.PROGRAMMING.id),
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_notes).withIdentifier(Category.NOTE.id)
+                        new PrimaryDrawerItem().withName(R.string.bottom_menu_chat).withIdentifier(FragmentManager.Category.CHAT.id),
+                        new PrimaryDrawerItem().withName(R.string.bottom_menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id),
+                        new PrimaryDrawerItem().withName(R.string.bottom_menu_codenotes).withIdentifier(FragmentManager.Category.PROGRAMMING.id),
+                        new PrimaryDrawerItem().withName(R.string.bottom_menu_notes).withIdentifier(FragmentManager.Category.NOTE.id)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem != null) {
@@ -106,43 +86,75 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                                 toolbar.setTitle(((Nameable) drawerItem).getName().getText(HomeActivity.this));
                                 selectFragmentWithCategoryID((int) drawerItem.getIdentifier());
                             }
-                            if (onFilterChangedListener != null) {
-                                onFilterChangedListener.onFilterChanged(drawerItem.getIdentifier());
-                            }
                         }
 
                         return false;
                     }
                 })
                 .build();
-
-        //disable scrollbar :D it's ugly
         this.navigationDrawer.getRecyclerView().setVerticalScrollBarEnabled(false);
     }
 
-    public void selectFragmentWithCategoryID(int id)
-    {
+    public void selectFragmentFromChatBundle(String reply) {
+        if (reply.contains("How-To-Guide")) {
+            Intent intent = new Intent(this, TutorialActivity.class);
+            startActivity(intent);
+        }
+        else if (reply.contains("Coding-Area")) {
+            selectFragmentWithCategoryID(FragmentManager.Category.PROGRAMMING.id);
+        }
+        else if (reply.contains("Simulation-Area")) {
+            selectFragmentWithCategoryID(FragmentManager.Category.SIMULATION.id);
+        }
+        else if (reply.contains("Ohms-Law-Experiment")) {
+            selectFragmentFromSimulationID(SimulationParameters.OHMS_LAW_SIMULATION);
+        }
+        else if (reply.contains("Inclined-Plane-Experiment")) {
+            selectFragmentFromSimulationID(SimulationParameters.INCLINED_PLANE_SIMULATION);
+        }
+        else if (reply.contains("Constant-Acceleration-Experiment")) {
+            selectFragmentFromSimulationID(SimulationParameters.CONSTANT_ACCELERATION_SIMULATION);
+        }
+    }
+
+    public void selectFragmentWithCategoryID(int id) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if(id == Category.CHAT.id && Category.currentCategoryID != Category.CHAT.id)
-        {
-            ft.replace(R.id.fragment_container_home, chatFragment);
-            Category.currentCategoryID = 1;
+        if (id == FragmentManager.Category.CHAT.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.CHAT.id) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.CHAT_FRAGMENT.getFragment());
+            FragmentManager.Category.currentCategoryID = 1;
         }
-        else if(id == Category.SIMULATION.id && Category.currentCategoryID != Category.SIMULATION.id)
-        {
-            ft.replace(R.id.fragment_container_home, simulationListFragment);
-            Category.currentCategoryID = 2;
+        if (id == FragmentManager.Category.SIMULATION.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.SIMULATION.id) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.SIMULATION_LIST_FRAGMENT.getFragment());
+            FragmentManager.Category.currentCategoryID = 2;
         }
-        else if(id == Category.PROGRAMMING.id && Category.currentCategoryID != Category.PROGRAMMING.id)
-        {
-            ft.replace(R.id.fragment_container_home, compilerFragment);
-            Category.currentCategoryID = 3;
+        if (id == FragmentManager.Category.PROGRAMMING.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.PROGRAMMING.id) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.CODENOTES_FRAGMENT.getFragment());
+            FragmentManager.Category.currentCategoryID = 3;
         }
-        else if(id == Category.NOTE.id && Category.currentCategoryID != Category.NOTE.id)
-        {
-            ft.replace(R.id.fragment_container_home, studyNotesFragment);
-            Category.currentCategoryID = 4;
+        if (id == FragmentManager.Category.NOTE.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.NOTE.id) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.STUDY_NOTES_FRAGMENT.getFragment());
+            FragmentManager.Category.currentCategoryID = 4;
         }
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
+    }
+
+    public void selectFragmentFromSimulationID(int id) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (id == FragmentManager.FRAGMENT_TYPE.CONSTANTACCELERATIONSIMULATION_FRAGMENT.getFragmentID()) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.CONSTANTACCELERATIONSIMULATION_FRAGMENT.getFragment());
+        }else if (id == FragmentManager.FRAGMENT_TYPE.INCLINEDPLANECANVAS_FRAGMENT.getFragmentID()) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.INCLINEDPLANECANVAS_FRAGMENT.getFragment());
+        }else if (id == FragmentManager.FRAGMENT_TYPE.INCLINEDPLANESIMULATION_FRAGMENT.getFragmentID()) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.INCLINEDPLANESIMULATION_FRAGMENT.getFragment());
+        }else if (id == FragmentManager.FRAGMENT_TYPE.LEVERSIMULATION_FRAGMENT.getFragmentID()) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.LEVERSIMULATION_FRAGMENT.getFragment());
+        }else if (id == FragmentManager.FRAGMENT_TYPE.OHMSLAWSIMULATION_FRAGMENT.getFragmentID()) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.OHMSLAWSIMULATION_FRAGMENT.getFragment());
+        }else if (id == FragmentManager.FRAGMENT_TYPE.PULLEYSIMULATION_FRAGMENT.getFragmentID()) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.PULLEYSIMULATION_FRAGMENT.getFragment());
+        }
+        FragmentManager.Category.currentCategoryID = 0;
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
     }
@@ -158,7 +170,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     public void onListFragmentInteraction(Simulation.SimulationItem item) {
         int simulationID = Integer.valueOf(item.id);
         experimentOn = true;
-        Simulation.callSimulationFragment(this, simulationID, null);
+        selectFragmentFromSimulationID(simulationID);
     }
 
     @Override
@@ -173,6 +185,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        comingFromHomeScreen = true;
         switch (item.getItemId()) {
             case R.id.action_howto:
                 Intent intent = new Intent(this, HowToActivity.class);
@@ -184,13 +197,25 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         return true;
     }
 
+    boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        if (navigationDrawer.isDrawerOpen())
-        {
+        if (navigationDrawer.isDrawerOpen()) {
             navigationDrawer.closeDrawer();
+            return;
         }
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, R.string.text_exit_from_app, Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
 }
