@@ -14,15 +14,12 @@ import alpay.com.codenotesinteractive.simulation.simulation_fragments.PulleySimu
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 import alpay.com.codenotesinteractive.studynotes.StudyNotesFragment;
 
-/**
- * Created by alpay1 on 22.03.2018.
- */
-
 public class FragmentManager {
 
 
     enum FRAGMENT_TYPE {
         CHAT_FRAGMENT {
+
             @Override
             public Fragment getFragment() {
                 ChatFragment chatFragment = new ChatFragment();
@@ -31,7 +28,7 @@ public class FragmentManager {
 
             @Override
             public int getFragmentID() {
-                return 0;
+                return Category.CHAT.id;
             }
         },
         SIMULATION_LIST_FRAGMENT {
@@ -43,7 +40,7 @@ public class FragmentManager {
 
             @Override
             public int getFragmentID() {
-                return 0;
+                return Category.SIMULATION.id;
             }
         },
         STUDY_NOTES_FRAGMENT {
@@ -55,7 +52,7 @@ public class FragmentManager {
 
             @Override
             public int getFragmentID() {
-                return 0;
+                return Category.NOTE.id;
             }
         },
         CODENOTES_FRAGMENT {
@@ -67,7 +64,7 @@ public class FragmentManager {
 
             @Override
             public int getFragmentID() {
-                return 0;
+                return Category.PROGRAMMING.id;
             }
         },
         INCLINEDPLANESIMULATION_FRAGMENT{

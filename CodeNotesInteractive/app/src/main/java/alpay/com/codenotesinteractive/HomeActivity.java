@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,11 +23,12 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class HomeActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener {
 
-    android.support.design.widget.FloatingActionButton floatingActionButton;
     static boolean largeScreen = false;
     static boolean experimentOn = false;
     static boolean comingFromHomeScreen = true;
@@ -34,9 +36,17 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     static final String STATE_EXPERIMENT = "experimentstate";
     public Drawer navigationDrawer;
 
+    @Nullable
+    @OnClick(R.id.button_fab)
+    public void setFABBehaviour(){
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
+        setNavigationDrawer();
         if (savedInstanceState != null) {
             largeScreen = savedInstanceState.getBoolean(STATE_SCREEN);
             experimentOn = savedInstanceState.getBoolean(STATE_EXPERIMENT);
@@ -45,9 +55,6 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         if (bundle != null) {
             selectFragmentFromChatBundle( bundle.getString("reply"));
         }
-        setContentView(R.layout.activity_home);
-        floatingActionButton = (android.support.design.widget.FloatingActionButton) findViewById(R.id.button_fab);
-        setNavigationDrawer();
         if(comingFromHomeScreen)
         {
             selectFragmentWithCategoryID(FragmentManager.Category.NOTE.id);
