@@ -3,7 +3,6 @@ package alpay.com.codenotesinteractive;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -29,47 +28,52 @@ import butterknife.OnClick;
 
 public class HomeActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener {
 
-    static boolean largeScreen = false;
-    static boolean comingFromHomeScreen = true;
-    static final String STATE_SCREEN = "screenstate";
-    static final String STATE_EXPERIMENT = "experimentstate";
-    public Drawer navigationDrawer;
-
-    @Nullable
-    @OnClick(R.id.button_fab)
-    public void setFABBehaviour() {
-    }
+    Drawer navigationDrawer;
+    boolean largeScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        setNavigationDrawer();
-        if (savedInstanceState != null) {
-            largeScreen = savedInstanceState.getBoolean(STATE_SCREEN);
-        }
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
+        largeScreen = findViewById(R.id.fragment_chat_container) != null;
+        if (bundle != null)
             selectFragmentFromChatBundle(bundle.getString("reply"));
-        }
-        if (comingFromHomeScreen) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.STUDY_NOTES_FRAGMENT.getFragment());
-            FragmentManager.Category.currentCategoryID = 4;
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            ft.commit();
-            comingFromHomeScreen = false;
-        }
-        if (!Utility.isNetworkAvailable(this)) {
+        if (!Utility.isNetworkAvailable(this))
             Toast.makeText(this, R.string.connection_error, Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        comingFromHomeScreen = true;
+    protected void onStart() {
+        super.onStart();
+        setNavigationDrawer();
+        if (largeScreen) {
+            setLargeScreenView();
+            return;
+        } else {
+            setNormalScreenView();
+            return;
+        }
+    }
+
+    public void setNormalScreenView() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.STUDY_NOTES_FRAGMENT.getFragment());
+        FragmentManager.Category.currentCategoryID = 4;
+        ft.commit();
+    }
+
+    public void setLargeScreenView() {
+        FragmentTransaction ftr = getSupportFragmentManager().beginTransaction();
+        ftr.replace(R.id.fragment_chat_container, FragmentManager.FRAGMENT_TYPE.CHAT_FRAGMENT.getFragment());
+        ftr.commit();
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.STUDY_NOTES_FRAGMENT.getFragment());
+        FragmentManager.Category.currentCategoryID = 4;
+        ft.commit();
+
     }
 
     public void setNavigationDrawer() {
@@ -81,10 +85,9 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                 .withToolbar(toolbar)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_chat).withIdentifier(FragmentManager.Category.CHAT.id),
+                        new PrimaryDrawerItem().withName(R.string.bottom_menu_notes).withIdentifier(FragmentManager.Category.NOTE.id),
                         new PrimaryDrawerItem().withName(R.string.bottom_menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id),
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_codenotes).withIdentifier(FragmentManager.Category.PROGRAMMING.id),
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_notes).withIdentifier(FragmentManager.Category.NOTE.id)
+                        new PrimaryDrawerItem().withName(R.string.bottom_menu_codenotes).withIdentifier(FragmentManager.Category.PROGRAMMING.id)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -99,6 +102,8 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                     }
                 })
                 .build();
+        if (!largeScreen)
+            navigationDrawer.addItem(new PrimaryDrawerItem().withName(R.string.bottom_menu_chat).withIdentifier(FragmentManager.Category.CHAT.id));
         this.navigationDrawer.getRecyclerView().setVerticalScrollBarEnabled(false);
     }
 
@@ -164,12 +169,6 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     }
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putBoolean(STATE_SCREEN, largeScreen);
-        super.onSaveInstanceState(savedInstanceState);
-    }
-
-    @Override
     public void onListFragmentInteraction(Simulation.SimulationItem item) {
         int simulationID = Integer.valueOf(item.id);
         selectFragmentFromSimulationID(simulationID);
@@ -187,7 +186,6 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        comingFromHomeScreen = true;
         switch (item.getItemId()) {
             case R.id.action_howto:
                 Intent intent = new Intent(this, HowToActivity.class);
@@ -199,7 +197,6 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         return true;
     }
 
-    //boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
         if (navigationDrawer.isDrawerOpen()) {

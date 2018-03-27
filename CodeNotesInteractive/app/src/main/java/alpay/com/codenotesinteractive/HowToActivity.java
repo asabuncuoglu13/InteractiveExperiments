@@ -1,6 +1,5 @@
 package alpay.com.codenotesinteractive;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.hololo.tutorial.library.Step;
@@ -73,7 +72,11 @@ public class HowToActivity extends TutorialActivity {
 
     @Override
     public void finishTutorial() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishTutorial();
     }
 }

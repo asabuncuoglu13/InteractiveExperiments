@@ -2,30 +2,11 @@ package alpay.com.codenotesinteractive.simulation.simulation_fragments;
 
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.AdapterView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.franmontiel.fullscreendialog.FullScreenDialogFragment;
-import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetView;
-
-import org.angmarch.views.NiceSpinner;
-
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.Utility;

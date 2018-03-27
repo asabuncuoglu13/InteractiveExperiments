@@ -118,9 +118,6 @@ public class StudyNotesFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_todonotes, container, false);
 
-        final FloatingActionButton floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
-        floatingActionButton.setVisibility(View.VISIBLE);
-
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(CHANGE_OCCURED, false);
@@ -132,7 +129,7 @@ public class StudyNotesFragment extends Fragment {
         setAlarms();
 
         mCoordLayout = (CoordinatorLayout) view.findViewById(R.id.myCoordinatorLayout);
-        mAddToDoItemFAB = (FloatingActionButton) view.findViewById(R.id.addToDoItemFAB);
+        mAddToDoItemFAB = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
         mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
 
             @SuppressWarnings("deprecation")

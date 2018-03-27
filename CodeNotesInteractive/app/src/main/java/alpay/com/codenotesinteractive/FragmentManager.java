@@ -19,7 +19,6 @@ public class FragmentManager {
 
     enum FRAGMENT_TYPE {
         CHAT_FRAGMENT {
-
             @Override
             public Fragment getFragment() {
                 ChatFragment chatFragment = new ChatFragment();
@@ -67,10 +66,10 @@ public class FragmentManager {
                 return Category.PROGRAMMING.id;
             }
         },
-        INCLINEDPLANESIMULATION_FRAGMENT{
+        INCLINEDPLANESIMULATION_FRAGMENT {
             @Override
             public Fragment getFragment() {
-                InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment  = new InclinedPlaneSimulationFragment();
+                InclinedPlaneSimulationFragment inclinedPlaneSimulationFragment = new InclinedPlaneSimulationFragment();
                 return inclinedPlaneSimulationFragment;
             }
 
@@ -79,7 +78,7 @@ public class FragmentManager {
                 return SimulationParameters.INCLINED_PLANE_SIMULATION;
             }
         },
-        INCLINEDPLANECANVAS_FRAGMENT{
+        INCLINEDPLANECANVAS_FRAGMENT {
             @Override
             public Fragment getFragment() {
                 InclinedPlaneCanvasFragment inclinedPlaneCanvasFragment = new InclinedPlaneCanvasFragment();
@@ -91,7 +90,7 @@ public class FragmentManager {
                 return SimulationParameters.INCLINED_CANVAS_SIMULATION;
             }
         },
-        CONSTANTACCELERATIONSIMULATION_FRAGMENT{
+        CONSTANTACCELERATIONSIMULATION_FRAGMENT {
             @Override
             public Fragment getFragment() {
                 ConstantAccelerationSimulationFragment constantAccelerationSimulationFragment = new ConstantAccelerationSimulationFragment();
@@ -103,7 +102,7 @@ public class FragmentManager {
                 return SimulationParameters.CONSTANT_ACCELERATION_SIMULATION;
             }
         },
-        OHMSLAWSIMULATION_FRAGMENT{
+        OHMSLAWSIMULATION_FRAGMENT {
             @Override
             public Fragment getFragment() {
                 OhmsLawSimulationFragment ohmsLawSimulationFragment = new OhmsLawSimulationFragment();
@@ -115,7 +114,7 @@ public class FragmentManager {
                 return SimulationParameters.OHMS_LAW_SIMULATION;
             }
         },
-        PULLEYSIMULATION_FRAGMENT{
+        PULLEYSIMULATION_FRAGMENT {
             @Override
             public Fragment getFragment() {
                 PulleySimulationFragment pulleySimulationFragment = new PulleySimulationFragment();
@@ -127,7 +126,7 @@ public class FragmentManager {
                 return SimulationParameters.PULLEY_SIMULATION;
             }
         },
-        LEVERSIMULATION_FRAGMENT{
+        LEVERSIMULATION_FRAGMENT {
             @Override
             public Fragment getFragment() {
                 LeverSimulationFragment leverSimulationFragment = new LeverSimulationFragment();
@@ -141,6 +140,7 @@ public class FragmentManager {
         };
 
         public abstract Fragment getFragment();
+
         public abstract int getFragmentID();
     }
 
@@ -151,6 +151,7 @@ public class FragmentManager {
         NOTE(4);
         public final int id;
         static int currentCategoryID;
+
         Category(int id) {
             this.id = id;
         }

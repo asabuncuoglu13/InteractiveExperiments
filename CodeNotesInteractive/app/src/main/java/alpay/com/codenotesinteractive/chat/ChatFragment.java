@@ -94,7 +94,6 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override

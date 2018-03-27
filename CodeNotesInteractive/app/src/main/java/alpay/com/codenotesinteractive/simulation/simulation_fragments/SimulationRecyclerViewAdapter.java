@@ -18,7 +18,6 @@ import alpay.com.codenotesinteractive.simulation.simulation_fragments.Simulation
 /**
  * {@link RecyclerView.Adapter} that can display a {@link SimulationItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class SimulationRecyclerViewAdapter extends RecyclerView.Adapter<SimulationRecyclerViewAdapter.ViewHolder> {
 

@@ -17,7 +17,6 @@ import alpay.com.codenotesinteractive.simulation.Simulation.SimulationItem;
 
 public class SimulationListFragment extends Fragment {
 
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -68,7 +67,6 @@ public class SimulationListFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(SimulationItem item);
     }
 }
