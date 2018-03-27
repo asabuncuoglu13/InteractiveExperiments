@@ -13,99 +13,72 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="10dp">
+            android:padding="10dp">
 
             <LinearLayout
                 android:id="@+id/parameter_layout"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="3"
+                    android:orientation="horizontal">
 
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:weightSum="3"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:paddingBottom="8dp">
 
-                        <TextView
-                            android:id="@+id/param1_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:paddingBottom="8dp"
-                            android:paddingTop="8dp" />
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/textInputParameter1"
+                            android:inputType="numberDecimal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
 
-                        <TextView
-                            android:id="@+id/param2_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingBottom="8dp"
-                            android:layout_weight="1"
-                            android:paddingTop="8dp" />
+                    </android.support.design.widget.TextInputLayout>
 
-                        <TextView
-                            android:id="@+id/param3_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingBottom="8dp"
-                            android:layout_weight="1"
-                            android:paddingTop="8dp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:weightSum="3"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:paddingBottom="8dp">
 
-                        <org.angmarch.views.NiceSpinner
-                            android:id="@+id/param1_spinner"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:paddingBottom="8dp" />
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/textInputParameter2"
+                            android:inputType="numberDecimal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
 
-                        <org.angmarch.views.NiceSpinner
-                            android:id="@+id/param2_spinner"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:paddingBottom="8dp" />
+                    </android.support.design.widget.TextInputLayout>
 
-                        <org.angmarch.views.NiceSpinner
-                            android:id="@+id/param3_spinner"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:paddingBottom="8dp"/>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="8dp">
 
-                    </LinearLayout>
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/textInputParameter3"
+                            android:inputType="numberDecimal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/setParameters"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_button"
                     android:text="@string/setparams" />

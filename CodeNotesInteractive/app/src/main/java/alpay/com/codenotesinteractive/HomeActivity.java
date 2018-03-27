@@ -30,7 +30,6 @@ import butterknife.OnClick;
 public class HomeActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener {
 
     static boolean largeScreen = false;
-    static boolean experimentOn = false;
     static boolean comingFromHomeScreen = true;
     static final String STATE_SCREEN = "screenstate";
     static final String STATE_EXPERIMENT = "experimentstate";
@@ -38,7 +37,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
 
     @Nullable
     @OnClick(R.id.button_fab)
-    public void setFABBehaviour(){
+    public void setFABBehaviour() {
     }
 
     @Override
@@ -49,15 +48,17 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         setNavigationDrawer();
         if (savedInstanceState != null) {
             largeScreen = savedInstanceState.getBoolean(STATE_SCREEN);
-            experimentOn = savedInstanceState.getBoolean(STATE_EXPERIMENT);
         }
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            selectFragmentFromChatBundle( bundle.getString("reply"));
+            selectFragmentFromChatBundle(bundle.getString("reply"));
         }
-        if(comingFromHomeScreen)
-        {
-            selectFragmentWithCategoryID(FragmentManager.Category.NOTE.id);
+        if (comingFromHomeScreen) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.STUDY_NOTES_FRAGMENT.getFragment());
+            FragmentManager.Category.currentCategoryID = 4;
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
             comingFromHomeScreen = false;
         }
         if (!Utility.isNetworkAvailable(this)) {
@@ -89,12 +90,11 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem != null) {
-                            if (drawerItem instanceof Nameable) {
+                            if (drawerItem instanceof Nameable && FragmentManager.Category.currentCategoryID != drawerItem.getIdentifier()) {
                                 toolbar.setTitle(((Nameable) drawerItem).getName().getText(HomeActivity.this));
                                 selectFragmentWithCategoryID((int) drawerItem.getIdentifier());
                             }
                         }
-
                         return false;
                     }
                 })
@@ -106,20 +106,15 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         if (reply.contains("How-To-Guide")) {
             Intent intent = new Intent(this, TutorialActivity.class);
             startActivity(intent);
-        }
-        else if (reply.contains("Coding-Area")) {
+        } else if (reply.contains("Coding-Area")) {
             selectFragmentWithCategoryID(FragmentManager.Category.PROGRAMMING.id);
-        }
-        else if (reply.contains("Simulation-Area")) {
+        } else if (reply.contains("Simulation-Area")) {
             selectFragmentWithCategoryID(FragmentManager.Category.SIMULATION.id);
-        }
-        else if (reply.contains("Ohms-Law-Experiment")) {
+        } else if (reply.contains("Ohms-Law-Experiment")) {
             selectFragmentFromSimulationID(SimulationParameters.OHMS_LAW_SIMULATION);
-        }
-        else if (reply.contains("Inclined-Plane-Experiment")) {
+        } else if (reply.contains("Inclined-Plane-Experiment")) {
             selectFragmentFromSimulationID(SimulationParameters.INCLINED_PLANE_SIMULATION);
-        }
-        else if (reply.contains("Constant-Acceleration-Experiment")) {
+        } else if (reply.contains("Constant-Acceleration-Experiment")) {
             selectFragmentFromSimulationID(SimulationParameters.CONSTANT_ACCELERATION_SIMULATION);
         }
     }
@@ -143,6 +138,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
             FragmentManager.Category.currentCategoryID = 4;
         }
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.addToBackStack("CategoryFragment");
         ft.commit();
     }
 
@@ -150,25 +146,25 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (id == FragmentManager.FRAGMENT_TYPE.CONSTANTACCELERATIONSIMULATION_FRAGMENT.getFragmentID()) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.CONSTANTACCELERATIONSIMULATION_FRAGMENT.getFragment());
-        }else if (id == FragmentManager.FRAGMENT_TYPE.INCLINEDPLANECANVAS_FRAGMENT.getFragmentID()) {
+        } else if (id == FragmentManager.FRAGMENT_TYPE.INCLINEDPLANECANVAS_FRAGMENT.getFragmentID()) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.INCLINEDPLANECANVAS_FRAGMENT.getFragment());
-        }else if (id == FragmentManager.FRAGMENT_TYPE.INCLINEDPLANESIMULATION_FRAGMENT.getFragmentID()) {
+        } else if (id == FragmentManager.FRAGMENT_TYPE.INCLINEDPLANESIMULATION_FRAGMENT.getFragmentID()) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.INCLINEDPLANESIMULATION_FRAGMENT.getFragment());
-        }else if (id == FragmentManager.FRAGMENT_TYPE.LEVERSIMULATION_FRAGMENT.getFragmentID()) {
+        } else if (id == FragmentManager.FRAGMENT_TYPE.LEVERSIMULATION_FRAGMENT.getFragmentID()) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.LEVERSIMULATION_FRAGMENT.getFragment());
-        }else if (id == FragmentManager.FRAGMENT_TYPE.OHMSLAWSIMULATION_FRAGMENT.getFragmentID()) {
+        } else if (id == FragmentManager.FRAGMENT_TYPE.OHMSLAWSIMULATION_FRAGMENT.getFragmentID()) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.OHMSLAWSIMULATION_FRAGMENT.getFragment());
-        }else if (id == FragmentManager.FRAGMENT_TYPE.PULLEYSIMULATION_FRAGMENT.getFragmentID()) {
+        } else if (id == FragmentManager.FRAGMENT_TYPE.PULLEYSIMULATION_FRAGMENT.getFragmentID()) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.PULLEYSIMULATION_FRAGMENT.getFragment());
         }
         FragmentManager.Category.currentCategoryID = 0;
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.addToBackStack("SimulationFragment");
         ft.commit();
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putBoolean(STATE_EXPERIMENT, experimentOn);
         savedInstanceState.putBoolean(STATE_SCREEN, largeScreen);
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -176,7 +172,6 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     @Override
     public void onListFragmentInteraction(Simulation.SimulationItem item) {
         int simulationID = Integer.valueOf(item.id);
-        experimentOn = true;
         selectFragmentFromSimulationID(simulationID);
     }
 
@@ -204,25 +199,19 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         return true;
     }
 
-    boolean doubleBackToExitPressedOnce = false;
+    //boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
         if (navigationDrawer.isDrawerOpen()) {
             navigationDrawer.closeDrawer();
             return;
         }
-        if (doubleBackToExitPressedOnce) {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count <= 1) {
             super.onBackPressed();
-            return;
+        } else {
+            getFragmentManager().popBackStack();
         }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, R.string.text_exit_from_app, Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
     }
 
 }

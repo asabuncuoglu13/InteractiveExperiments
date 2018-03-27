@@ -3,6 +3,8 @@ package alpay.com.codenotesinteractive.simulation.simulation_fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,22 +30,38 @@ import java.util.List;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
+import butterknife.BindView;
+import butterknife.OnClick;
 
-public class ConstantAccelerationSimulationFragment extends Fragment implements View.OnClickListener {
+public class ConstantAccelerationSimulationFragment extends BaseJavaScriptSimulationFragment {
 
     public View view;
-    private WebView webView;
+    public double[] parameters = {0.0, 0.0, 0.0}; // weight, pulley_weight
 
-    private String simulationName = "";
-    public double[] parameters = {0.0, 0.0, 0.0};
-    private FullScreenDialogFragment dialogFragment;
-    private static final String TAG = "ConstantAccSimulation";
+    @Nullable
+    @BindView(R.id.textInputParameter1)
+    TextInputEditText paramtext1;
 
-    public ConstantAccelerationSimulationFragment() {
+    @Nullable
+    @BindView(R.id.textInputParameter2)
+    TextInputEditText paramtext2;
 
+    @Nullable
+    @BindView(R.id.textInputParameter3)
+    TextInputEditText paramtext3;
+
+
+    @Override
+    public void setWebView() {
+        super.urlString = "file:///android_asset/ConstantAcceleration/index.html";
+        super.setWebView();
+        super.webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
+        super.webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.CONSTANT_ACCELERATION_SCREEN_SIZE));
+        prepareViews();
     }
 
-    public void setParameters(double[] params) {
+    @Override
+    public void setParametersWithCoding(double[] params) {
         for (int i = 0; i < params.length - 1; i++) {
             if (params[i] == SimulationParameters.POSITION) {
                 parameters[0] = params[i + 1];
@@ -57,149 +75,45 @@ public class ConstantAccelerationSimulationFragment extends Fragment implements 
         }
     }
 
-
-    public void setSimulation(String simulationName) {
-        this.simulationName = simulationName;
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_web_simulation, container, false);
-        TextView paramtext1 = (TextView) view.findViewById(R.id.param1_text);
-        TextView paramtext2 = (TextView) view.findViewById(R.id.param2_text);
-        TextView paramtext3 = (TextView) view.findViewById(R.id.param3_text);
-        paramtext1.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[0]);
-        paramtext2.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[1]);
-        paramtext3.setText(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[2]);
-
-        if (SimulationParameters.showTapTarget) {
-            TapTargetView.showFor(getActivity(),                 // `this` is an Activity
-                    TapTarget.forView(view.findViewById(R.id.setParameters), getString(R.string.tap_target_title), getString(R.string.tap_target_detail))
-                            // All options below are optional
-                            .outerCircleColor(R.color.colorPrimaryDark)      // Specify a color for the outer circle
-                            .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
-                            .drawShadow(true)                   // Whether to draw a drop shadow or not
-                            .cancelable(true)                  // Whether tapping outside the outer circle dismisses the view
-                            .tintTarget(true)                   // Whether to tint the target view's color
-                            .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
-                            .targetRadius(10),                  // Specify the target radius (in dp)
-                    new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
-                        @Override
-                        public void onTargetClick(TapTargetView view) {
-                            super.onTargetClick(view);      // This call is optional
-                            //
-                        }
-                    });
-        }
-
-        SimulationParameters.showTapTarget = false;
-
-        webView = (WebView) view.findViewById(R.id.web_view);
-        webView.setWebChromeClient(new WebChromeClient() {
-        });
-        webView.setPadding(0, 0, 0, 0);
-        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.CONSTANT_ACCELERATION_SCREEN_SIZE));
-        webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-
-        NiceSpinner position_spinner = (NiceSpinner) view.findViewById(R.id.param1_spinner);
-        final List<Double> position_dataset = new LinkedList<>(Arrays.asList(5.0, 7.0, 9.0));
-        position_spinner.attachDataSource(position_dataset);
-
-        position_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                parameters[0] = position_dataset.get(position);
-            }
-        });
-
-        NiceSpinner velocity_spinner = (NiceSpinner) view.findViewById(R.id.param2_spinner);
-        final List<Double> velocity_dataset = new LinkedList<>(Arrays.asList(2.0, 3.0, 4.0));
-        velocity_spinner.attachDataSource(velocity_dataset);
-
-        velocity_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                parameters[1] = velocity_dataset.get(position);
-            }
-        });
-
-        NiceSpinner acceleration_spinner = (NiceSpinner) view.findViewById(R.id.param3_spinner);
-        final List<Double> acceleration_dataset = new LinkedList<>(Arrays.asList(0.2, 0.4, 0.6, 0.8, 1.0));
-        acceleration_spinner.attachDataSource(acceleration_dataset);
-
-        acceleration_spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                parameters[2] = acceleration_dataset.get(position);
-            }
-        });
-
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setUseWideViewPort(true);
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-        webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
-
-        view.findViewById(R.id.setParameters).setOnClickListener(this);
-
-        webView.loadUrl("file:///android_asset/ConstantAcceleration/index.html");
-
-        webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setUseWideViewPort(true);
-
-        return view;
+    public void prepareViews() {
+        paramtext1.setHint(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[0]);
+        paramtext2.setHint(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[1]);
+        paramtext3.setHint(SimulationParameters.CONSTANT_ACCELERATION_PARAMETER_TEXTS[2]);
     }
 
     public class JavaScriptInterface {
         Context mContext;
+
         JavaScriptInterface(Context c) {
             mContext = c;
         }
+
         @JavascriptInterface
         public double getPosition() {
             return parameters[0];
         }
+
         @JavascriptInterface
         public double getVelocity() {
             return parameters[1];
         }
+
         @JavascriptInterface
         public double getAcceleration() {
             return parameters[2];
         }
     }
 
-    public double[] getParameters() {
-
-        if (parameters[0] > 0 && parameters[1] > 0 && parameters[2] > 0) {
-            return parameters;
+    @Nullable
+    @OnClick(R.id.setParameters)
+    public void setParameters() {
+        if (paramtext1.getText().toString() == "" || paramtext2.getText().toString() == "" || paramtext3.getText().toString() == "") {
+            Toast.makeText(getActivity(), R.string.tap_target_detail, Toast.LENGTH_SHORT).show();
+            return;
         } else {
-            Toast.makeText(this.getContext(), R.string.all_text_required, Toast.LENGTH_SHORT).show();
-            return parameters;
+            parameters[0] = Double.valueOf(paramtext1.getText().toString());
+            parameters[1] = Double.valueOf(paramtext2.getText().toString());
+            parameters[2] = Double.valueOf(paramtext3.getText().toString());
         }
-    }
-
-    public void setParametersToDefault() {
-        parameters[0] = 0; //position
-        parameters[1] = 10; //velocity
-        parameters[2] = 1; //acceleration
-    }
-
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.setParameters) {
-            parameters = getParameters();
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 }
