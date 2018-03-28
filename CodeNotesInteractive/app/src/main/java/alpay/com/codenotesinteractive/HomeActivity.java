@@ -3,7 +3,6 @@ package alpay.com.codenotesinteractive;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,7 +22,6 @@ import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class HomeActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener {
