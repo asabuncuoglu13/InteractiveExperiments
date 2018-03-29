@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 
 import alpay.com.codenotesinteractive.chat.ChatFragment;
 import alpay.com.codenotesinteractive.compiler.CompilerFragment;
+import alpay.com.codenotesinteractive.home.HomeFragment;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.InclinedPlaneCanvasFragment;
@@ -18,6 +19,18 @@ public class FragmentManager {
 
 
     enum FRAGMENT_TYPE {
+        HOME_FRAGMENT {
+            @Override
+            public Fragment getFragment() {
+                HomeFragment homeFragment = new HomeFragment();
+                return homeFragment;
+            }
+
+            @Override
+            public int getFragmentID() {
+                return Category.HOME.id;
+            }
+        },
         CHAT_FRAGMENT {
             @Override
             public Fragment getFragment() {
@@ -148,7 +161,8 @@ public class FragmentManager {
         CHAT(1),
         SIMULATION(2),
         PROGRAMMING(3),
-        NOTE(4);
+        NOTE(4),
+        HOME(5);
         public final int id;
         static int currentCategoryID;
 

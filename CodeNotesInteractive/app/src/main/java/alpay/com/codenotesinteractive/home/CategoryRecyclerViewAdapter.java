@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import alpay.com.codenotesinteractive.R;
@@ -16,10 +17,14 @@ import alpay.com.codenotesinteractive.R;
 public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.ViewHolder> {
 
     private final List<Category> mValues;
-    private final HomeFragment.OnCategoryListFragmentInteractionListener mListener;
+    private final OnCategoryListFragmentInteractionListener mListener;
     private Context context;
 
-    public CategoryRecyclerViewAdapter(List<Category> items, HomeFragment.OnCategoryListFragmentInteractionListener listener) {
+    public interface OnCategoryListFragmentInteractionListener {
+        void onCategoryListFragmentInteraction(CategoryRecyclerViewAdapter.Category item);
+    }
+
+    public CategoryRecyclerViewAdapter(List<Category> items, OnCategoryListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -76,17 +81,16 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     }
 
     public static class Category {
-        public final String id;
+        public static final List<Category> ITEMS = new ArrayList<Category>();
         public String name;
         public Drawable image;
 
-        public Category(String id, String name, Drawable image) {
-            this.id = id;
+        public Category(Context context, String name, int imageID) {
             this.name = name;
-            this.image= image;
+            setImage(context, imageID);
         }
 
-        public void setImageID(Context context, int ID) {
+        public void setImage(Context context, int ID) {
             this.image = context.getResources().getDrawable(ID);
         }
 

@@ -77,8 +77,10 @@
                 <Button
                     android:id="@+id/setParameters"
                     android:layout_width="match_parent"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginLeft="50dp"
                     android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/round_button"
                     android:text="@string/setparams" />

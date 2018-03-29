@@ -83,6 +83,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                 .withToolbar(toolbar)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
+                        new PrimaryDrawerItem().withName(R.string.bottom_menu_home).withIdentifier(FragmentManager.Category.HOME.id),
                         new PrimaryDrawerItem().withName(R.string.bottom_menu_notes).withIdentifier(FragmentManager.Category.NOTE.id),
                         new PrimaryDrawerItem().withName(R.string.bottom_menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id),
                         new PrimaryDrawerItem().withName(R.string.bottom_menu_codenotes).withIdentifier(FragmentManager.Category.PROGRAMMING.id)
@@ -124,21 +125,27 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
 
     public void selectFragmentWithCategoryID(int id) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (id == FragmentManager.Category.HOME.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.HOME.id) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.HOME_FRAGMENT.getFragment());
+            FragmentManager.Category.currentCategoryID = FragmentManager.Category.HOME.id;
+        }
+
         if (id == FragmentManager.Category.CHAT.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.CHAT.id) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.CHAT_FRAGMENT.getFragment());
-            FragmentManager.Category.currentCategoryID = 1;
+            FragmentManager.Category.currentCategoryID = FragmentManager.Category.CHAT.id;
         }
+
         if (id == FragmentManager.Category.SIMULATION.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.SIMULATION.id) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.SIMULATION_LIST_FRAGMENT.getFragment());
-            FragmentManager.Category.currentCategoryID = 2;
+            FragmentManager.Category.currentCategoryID = FragmentManager.Category.SIMULATION.id;
         }
         if (id == FragmentManager.Category.PROGRAMMING.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.PROGRAMMING.id) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.CODENOTES_FRAGMENT.getFragment());
-            FragmentManager.Category.currentCategoryID = 3;
+            FragmentManager.Category.currentCategoryID = FragmentManager.Category.PROGRAMMING.id;
         }
         if (id == FragmentManager.Category.NOTE.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.NOTE.id) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.STUDY_NOTES_FRAGMENT.getFragment());
-            FragmentManager.Category.currentCategoryID = 4;
+            FragmentManager.Category.currentCategoryID = FragmentManager.Category.NOTE.id;
         }
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.addToBackStack("CategoryFragment");
