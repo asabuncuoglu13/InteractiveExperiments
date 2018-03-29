@@ -15,10 +15,6 @@ import alpay.com.codenotesinteractive.simulation.Simulation.SimulationItem;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment.OnListFragmentInteractionListener;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link SimulationItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- */
 public class SimulationRecyclerViewAdapter extends RecyclerView.Adapter<SimulationRecyclerViewAdapter.ViewHolder> {
 
     private final List<SimulationItem> mValues;
@@ -45,13 +41,10 @@ public class SimulationRecyclerViewAdapter extends RecyclerView.Adapter<Simulati
         holder.mContentView.setText(mValues.get(position).content);
         holder.mDetailView.setText(mValues.get(position).details);
         holder.mImageView.setImageDrawable(mValues.get(position).image);
-        //holder.mImageView.setImageResource(R.drawable.ic_image);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }

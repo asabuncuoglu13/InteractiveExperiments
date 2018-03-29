@@ -8,6 +8,7 @@ import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
+import ai.api.util.StringUtils;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
@@ -34,9 +35,9 @@ public class PulleySimulationFragment extends BaseJavaScriptSimulationFragment {
 
     @Override
     public void setWebView() {
-        super.urlString = "file:///android_asset/Pulley/index.html";
         super.setWebView();
         super.webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
+        super.webView.loadUrl("file:///android_asset/Pulley/index.html");
         super.webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.PULLEY_SCREEN_SIZE));
         prepareViews();
     }
@@ -79,12 +80,10 @@ public class PulleySimulationFragment extends BaseJavaScriptSimulationFragment {
     @Nullable
     @OnClick(R.id.setParameters)
     public void setParameters() {
-        if(paramtext1.getText().toString() == "" || paramtext2.getText().toString() == "")
-        {
+        if (StringUtils.isEmpty(paramtext1.getText().toString()) || StringUtils.isEmpty(paramtext2.getText().toString())) {
             Toast.makeText(getActivity(), R.string.tap_target_detail, Toast.LENGTH_SHORT).show();
             return;
-        }else
-        {
+        } else {
             parameters[0] = Double.valueOf(paramtext1.getText().toString());
             parameters[1] = Double.valueOf(paramtext2.getText().toString());
         }

@@ -15,14 +15,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class HomeFragment extends Fragment implements CategoryRecyclerViewAdapter.OnCategoryListFragmentInteractionListener{
+public class HomeFragment extends Fragment{
 
 
     Unbinder unbinder;
     View view;
+    RecyclerView.Adapter categoryAdapter;
+
     @BindView(R.id.categorySelectView)
     RecyclerView categoryRecyclerView;
-    CategoryRecyclerViewAdapter.OnCategoryListFragmentInteractionListener categoryListFragmentInteractionListener;
 
     public HomeFragment() {
     }
@@ -39,34 +40,13 @@ public class HomeFragment extends Fragment implements CategoryRecyclerViewAdapte
     {
         CategoryRecyclerViewAdapter.Category.ITEMS.add(new CategoryRecyclerViewAdapter.Category(getActivity(),"Hello", R.drawable.ball));
         CategoryRecyclerViewAdapter.Category.ITEMS.add(new CategoryRecyclerViewAdapter.Category(getActivity(),"Hello", R.drawable.ball));
-        categoryRecyclerView.setAdapter(new CategoryRecyclerViewAdapter(CategoryRecyclerViewAdapter.Category.ITEMS, categoryListFragmentInteractionListener));
+        categoryAdapter = new CategoryRecyclerViewAdapter(CategoryRecyclerViewAdapter.Category.ITEMS);
+        categoryRecyclerView.setAdapter(categoryAdapter);
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof CategoryRecyclerViewAdapter.OnCategoryListFragmentInteractionListener) {
-            categoryListFragmentInteractionListener = (CategoryRecyclerViewAdapter.OnCategoryListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        categoryListFragmentInteractionListener = null;
-    }
-
 
     @Override
     public void onDestroy() {
         unbinder.unbind();
         super.onDestroy();
-    }
-
-    @Override
-    public void onCategoryListFragmentInteraction(CategoryRecyclerViewAdapter.Category item) {
-
     }
 }

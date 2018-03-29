@@ -129,26 +129,13 @@ public class StudyNotesFragment extends Fragment {
         setAlarms();
 
         mCoordLayout = (CoordinatorLayout) view.findViewById(R.id.myCoordinatorLayout);
-        mAddToDoItemFAB = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
-        mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
-
-            @SuppressWarnings("deprecation")
-            @Override
-            public void onClick(View v) {
-                Intent newTodo = new Intent(getActivity(), AddToDoActivity.class);
-                StudyNoteItem item = new StudyNoteItem("", false, null);
-                int color = ColorGenerator.MATERIAL.getRandomColor();
-                item.setTodoColor(color);
-                newTodo.putExtra(TODOITEM, item);
-                startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
-            }
-        });
-
         mRecyclerView = (RecyclerViewEmptySupport) view.findViewById(R.id.toDoRecyclerView);
         mRecyclerView.setEmptyView(view.findViewById(R.id.toDoEmptyView));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        setFABAction();
 
         customRecyclerScrollViewListener = new CustomRecyclerScrollViewListener() {
             @Override
@@ -168,6 +155,22 @@ public class StudyNotesFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
         mRecyclerView.setAdapter(adapter);
         return view;
+    }
+
+    private void setFABAction(){
+        mAddToDoItemFAB = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
+        mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onClick(View v) {
+                Intent newTodo = new Intent(getActivity(), AddToDoActivity.class);
+                StudyNoteItem item = new StudyNoteItem("", false, null);
+                int color = ColorGenerator.MATERIAL.getRandomColor();
+                item.setTodoColor(color);
+                newTodo.putExtra(TODOITEM, item);
+                startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
+            }
+        });
     }
 
     private Notification getNotification(String content) {

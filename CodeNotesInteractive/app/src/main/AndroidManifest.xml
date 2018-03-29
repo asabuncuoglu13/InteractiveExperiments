@@ -16,13 +16,17 @@
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".AccelerometerPlayActivity" />
         <activity android:name=".HowToActivity" />
-        <activity android:name=".studynotes.AddToDoActivity"/>
+        <activity android:name=".studynotes.AddToDoActivity" />
+
         <receiver android:name=".studynotes.NotificationPublisher" />
+
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>

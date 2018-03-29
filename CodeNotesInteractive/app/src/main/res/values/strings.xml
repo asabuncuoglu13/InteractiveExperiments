@@ -5,6 +5,7 @@
     <string name="bottom_menu_simulation">Simulation</string>
     <string name="bottom_menu_notes">Take Notes</string>
     <string name="bottom_menu_home">Home</string>
+    <string name="bottom_menu_login">Login</string>
     <string name="detector_dependency">Dependencies are not met</string>
 
     <string name="tap_target_title">Set Parameters before tapping START.</string>

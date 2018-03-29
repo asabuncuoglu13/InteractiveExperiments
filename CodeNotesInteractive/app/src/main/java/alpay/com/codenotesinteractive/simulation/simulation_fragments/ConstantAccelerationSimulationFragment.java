@@ -8,6 +8,7 @@ import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
+import ai.api.util.StringUtils;
 import alpay.com.codenotesinteractive.R;
 import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
@@ -34,10 +35,10 @@ public class ConstantAccelerationSimulationFragment extends BaseJavaScriptSimula
 
     @Override
     public void setWebView() {
-        super.urlString = "file:///android_asset/ConstantAcceleration/index.html";
         super.setWebView();
         super.webView.addJavascriptInterface(new JavaScriptInterface(this.getContext()), "Android");
         super.webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.CONSTANT_ACCELERATION_SCREEN_SIZE));
+        super.webView.loadUrl("file:///android_asset/ConstantAcceleration/index.html");
         prepareViews();
     }
 
@@ -88,7 +89,7 @@ public class ConstantAccelerationSimulationFragment extends BaseJavaScriptSimula
     @Nullable
     @OnClick(R.id.setParameters)
     public void setParameters() {
-        if (paramtext1.getText().toString() == "" || paramtext2.getText().toString() == "" || paramtext3.getText().toString() == "") {
+        if (StringUtils.isEmpty(paramtext1.getText().toString()) || StringUtils.isEmpty(paramtext2.getText().toString())  || StringUtils.isEmpty(paramtext3.getText().toString()) ) {
             Toast.makeText(getActivity(), R.string.tap_target_detail, Toast.LENGTH_SHORT).show();
             return;
         } else {

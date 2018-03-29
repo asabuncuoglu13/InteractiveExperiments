@@ -83,6 +83,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                 .withToolbar(toolbar)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
+                        new PrimaryDrawerItem().withName(R.string.bottom_menu_login).withIdentifier(FragmentManager.Category.LOGIN.id),
                         new PrimaryDrawerItem().withName(R.string.bottom_menu_home).withIdentifier(FragmentManager.Category.HOME.id),
                         new PrimaryDrawerItem().withName(R.string.bottom_menu_notes).withIdentifier(FragmentManager.Category.NOTE.id),
                         new PrimaryDrawerItem().withName(R.string.bottom_menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id),
@@ -125,6 +126,11 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
 
     public void selectFragmentWithCategoryID(int id) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (id == FragmentManager.Category.LOGIN.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.LOGIN.id) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.LOGIN_FRAGMENT.getFragment());
+            FragmentManager.Category.currentCategoryID = FragmentManager.Category.LOGIN.id;
+        }
+
         if (id == FragmentManager.Category.HOME.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.HOME.id) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.HOME_FRAGMENT.getFragment());
             FragmentManager.Category.currentCategoryID = FragmentManager.Category.HOME.id;
@@ -183,10 +189,6 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_menu, menu);
         return true;
-    }
-
-    public interface OnFilterChangedListener {
-        void onFilterChanged(long filter);
     }
 
     @Override

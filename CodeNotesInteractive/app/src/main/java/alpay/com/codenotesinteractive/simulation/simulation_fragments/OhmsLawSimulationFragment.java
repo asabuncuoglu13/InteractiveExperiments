@@ -18,9 +18,9 @@ public class OhmsLawSimulationFragment extends BaseJavaScriptSimulationFragment 
 
     @Override
     public void setWebView() {;
-        super.urlString = "file:///android_asset/OhmsLaw/index.html";
         super.setWebView();
         super.webView.setInitialScale(Utility.getScale(getActivity(), SimulationParameters.OHMS_LAW_SCREEN_SIZE));
+        super.webView.loadUrl("file:///android_asset/OhmsLaw/index.html");
         parameterLayout.setVisibility(View.INVISIBLE);
     }
 

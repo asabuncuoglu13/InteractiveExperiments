@@ -17,66 +17,49 @@ import alpay.com.codenotesinteractive.R;
 public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.ViewHolder> {
 
     private final List<Category> mValues;
-    private final OnCategoryListFragmentInteractionListener mListener;
-    private Context context;
 
-    public interface OnCategoryListFragmentInteractionListener {
-        void onCategoryListFragmentInteraction(CategoryRecyclerViewAdapter.Category item);
-    }
-
-    public CategoryRecyclerViewAdapter(List<Category> items, OnCategoryListFragmentInteractionListener listener) {
+    public CategoryRecyclerViewAdapter(List<Category> items) {
         mValues = items;
-        mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_cardview, parent, false);
-        return new ViewHolder(view);
+    public CategoryRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.category_cardview, parent, false);
+        ViewHolder vh = new ViewHolder(v);
+        return vh;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mContentView.setText(mValues.get(position).name);
+        holder.mNameVıew.setText(mValues.get(position).name);
         holder.mImageView.setImageDrawable(mValues.get(position).image);
-        //holder.mImageView.setImageResource(R.drawable.ic_image);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onCategoryListFragmentInteraction(holder.mItem);
+                if (null != mValues) {
+
                 }
             }
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return mValues.size();
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View mView;
-        public TextView mContentView;
-        public TextView mDetailView;
+        public TextView mNameVıew;
         public ImageView mImageView;
         public Category mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mContentView = (TextView) view.findViewById(R.id.content);
-            mDetailView = (TextView) view.findViewById(R.id.detail);
-            mImageView = (ImageView) view.findViewById(R.id.card_image);
+            mNameVıew = (TextView) view.findViewById(R.id.categoryName);
+            mImageView = (ImageView) view.findViewById(R.id.categoryDrawable);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mNameVıew.getText() + "'";
         }
     }
 
@@ -98,5 +81,11 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         public String toString() {
             return name;
         }
+    }
+
+    // Return the size of your dataset (invoked by the layout manager)
+    @Override
+    public int getItemCount() {
+        return mValues.size();
     }
 }
