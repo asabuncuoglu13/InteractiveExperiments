@@ -2,6 +2,7 @@ package alpay.com.codenotesinteractive;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
@@ -43,8 +44,10 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     Drawer navigationDrawer;
     boolean largeScreen;
     List<AuthUI.IdpConfig> providers;
-    private FirebaseAuth mAuth;
-    private static final int RC_SIGN_IN = 123;
+    FirebaseAuth mAuth;
+    FirebaseUser mUser;
+    Toolbar toolbar;
+    static final int RC_SIGN_IN = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,23 +57,48 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         Bundle bundle = getIntent().getExtras();
         mAuth = FirebaseAuth.getInstance();
         providers = Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
-        largeScreen = findViewById(R.id.fragment_chat_container) != null;
-        setNavigationDrawer();
-        if (largeScreen)
-            setLargeScreenView();
-        else
-            setNormalScreenView();
+        prepareView();
         if (bundle != null)
             selectFragmentFromChatBundle(bundle.getString("reply"));
         if (!Utility.isNetworkAvailable(this))
             Toast.makeText(this, R.string.connection_error, Toast.LENGTH_LONG).show();
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (mAuth != null && mUser != null) {
+            mUser = mAuth.getCurrentUser();
+            updateViewWithUserAccount(mUser);
+        } else {
+            updateViewForNoAccount();
+        }
+    }
+
+    private void prepareView()
+    {
+        largeScreen = findViewById(R.id.fragment_chat_container) != null;
+        prepareToolbar();
+        if (largeScreen)
+            setLargeScreenView();
+        else
+            setNormalScreenView();
+    }
+
+    public void updateViewWithUserAccount(FirebaseUser user) {
+        createNavigationBuilderWithAccount();
+        if (navigationDrawer.getDrawerItem(FragmentManager.Category.LOGIN.id) != null)
+            navigationDrawer.removeItem(FragmentManager.Category.LOGIN.id);
+        if (navigationDrawer.getDrawerItem(FragmentManager.Category.LOGOUT.id) == null)
+            navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_logout_sketch).withName(R.string.menu_logout).withIdentifier(FragmentManager.Category.LOGOUT.id));
+    }
+
+    public void updateViewForNoAccount() {
+        createNavigationBuilderForNoAccount();
+        if (navigationDrawer.getDrawerItem(FragmentManager.Category.LOGOUT.id) != null)
+            navigationDrawer.removeItem(FragmentManager.Category.LOGOUT.id);
+        if (navigationDrawer.getDrawerItem(FragmentManager.Category.LOGIN.id) == null)
+            navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_google_sketch).withName(R.string.menu_login).withIdentifier(FragmentManager.Category.LOGIN.id));
     }
 
 
@@ -90,26 +118,21 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.STUDY_NOTES_FRAGMENT.getFragment());
         FragmentManager.Category.currentCategoryID = 4;
         ft.commit();
-
     }
 
-    public void setNavigationDrawer() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
+    public void prepareToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
-        AccountHeader accountHeader = createAccountHeader();
+    }
+
+    public void createNavigationBuilderWithAccount() {
+        AccountHeader accountHeader = createAccountHeader(mUser.getDisplayName(), mUser.getEmail(), mUser.getPhotoUrl());
         navigationDrawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withAccountHeader(accountHeader)
                 .withHeader(R.layout.header)
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withIcon(R.drawable.ic_google_sketch).withName(R.string.menu_login).withIdentifier(FragmentManager.Category.LOGIN.id),
-                        new PrimaryDrawerItem().withIcon(R.drawable.ic_home_sketch).withName(R.string.menu_home).withIdentifier(FragmentManager.Category.HOME.id),
-                        new PrimaryDrawerItem().withIcon(R.drawable.ic_take_notes).withName(R.string.menu_studynotes).withIdentifier(FragmentManager.Category.NOTE.id),
-                        new PrimaryDrawerItem().withIcon(R.drawable.ic_microscope_sketch).withName(R.string.menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id),
-                        new PrimaryDrawerItem().withIcon(R.drawable.ic_laptop_sketch).withName(R.string.menu_program).withIdentifier(FragmentManager.Category.PROGRAMMING.id)
-                )
+                .withAccountHeader(accountHeader)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -123,16 +146,46 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                     }
                 })
                 .build();
-        if (!largeScreen)
-            navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_chatting_speech_bubbles).withName(R.string.menu_chat).withIdentifier(FragmentManager.Category.CHAT.id));
-        this.navigationDrawer.getRecyclerView().setVerticalScrollBarEnabled(false);
+        setNavigationItems();
     }
 
-    public AccountHeader createAccountHeader() {
+    public void createNavigationBuilderForNoAccount() {
+        navigationDrawer = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withHeader(R.layout.header)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if (drawerItem != null) {
+                            if (drawerItem instanceof Nameable && FragmentManager.Category.currentCategoryID != drawerItem.getIdentifier()) {
+                                toolbar.setTitle(((Nameable) drawerItem).getName().getText(HomeActivity.this));
+                                chooseCategoryAction((int) drawerItem.getIdentifier());
+                            }
+                        }
+                        return false;
+                    }
+                })
+                .build();
+        setNavigationItems();
+    }
+
+    public void setNavigationItems() {
+        if (!largeScreen)
+            navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_chatting_speech_bubbles).withName(R.string.menu_chat).withIdentifier(FragmentManager.Category.CHAT.id));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_home_sketch).withName(R.string.menu_home).withIdentifier(FragmentManager.Category.HOME.id));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_take_notes).withName(R.string.menu_studynotes).withIdentifier(FragmentManager.Category.NOTE.id));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_microscope_sketch).withName(R.string.menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_laptop_sketch).withName(R.string.menu_program).withIdentifier(FragmentManager.Category.PROGRAMMING.id));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_logout_sketch).withName(R.string.menu_logout).withIdentifier(FragmentManager.Category.LOGOUT.id));
+        navigationDrawer.getRecyclerView().setVerticalScrollBarEnabled(false);
+    }
+
+    public AccountHeader createAccountHeader(String name, String email, Uri uri) {
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.drawable.drawer_header_image_experiment)
-                .addProfiles(new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(R.drawable.ic_google_sketch))
+                .withHeaderBackground(R.drawable.header)
+                .addProfiles(new ProfileDrawerItem().withName(name).withEmail(email).withIcon(uri))
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
@@ -164,12 +217,12 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (id == FragmentManager.Category.LOGIN.id) {
             navigationDrawer.closeDrawer();
-            showLoginDialog();
+            loginAction();
         }
 
         if (id == FragmentManager.Category.LOGOUT.id) {
             navigationDrawer.closeDrawer();
-            logOut();
+            logoutAction();
         }
 
         if (id == FragmentManager.Category.HOME.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.HOME.id) {
@@ -245,21 +298,19 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         return true;
     }
 
-    private void showLoginDialog() {
+    private void loginAction() {
         startActivityForResult(AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .build(), RC_SIGN_IN);
     }
 
-    private void logOut() {
+    private void logoutAction() {
         AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     public void onComplete(@NonNull Task<Void> task) {
-                        navigationDrawer.removeItem(FragmentManager.Category.LOGOUT.id);
-                        navigationDrawer.addItem(
-                                new PrimaryDrawerItem().withIcon(R.drawable.ic_google_sketch).withName(R.string.menu_login).withIdentifier(FragmentManager.Category.LOGIN.id));
+                        updateViewForNoAccount();
                         Toast.makeText(getBaseContext(), R.string.logout_completed, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -271,9 +322,8 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                navigationDrawer.removeItem(FragmentManager.Category.LOGIN.id);
-                navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_logout_sketch).withName(R.string.menu_logout).withIdentifier(FragmentManager.Category.LOGOUT.id));
+                mUser = FirebaseAuth.getInstance().getCurrentUser();
+                updateViewWithUserAccount(mUser);
             } else {
                 Toast.makeText(this, R.string.response_type_error + response.getError().getErrorCode(), Toast.LENGTH_SHORT).show();
             }
