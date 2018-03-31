@@ -1,30 +1,29 @@
 <resources>
     <string name="app_name">Interactive Experiments</string>
-    <string name="bottom_menu_chat">ChatBot</string>
-    <string name="bottom_menu_codenotes">Code</string>
-    <string name="bottom_menu_simulation">Simulation</string>
-    <string name="bottom_menu_notes">Take Notes</string>
-    <string name="bottom_menu_home">Home</string>
-    <string name="bottom_menu_login">Login</string>
+    <string name="menu_chat">ChatBot</string>
+    <string name="menu_program">Code</string>
+    <string name="menu_simulation">Simulation</string>
+    <string name="menu_studynotes">Take Notes</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_login">Log In</string>
+    <string name="menu_logout">Log Out</string>
+    <string name="menu_tutorial">Tutorial</string>
+
     <string name="detector_dependency">Dependencies are not met</string>
-
-    <string name="tap_target_title">Set Parameters before tapping START.</string>
-    <string name="tap_target_detail">You should define all parameters before starting experiment.</string>
-
-    <string name="detail_info_button_text">Start Learning!</string>
+    <string name="sign_in_with_google">Sign in with Google to take notes, record your progress and chat with your friends online.</string>
     <string name="check_connection_text">There is no internet connection!
         To continue please be sure you have an active connection.</string>
     <string name="no_code_detected">I am sorry! I could not recognize a meaningful code...</string>
     <string name="no_code_dialog_message">I am sorry! I could not recognize a meaningful code...</string>
     <string name="no_code_dialog_title">I could not recognize the code</string>
     <string name="all_text_required">All fields are required</string>
-    <string name="howto">Tutorial</string>
     <string name="acceleremoter_error">We could not detect your accelerometer sensor.</string>
-
     <string name="response_type_error">Returned response type was not compatible for this chat.</string>
     <string name="connection_error">There is no active internet connection.</string>
     <string name="wrong_arguments_for_simulation">Set arguments are not valid for this experiment.</string>
     <string name="card_image_description">Simulation Thumbnail</string>
+    <string name="paramter_error">You should define all the parameters before starting an experiment.</string>
+    <string name="logout_completed">Log Out Successfull</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -75,7 +74,6 @@
     <string name="category_objects">Objects</string>
     <string name="category_people">People</string>
     <string name="category_technology">Technology</string>
-
 
     <string-array name="snooze_options">
         <item>10 Minutes</item>

@@ -90,7 +90,7 @@ public class ConstantAccelerationSimulationFragment extends BaseJavaScriptSimula
     @OnClick(R.id.setParameters)
     public void setParameters() {
         if (StringUtils.isEmpty(paramtext1.getText().toString()) || StringUtils.isEmpty(paramtext2.getText().toString())  || StringUtils.isEmpty(paramtext3.getText().toString()) ) {
-            Toast.makeText(getActivity(), R.string.tap_target_detail, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.paramter_error, Toast.LENGTH_SHORT).show();
             return;
         } else {
             parameters[0] = Double.valueOf(paramtext1.getText().toString());

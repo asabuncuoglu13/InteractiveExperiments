@@ -26,7 +26,6 @@
 
         <receiver android:name=".studynotes.NotificationPublisher" />
 
-        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>

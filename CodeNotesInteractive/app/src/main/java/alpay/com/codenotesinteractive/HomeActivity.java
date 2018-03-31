@@ -3,6 +3,7 @@ package alpay.com.codenotesinteractive;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,12 +12,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.hololo.tutorial.library.TutorialActivity;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+
+import java.util.Arrays;
+import java.util.List;
 
 import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
@@ -28,6 +42,9 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
 
     Drawer navigationDrawer;
     boolean largeScreen;
+    List<AuthUI.IdpConfig> providers;
+    private FirebaseAuth mAuth;
+    private static final int RC_SIGN_IN = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +52,27 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         Bundle bundle = getIntent().getExtras();
+        mAuth = FirebaseAuth.getInstance();
+        providers = Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
         largeScreen = findViewById(R.id.fragment_chat_container) != null;
+        setNavigationDrawer();
+        if (largeScreen)
+            setLargeScreenView();
+        else
+            setNormalScreenView();
         if (bundle != null)
             selectFragmentFromChatBundle(bundle.getString("reply"));
         if (!Utility.isNetworkAvailable(this))
             Toast.makeText(this, R.string.connection_error, Toast.LENGTH_LONG).show();
     }
 
+
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
-        setNavigationDrawer();
-        if (largeScreen) {
-            setLargeScreenView();
-            return;
-        } else {
-            setNormalScreenView();
-            return;
-        }
+        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
+
 
     public void setNormalScreenView() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -78,16 +97,18 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         final Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+        AccountHeader accountHeader = createAccountHeader();
         navigationDrawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
+                .withAccountHeader(accountHeader)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_login).withIdentifier(FragmentManager.Category.LOGIN.id),
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_home).withIdentifier(FragmentManager.Category.HOME.id),
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_notes).withIdentifier(FragmentManager.Category.NOTE.id),
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id),
-                        new PrimaryDrawerItem().withName(R.string.bottom_menu_codenotes).withIdentifier(FragmentManager.Category.PROGRAMMING.id)
+                        new PrimaryDrawerItem().withIcon(R.drawable.ic_google_sketch).withName(R.string.menu_login).withIdentifier(FragmentManager.Category.LOGIN.id),
+                        new PrimaryDrawerItem().withIcon(R.drawable.ic_home_sketch).withName(R.string.menu_home).withIdentifier(FragmentManager.Category.HOME.id),
+                        new PrimaryDrawerItem().withIcon(R.drawable.ic_take_notes).withName(R.string.menu_studynotes).withIdentifier(FragmentManager.Category.NOTE.id),
+                        new PrimaryDrawerItem().withIcon(R.drawable.ic_microscope_sketch).withName(R.string.menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id),
+                        new PrimaryDrawerItem().withIcon(R.drawable.ic_laptop_sketch).withName(R.string.menu_program).withIdentifier(FragmentManager.Category.PROGRAMMING.id)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -95,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                         if (drawerItem != null) {
                             if (drawerItem instanceof Nameable && FragmentManager.Category.currentCategoryID != drawerItem.getIdentifier()) {
                                 toolbar.setTitle(((Nameable) drawerItem).getName().getText(HomeActivity.this));
-                                selectFragmentWithCategoryID((int) drawerItem.getIdentifier());
+                                chooseCategoryAction((int) drawerItem.getIdentifier());
                             }
                         }
                         return false;
@@ -103,8 +124,23 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                 })
                 .build();
         if (!largeScreen)
-            navigationDrawer.addItem(new PrimaryDrawerItem().withName(R.string.bottom_menu_chat).withIdentifier(FragmentManager.Category.CHAT.id));
+            navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_chatting_speech_bubbles).withName(R.string.menu_chat).withIdentifier(FragmentManager.Category.CHAT.id));
         this.navigationDrawer.getRecyclerView().setVerticalScrollBarEnabled(false);
+    }
+
+    public AccountHeader createAccountHeader() {
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.drawer_header_image_experiment)
+                .addProfiles(new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(R.drawable.ic_google_sketch))
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
+        return headerResult;
     }
 
     public void selectFragmentFromChatBundle(String reply) {
@@ -112,9 +148,9 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
             Intent intent = new Intent(this, TutorialActivity.class);
             startActivity(intent);
         } else if (reply.contains("Coding-Area")) {
-            selectFragmentWithCategoryID(FragmentManager.Category.PROGRAMMING.id);
+            chooseCategoryAction(FragmentManager.Category.PROGRAMMING.id);
         } else if (reply.contains("Simulation-Area")) {
-            selectFragmentWithCategoryID(FragmentManager.Category.SIMULATION.id);
+            chooseCategoryAction(FragmentManager.Category.SIMULATION.id);
         } else if (reply.contains("Ohms-Law-Experiment")) {
             selectFragmentFromSimulationID(SimulationParameters.OHMS_LAW_SIMULATION);
         } else if (reply.contains("Inclined-Plane-Experiment")) {
@@ -124,11 +160,16 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         }
     }
 
-    public void selectFragmentWithCategoryID(int id) {
+    public void chooseCategoryAction(int id) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if (id == FragmentManager.Category.LOGIN.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.LOGIN.id) {
-            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.LOGIN_FRAGMENT.getFragment());
-            FragmentManager.Category.currentCategoryID = FragmentManager.Category.LOGIN.id;
+        if (id == FragmentManager.Category.LOGIN.id) {
+            navigationDrawer.closeDrawer();
+            showLoginDialog();
+        }
+
+        if (id == FragmentManager.Category.LOGOUT.id) {
+            navigationDrawer.closeDrawer();
+            logOut();
         }
 
         if (id == FragmentManager.Category.HOME.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.HOME.id) {
@@ -202,6 +243,41 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    private void showLoginDialog() {
+        startActivityForResult(AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .build(), RC_SIGN_IN);
+    }
+
+    private void logOut() {
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    public void onComplete(@NonNull Task<Void> task) {
+                        navigationDrawer.removeItem(FragmentManager.Category.LOGOUT.id);
+                        navigationDrawer.addItem(
+                                new PrimaryDrawerItem().withIcon(R.drawable.ic_google_sketch).withName(R.string.menu_login).withIdentifier(FragmentManager.Category.LOGIN.id));
+                        Toast.makeText(getBaseContext(), R.string.logout_completed, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+            if (resultCode == RESULT_OK) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                navigationDrawer.removeItem(FragmentManager.Category.LOGIN.id);
+                navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_logout_sketch).withName(R.string.menu_logout).withIdentifier(FragmentManager.Category.LOGOUT.id));
+            } else {
+                Toast.makeText(this, R.string.response_type_error + response.getError().getErrorCode(), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

@@ -19,18 +19,6 @@ public class FragmentManager {
 
 
     enum FRAGMENT_TYPE {
-        LOGIN_FRAGMENT {
-            @Override
-            public Fragment getFragment() {
-                LoginFragment loginFragment = new LoginFragment();
-                return loginFragment;
-            }
-
-            @Override
-            public int getFragmentID() {
-                return Category.LOGIN.id;
-            }
-        },
         HOME_FRAGMENT {
             @Override
             public Fragment getFragment() {
@@ -175,7 +163,8 @@ public class FragmentManager {
         PROGRAMMING(3),
         NOTE(4),
         HOME(5),
-        LOGIN(6);
+        LOGIN(6),
+        LOGOUT(7);
         public final int id;
         static int currentCategoryID;
 

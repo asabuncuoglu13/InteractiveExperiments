@@ -44,7 +44,7 @@ public abstract class BaseJavaScriptSimulationFragment extends Fragment {
         return view;
     }
 
-    private void setFABAction(){
+    private void setFABAction() {
         floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("deprecation")
@@ -65,10 +65,7 @@ public abstract class BaseJavaScriptSimulationFragment extends Fragment {
         newFragment.show(ft, "dialog");
     }
 
-
-
-    public void setWebView()
-    {
+    public void setWebView() {
         WebSettings webSettings = webView.getSettings();
         webView.setWebChromeClient(new WebChromeClient() {
         });
