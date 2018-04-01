@@ -22,6 +22,7 @@
         android:id="@+id/fragment_container_home"
         android:layout_alignTop="@+id/activity_main_toolbar"
         android:layout_marginTop="?attr/actionBarSize"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

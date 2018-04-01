@@ -18,7 +18,7 @@ import alpay.com.codenotesinteractive.studynotes.StudyNotesFragment;
 public class FragmentManager {
 
 
-    enum FRAGMENT_TYPE {
+    public enum FRAGMENT_TYPE {
         HOME_FRAGMENT {
             @Override
             public Fragment getFragment() {
@@ -157,7 +157,7 @@ public class FragmentManager {
         public abstract int getFragmentID();
     }
 
-    enum Category {
+    public enum Category {
         CHAT(1),
         SIMULATION(2),
         PROGRAMMING(3),
@@ -166,7 +166,7 @@ public class FragmentManager {
         LOGIN(6),
         LOGOUT(7);
         public final int id;
-        static int currentCategoryID;
+        public static int currentCategoryID;
 
         Category(int id) {
             this.id = id;

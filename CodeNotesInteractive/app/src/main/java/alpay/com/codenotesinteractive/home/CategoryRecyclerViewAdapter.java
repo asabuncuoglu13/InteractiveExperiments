@@ -55,6 +55,12 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
             mView = view;
             mNameVıew = (TextView) view.findViewById(R.id.categoryName);
             mImageView = (ImageView) view.findViewById(R.id.categoryDrawable);
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
 
         @Override

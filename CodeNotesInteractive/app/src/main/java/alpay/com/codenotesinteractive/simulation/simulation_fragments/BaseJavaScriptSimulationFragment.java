@@ -1,6 +1,5 @@
 package alpay.com.codenotesinteractive.simulation.simulation_fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -13,14 +12,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.amulyakhare.textdrawable.util.ColorGenerator;
-
 import alpay.com.codenotesinteractive.R;
-import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.chat.ChatDialogFragment;
-import alpay.com.codenotesinteractive.simulation.SimulationParameters;
-import alpay.com.codenotesinteractive.studynotes.AddToDoActivity;
-import alpay.com.codenotesinteractive.studynotes.StudyNoteItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

@@ -10,18 +10,16 @@
     </style>
 
     <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
-        <item name="android:src">@drawable/ic_howto</item>
+        <item name="android:src">@drawable/ic_tutorial</item>
         <item name="android:background">?android:attr/actionBarItemBackground</item>
         <item name="android:contentDescription">"Tutorial"</item>
     </style>
     <style name="CardTextName" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/textColorDark</item>
-        <item name="android:typeface">monospace</item>
     </style>
 
     <style name="CardTextDetail" parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">@color/textColorLight</item>
-        <item name="android:typeface">monospace</item>
     </style>
 
 </resources>

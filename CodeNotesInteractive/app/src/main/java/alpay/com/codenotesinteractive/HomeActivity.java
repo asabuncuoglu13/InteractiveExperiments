@@ -104,8 +104,8 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
 
     public void setNormalScreenView() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.STUDY_NOTES_FRAGMENT.getFragment());
-        FragmentManager.Category.currentCategoryID = 4;
+        ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.HOME_FRAGMENT.getFragment());
+        FragmentManager.Category.currentCategoryID = FragmentManager.Category.HOME.id;
         ft.commit();
     }
 
@@ -115,8 +115,8 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         ftr.commit();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.STUDY_NOTES_FRAGMENT.getFragment());
-        FragmentManager.Category.currentCategoryID = 4;
+        ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.HOME_FRAGMENT.getFragment());
+        FragmentManager.Category.currentCategoryID = FragmentManager.Category.HOME.id;
         ft.commit();
     }
 
@@ -171,9 +171,9 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     }
 
     public void setNavigationItems() {
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_home_sketch).withName(R.string.menu_home).withIdentifier(FragmentManager.Category.HOME.id));
         if (!largeScreen)
             navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_chatting_speech_bubbles).withName(R.string.menu_chat).withIdentifier(FragmentManager.Category.CHAT.id));
-        navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_home_sketch).withName(R.string.menu_home).withIdentifier(FragmentManager.Category.HOME.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_take_notes).withName(R.string.menu_studynotes).withIdentifier(FragmentManager.Category.NOTE.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_microscope_sketch).withName(R.string.menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_laptop_sketch).withName(R.string.menu_program).withIdentifier(FragmentManager.Category.PROGRAMMING.id));

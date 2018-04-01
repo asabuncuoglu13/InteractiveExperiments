@@ -17,6 +17,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
                 android:text="CATEGORIES"/>
 
             <android.support.v7.widget.RecyclerView
@@ -31,20 +34,24 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
                 android:text="LAST NOTES"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/lastNotesView"
+            <FrameLayout
+                android:id="@+id/homefragment_notecontainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layoutManager="LinearLayoutManager"
-                tools:listitem="@layout/list_item_view_future">
-            </android.support.v7.widget.RecyclerView>
+                android:layout_height="250dp">
+
+            </FrameLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
                 android:text="LATEST CONTENT"/>
 
             <android.support.v7.widget.RecyclerView
