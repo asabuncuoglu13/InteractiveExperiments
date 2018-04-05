@@ -1,4 +1,4 @@
-package alpay.com.codenotesinteractive;
+package alpay.com.codenotesinteractive.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.Display;
 import android.view.WindowManager;
+
+import alpay.com.codenotesinteractive.R;
 
 public class Utility {
 

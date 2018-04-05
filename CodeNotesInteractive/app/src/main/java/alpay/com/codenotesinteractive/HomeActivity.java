@@ -1,13 +1,12 @@
 package alpay.com.codenotesinteractive;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.hololo.tutorial.library.TutorialActivity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -33,20 +31,25 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 import java.util.Arrays;
 import java.util.List;
 
+import alpay.com.codenotesinteractive.blockly.BlocklyActivity;
+import alpay.com.codenotesinteractive.home.CategoryRecyclerViewAdapter;
+import alpay.com.codenotesinteractive.home.HomeFragment;
 import alpay.com.codenotesinteractive.simulation.Simulation;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.SimulationListFragment;
+import alpay.com.codenotesinteractive.util.FragmentManager;
+import alpay.com.codenotesinteractive.util.Utility;
 import butterknife.ButterKnife;
 
 
-public class HomeActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener {
+public class HomeActivity extends AppCompatActivity implements SimulationListFragment.OnListFragmentInteractionListener, HomeFragment.OnListFragmentInteractionListener {
 
     Drawer navigationDrawer;
     boolean largeScreen;
     List<AuthUI.IdpConfig> providers;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-    Toolbar toolbar;
+    ActionBar toolbar;
     static final int RC_SIGN_IN = 123;
 
     @Override
@@ -75,10 +78,12 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         }
     }
 
-    private void prepareView()
-    {
+    private void prepareView() {
         largeScreen = findViewById(R.id.fragment_chat_container) != null;
-        prepareToolbar();
+        toolbar = getSupportActionBar();
+        toolbar.setHomeButtonEnabled(true);
+        toolbar.setDisplayHomeAsUpEnabled(true);
+        toolbar.setHomeAsUpIndicator(R.drawable.ic_hamburger);
         if (largeScreen)
             setLargeScreenView();
         else
@@ -120,17 +125,12 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         ft.commit();
     }
 
-    public void prepareToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(toolbar);
-    }
-
     public void createNavigationBuilderWithAccount() {
         AccountHeader accountHeader = createAccountHeader(mUser.getDisplayName(), mUser.getEmail(), mUser.getPhotoUrl());
         navigationDrawer = new DrawerBuilder()
                 .withActivity(this)
-                .withToolbar(toolbar)
+                .withTranslucentStatusBar(false)
+                .withActionBarDrawerToggle(true)
                 .withHeader(R.layout.header)
                 .withAccountHeader(accountHeader)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -152,7 +152,8 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     public void createNavigationBuilderForNoAccount() {
         navigationDrawer = new DrawerBuilder()
                 .withActivity(this)
-                .withToolbar(toolbar)
+                .withTranslucentStatusBar(false)
+                .withActionBarDrawerToggle(true)
                 .withHeader(R.layout.header)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -177,6 +178,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_take_notes).withName(R.string.menu_studynotes).withIdentifier(FragmentManager.Category.NOTE.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_microscope_sketch).withName(R.string.menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_laptop_sketch).withName(R.string.menu_program).withIdentifier(FragmentManager.Category.PROGRAMMING.id));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_laptop_sketch).withName(R.string.menu_blockly).withIdentifier(FragmentManager.Category.BLOCKLY.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_logout_sketch).withName(R.string.menu_logout).withIdentifier(FragmentManager.Category.LOGOUT.id));
         navigationDrawer.getRecyclerView().setVerticalScrollBarEnabled(false);
     }
@@ -198,7 +200,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
 
     public void selectFragmentFromChatBundle(String reply) {
         if (reply.contains("How-To-Guide")) {
-            Intent intent = new Intent(this, TutorialActivity.class);
+            Intent intent = new Intent(this, com.hololo.tutorial.library.TutorialActivity.class);
             startActivity(intent);
         } else if (reply.contains("Coding-Area")) {
             chooseCategoryAction(FragmentManager.Category.PROGRAMMING.id);
@@ -223,6 +225,10 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         if (id == FragmentManager.Category.LOGOUT.id) {
             navigationDrawer.closeDrawer();
             logoutAction();
+        }
+        if (id == FragmentManager.Category.BLOCKLY.id) {
+            Intent intent = new Intent(this, BlocklyActivity.class);
+            startActivity(intent);
         }
 
         if (id == FragmentManager.Category.HOME.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.HOME.id) {
@@ -280,6 +286,13 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     }
 
     @Override
+    public void onListFragmentInteraction(CategoryRecyclerViewAdapter.Category item) {
+        String categoryName = item.name;
+        chooseCategoryAction(FragmentManager.Category.SIMULATION.id);
+        Toast.makeText(this, "You select: " + categoryName, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_menu, menu);
         return true;
@@ -289,8 +302,14 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_howto:
-                Intent intent = new Intent(this, HowToActivity.class);
+                Intent intent = new Intent(this, UserTutorialActivity.class);
                 startActivity(intent);
+                break;
+            case android.R.id.home:
+                if(navigationDrawer.isDrawerOpen())
+                    navigationDrawer.closeDrawer();
+                else
+                    navigationDrawer.openDrawer();
                 break;
             default:
                 return super.onOptionsItemSelected(item);

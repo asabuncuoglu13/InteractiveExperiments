@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import ai.api.util.StringUtils;
 import alpay.com.codenotesinteractive.R;
-import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
+import alpay.com.codenotesinteractive.util.Utility;
 import butterknife.BindView;
 import butterknife.OnClick;
 

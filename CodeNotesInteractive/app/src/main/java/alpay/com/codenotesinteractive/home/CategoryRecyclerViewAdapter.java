@@ -2,6 +2,8 @@ package alpay.com.codenotesinteractive.home;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +19,28 @@ import alpay.com.codenotesinteractive.R;
 public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.ViewHolder> {
 
     private final List<Category> mValues;
+    private final HomeFragment.OnListFragmentInteractionListener mListener;
+    private int mColumnCount = 1;
 
-    public CategoryRecyclerViewAdapter(List<Category> items) {
+    public CategoryRecyclerViewAdapter(List<Category> items, HomeFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
+        mListener = listener;
     }
 
     @Override
     public CategoryRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.category_cardview, parent, false);
-        ViewHolder vh = new ViewHolder(v);
+        View view = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.category_cardview, parent, false);
+        ViewHolder vh = new ViewHolder(view);
+        if (view instanceof RecyclerView) {
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) view;
+            if (mColumnCount <= 1) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recyclerView.setAdapter(new CategoryRecyclerViewAdapter(Category.ITEMS, mListener));
+        }
         return vh;
     }
 
@@ -37,8 +52,8 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mValues) {
-
+                if (null != mListener) {
+                    mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
         });
@@ -55,12 +70,6 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
             mView = view;
             mNameVıew = (TextView) view.findViewById(R.id.categoryName);
             mImageView = (ImageView) view.findViewById(R.id.categoryDrawable);
-            mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
         }
 
         @Override

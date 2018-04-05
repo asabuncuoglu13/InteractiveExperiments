@@ -46,6 +46,7 @@ public class ChatDialogFragment extends DialogFragment implements AIListener, Vi
     DatabaseReference ref;
     FirebaseRecyclerAdapter<ChatMessage, ChatViewHolder> adapter;
     Boolean flagFab = true;
+    FloatingActionButton floatingActionButton;
     public View view;
     private AIService aiService;
     AIDataService aiDataService;
@@ -75,7 +76,7 @@ public class ChatDialogFragment extends DialogFragment implements AIListener, Vi
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         editText = (EditText) view.findViewById(R.id.editText);
         addBtn = (RelativeLayout) view.findViewById(R.id.addBtn);
-        final FloatingActionButton floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
+        floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
         floatingActionButton.setVisibility(View.GONE);
 
         recyclerView.setHasFixedSize(true);
@@ -105,15 +106,10 @@ public class ChatDialogFragment extends DialogFragment implements AIListener, Vi
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ImageView fab_img = (ImageView) view.findViewById(R.id.fab_img);
                 Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.ic_send_white_24dp);
-                Bitmap img1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_translate);
-
                 if (s.toString().trim().length() != 0 && flagFab) {
                     ImageViewAnimatedChange(getActivity(), fab_img, img);
                     flagFab = false;
 
-                } else if (s.toString().trim().length() == 0) {
-                    ImageViewAnimatedChange(getActivity(), fab_img, img1);
-                    flagFab = true;
                 }
             }
 
@@ -283,5 +279,11 @@ public class ChatDialogFragment extends DialogFragment implements AIListener, Vi
             editText.setText("");
         }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        floatingActionButton.setVisibility(View.VISIBLE);
+        super.onDestroy();
     }
 }

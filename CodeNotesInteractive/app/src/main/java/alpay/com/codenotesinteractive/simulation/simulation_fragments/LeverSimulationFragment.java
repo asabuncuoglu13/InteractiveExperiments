@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import alpay.com.codenotesinteractive.R;
-import alpay.com.codenotesinteractive.Utility;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
+import alpay.com.codenotesinteractive.util.Utility;
 import butterknife.BindView;
 
 public class LeverSimulationFragment extends BaseJavaScriptSimulationFragment {

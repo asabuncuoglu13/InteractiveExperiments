@@ -2,6 +2,7 @@
     <string name="app_name">Interactive Experiments</string>
     <string name="menu_chat">ChatBot</string>
     <string name="menu_program">Code</string>
+    <string name="menu_blockly">Blockly</string>
     <string name="menu_simulation">Simulation</string>
     <string name="menu_studynotes">Take Notes</string>
     <string name="menu_home">Home</string>
@@ -9,6 +10,7 @@
     <string name="menu_logout">Log Out</string>
     <string name="menu_tutorial">Tutorial</string>
 
+    <string name="blockly_error">You should have Android 18 or later release to work with Blockly!</string>
     <string name="detector_dependency">Dependencies are not met</string>
     <string name="sign_in_with_google">Sign in with Google to take notes, record your progress and chat with your friends online.</string>
     <string name="check_connection_text">There is no internet connection!

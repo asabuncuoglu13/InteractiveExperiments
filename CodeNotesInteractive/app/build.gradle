@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "alpay.com.codenotesinteractive"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -59,6 +59,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:11.8.0'
     compile 'com.google.android.gms:play-services-vision:11.8.0'
     implementation 'com.firebaseui:firebase-ui-database:2.2.0'
+    compile 'com.google.blockly.android:blocklylib-vertical:0.9-beta.20171003'
     implementation 'ai.api:sdk:2.0.7@aar'
     implementation('ai.api:libai:1.4.8') {
         exclude module: 'log4j-core'

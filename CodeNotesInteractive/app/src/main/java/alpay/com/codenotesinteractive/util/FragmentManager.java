@@ -1,4 +1,4 @@
-package alpay.com.codenotesinteractive;
+package alpay.com.codenotesinteractive.util;
 
 import android.support.v4.app.Fragment;
 
@@ -164,7 +164,8 @@ public class FragmentManager {
         NOTE(4),
         HOME(5),
         LOGIN(6),
-        LOGOUT(7);
+        LOGOUT(7),
+        BLOCKLY(8);
         public final int id;
         public static int currentCategoryID;
 

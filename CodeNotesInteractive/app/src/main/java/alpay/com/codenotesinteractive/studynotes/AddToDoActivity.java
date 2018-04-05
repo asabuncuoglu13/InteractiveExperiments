@@ -50,7 +50,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
     private String mUserEnteredText;
     private boolean mUserHasReminder;
-    private Toolbar mToolbar;
     private Date mUserReminderDate;
     private int mUserColor;
     private LinearLayout mContainerLayout;
@@ -66,8 +65,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             cross.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
         }
 
-        mToolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
 
         if(getSupportActionBar()!=null){
             getSupportActionBar().setElevation(0);

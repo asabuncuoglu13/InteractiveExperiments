@@ -3,9 +3,8 @@ package alpay.com.codenotesinteractive;
 import android.os.Bundle;
 
 import com.hololo.tutorial.library.Step;
-import com.hololo.tutorial.library.TutorialActivity;
 
-public class HowToActivity extends TutorialActivity {
+public class UserTutorialActivity extends com.hololo.tutorial.library.TutorialActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
