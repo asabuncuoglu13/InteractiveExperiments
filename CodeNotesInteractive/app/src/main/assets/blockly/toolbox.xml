@@ -14,49 +14,7 @@
   -->
 
 <toolbox>
-    <category name="Turtle" colour="160">
-        <block type="turtle_move">
-            <value name="VALUE">
-                <shadow type="math_number">
-                    <field name="NUM">50</field>
-                </shadow>
-            </value>
-        </block>
-        <block type="turtle_turn">
-            <value name="VALUE">
-                <shadow type="math_number">
-                    <field name="NUM">90</field>
-                </shadow>
-            </value>
-        </block>
-        <block type="turtle_width">
-            <value name="WIDTH">
-                <shadow type="math_number">
-                    <field name="NUM">4</field>
-                </shadow>
-            </value>
-        </block>
-        <block type="turtle_pen">
-            <field name="PEN">penUp</field>
-        </block>
-        <block type="turtle_visibility"></block>
-        <block type="turtle_print">
-            <value name="TEXT">
-                <shadow type="text">
-                    <field name="TEXT"></field>
-                </shadow>
-            </value>
-        </block>
-        <block type="turtle_font"></block>
-    </category>
     <category name="Colour" colour="20">
-        <block type="turtle_colour">
-            <value name="COLOUR">
-                <shadow type="colour_picker">
-                    <field name="COLOUR">#ff0000</field>
-                </shadow>
-            </value>
-        </block>
         <block type="colour_picker"></block>
         <block type="colour_random"></block>
         <block type="colour_rgb">

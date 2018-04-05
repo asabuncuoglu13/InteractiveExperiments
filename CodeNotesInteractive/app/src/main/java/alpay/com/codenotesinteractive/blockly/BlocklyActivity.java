@@ -40,8 +40,7 @@ public class BlocklyActivity extends AbstractBlocklyActivity {
             DefaultBlocks.LOOP_BLOCKS_PATH,
             DefaultBlocks.MATH_BLOCKS_PATH,
             DefaultBlocks.TEXT_BLOCKS_PATH,
-            DefaultBlocks.VARIABLE_BLOCKS_PATH,
-            "turtle/turtle_blocks.json"
+            DefaultBlocks.VARIABLE_BLOCKS_PATH
     );
 
     CodeGenerationRequest.CodeGeneratorCallback mCodeGeneratorCallback =
@@ -66,40 +65,29 @@ public class BlocklyActivity extends AbstractBlocklyActivity {
     @NonNull
     @Override
     protected String getToolboxContentsXmlPath() {
-        return "toolbox_advanced.xml";
+        return "blockly/toolbox.xml";
     }
 
     @NonNull
     @Override
     protected List<String> getGeneratorsJsPaths() {
         List<String> paths = new ArrayList<String>(1);
-        paths.add("generators.js");
+        paths.add("blockly/generators.js");
         return paths;
     }
 
     @NonNull
     @Override
     protected CodeGenerationRequest.CodeGeneratorCallback getCodeGenerationCallback() {
-        // Uses the same callback for every generation call.
         return mCodeGeneratorCallback;
     }
 
-    /**
-     * Optional override of the save path, since this demo Activity has multiple Blockly
-     * configurations.
-     * @return Workspace save path used by this Activity.
-     */
     @Override
     @NonNull
     protected String getWorkspaceSavePath() {
         return SAVE_FILENAME;
     }
 
-    /**
-     * Optional override of the auto-save path, since this demo Activity has multiple Blockly
-     * configurations.
-     * @return Workspace auto-save path used by this Activity.
-     */
     @Override
     @NonNull
     protected String getWorkspaceAutosavePath() {

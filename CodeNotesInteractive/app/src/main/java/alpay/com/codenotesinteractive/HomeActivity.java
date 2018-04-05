@@ -129,8 +129,9 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         AccountHeader accountHeader = createAccountHeader(mUser.getDisplayName(), mUser.getEmail(), mUser.getPhotoUrl());
         navigationDrawer = new DrawerBuilder()
                 .withActivity(this)
+                .withDisplayBelowStatusBar(false)
                 .withTranslucentStatusBar(false)
-                .withActionBarDrawerToggle(true)
+                .withDrawerLayout(R.layout.material_drawer_fits_not)
                 .withHeader(R.layout.header)
                 .withAccountHeader(accountHeader)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -152,9 +153,10 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     public void createNavigationBuilderForNoAccount() {
         navigationDrawer = new DrawerBuilder()
                 .withActivity(this)
+                .withDisplayBelowStatusBar(false)
                 .withTranslucentStatusBar(false)
-                .withActionBarDrawerToggle(true)
                 .withHeader(R.layout.header)
+                .withDrawerLayout(R.layout.material_drawer_fits_not)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
