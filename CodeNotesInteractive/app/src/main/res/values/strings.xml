@@ -9,6 +9,7 @@
     <string name="menu_login">Log In</string>
     <string name="menu_logout">Log Out</string>
     <string name="menu_tutorial">Tutorial</string>
+    <string name="menu_teachingcards">Teaching Cards</string>
 
     <string name="blockly_error">You should have Android 18 or later release to work with Blockly!</string>
     <string name="detector_dependency">Dependencies are not met</string>
@@ -66,6 +67,15 @@
     <string name="tut9_finish_title">That is All!</string>
     <string name="tut9_finish_content">Press FINISH to continue to the app.</string>
 
+    <!-- Code Notes Tutorial -->
+    <string name="tutorial_content_1">Every program begins with "START" card and ends with "END" card. If you do not put these cards, compiler cannot understand what you have typed.</string>
+    <string name="tutorial_content_2">"IF" card needs a conditional at the right hand side. If the conditional is true, you will see the result as output. </string>
+    <string name="tutorial_content_3">If the conditional is false, there will be no output. To get an output we should use "ELSE" card.</string>
+    <string name="tutorial_content_4">"ELSE" should stand alone at the program. This expression will be evaluate the "ELSE" expression and draws a lion.</string>
+    <string name="tutorial_content_5">"FOR" card needs a number at the right hand side. If you say 3 times, there will be 3 trees as output. </string>
+    <string name="tutorial_content_6">"WHILE" card needs a conditional at the right hand side. It will be evaluated until the condition will be meet.</string>
+
+
     <!-- categories -->
     <string name="category_all">All</string>
     <string name="category_featured">Featured</string>
@@ -76,6 +86,10 @@
     <string name="category_objects">Objects</string>
     <string name="category_people">People</string>
     <string name="category_technology">Technology</string>
+    
+    <string name="home_categories_title">Categories</string>
+    <string name="home_lastnotes_title">Latest Notes</string>
+    <string name="home_latest_content">Latest Content</string>
 
     <string-array name="snooze_options">
         <item>10 Minutes</item>
@@ -96,6 +110,19 @@
     <string name="date_reminder_default">Today</string>
     <string name="date_error_check_again">The date you entered is in the past.</string>
     <string name="remind_date_and_time">Reminder set for %1$s, %2$s %3$s</string>
+
+    <string name="scan_barcode_button">Scan Barcode</string>
+    <string name="low_storage_error">Low Storage</string>
+    <string name="no_camera_permission">Camera Usage is not allowed</string>
+    <string name="ok">OK</string>
+    <string name="read_barcode_text">If you have a card like above, you can capture the barcode with this app.</string>
+    <string name="no_barcode_captured">No Barcode is captured ...</string>
+    <string name="barcode_error_format">Barcode is not read as expected</string>
+
+    <string name="card_title_hint">Card Title</string>
+    <string name="card_content_hint">Card Content</string>
+    <string name="card_qr_hint">QR Code URL</string>
+
 
     <string name="text_exit_from_app">Press back again to exit from app</string>
 

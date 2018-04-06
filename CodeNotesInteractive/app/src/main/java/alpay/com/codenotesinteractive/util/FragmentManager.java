@@ -3,7 +3,8 @@ package alpay.com.codenotesinteractive.util;
 import android.support.v4.app.Fragment;
 
 import alpay.com.codenotesinteractive.chat.ChatFragment;
-import alpay.com.codenotesinteractive.compiler.CompilerFragment;
+import alpay.com.codenotesinteractive.codenotes.CompilerFragment;
+import alpay.com.codenotesinteractive.codenotes.TeachingCardsFragment;
 import alpay.com.codenotesinteractive.home.HomeFragment;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
@@ -29,6 +30,18 @@ public class FragmentManager {
             @Override
             public int getFragmentID() {
                 return Category.HOME.id;
+            }
+        },
+        TEACHINGCARDS_FRAGMENT {
+            @Override
+            public Fragment getFragment() {
+                TeachingCardsFragment teachingCardsFragment = new TeachingCardsFragment();
+                return teachingCardsFragment;
+            }
+
+            @Override
+            public int getFragmentID() {
+                return Category.TEACHINGCARDS.id;
             }
         },
         CHAT_FRAGMENT {
@@ -165,7 +178,8 @@ public class FragmentManager {
         HOME(5),
         LOGIN(6),
         LOGOUT(7),
-        BLOCKLY(8);
+        BLOCKLY(8),
+        TEACHINGCARDS(9);
         public final int id;
         public static int currentCategoryID;
 

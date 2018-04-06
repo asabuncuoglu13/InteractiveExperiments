@@ -181,6 +181,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_microscope_sketch).withName(R.string.menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_laptop_sketch).withName(R.string.menu_program).withIdentifier(FragmentManager.Category.PROGRAMMING.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_laptop_sketch).withName(R.string.menu_blockly).withIdentifier(FragmentManager.Category.BLOCKLY.id));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_card).withName(R.string.menu_teachingcards).withIdentifier(FragmentManager.Category.TEACHINGCARDS.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_logout_sketch).withName(R.string.menu_logout).withIdentifier(FragmentManager.Category.LOGOUT.id));
         navigationDrawer.getRecyclerView().setVerticalScrollBarEnabled(false);
     }
@@ -231,6 +232,11 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         if (id == FragmentManager.Category.BLOCKLY.id) {
             Intent intent = new Intent(this, BlocklyActivity.class);
             startActivity(intent);
+        }
+
+        if (id == FragmentManager.Category.TEACHINGCARDS.id) {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.TEACHINGCARDS_FRAGMENT.getFragment());
+            FragmentManager.Category.currentCategoryID = FragmentManager.Category.TEACHINGCARDS.id;
         }
 
         if (id == FragmentManager.Category.HOME.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.HOME.id) {
@@ -304,19 +310,18 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_howto:
-                Intent intent = new Intent(this, UserTutorialActivity.class);
+                Intent intent = new Intent(this, TutorialApplicationActivity.class);
                 startActivity(intent);
-                break;
+                return true;
             case android.R.id.home:
                 if(navigationDrawer.isDrawerOpen())
                     navigationDrawer.closeDrawer();
                 else
                     navigationDrawer.openDrawer();
-                break;
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-        return true;
     }
 
     private void loginAction() {

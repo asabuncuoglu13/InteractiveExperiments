@@ -1,4 +1,4 @@
-package alpay.com.codenotesinteractive.compiler.Components;
+package alpay.com.codenotesinteractive.codenotes.Components;
 
 
 import java.util.Arrays;

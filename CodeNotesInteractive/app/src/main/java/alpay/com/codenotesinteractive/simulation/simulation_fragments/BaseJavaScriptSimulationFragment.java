@@ -46,6 +46,7 @@ public abstract class BaseJavaScriptSimulationFragment extends Fragment {
                 showChatDialog();
             }
         });
+        floatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_question_chat));
     }
 
     void showChatDialog() {

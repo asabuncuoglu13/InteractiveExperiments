@@ -21,9 +21,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".AccelerometerPlayActivity" />
-        <activity android:name=".UserTutorialActivity" />
+        <activity android:name=".TutorialApplicationActivity" />
         <activity android:name=".studynotes.AddToDoActivity" />
         <activity android:name=".blockly.BlocklyActivity"/>
+        <activity android:name=".TutorialCodeNotesActivity"/>
+        <activity android:name=".codenotes.Components.BarcodeCaptureActivity"/>
 
         <receiver android:name=".studynotes.NotificationPublisher" />
 

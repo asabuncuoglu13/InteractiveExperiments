@@ -6,29 +6,31 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_height="match_parent" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/homeCategoriesText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="10dp"
                 android:clickable="true"
                 style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:text="CATEGORIES"/>
+                android:text="@string/home_categories_title"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/categorySelectView"
                 android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:elevation="3dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:background="@color/white"
                 app:layoutManager="LinearLayoutManager"
                 tools:listitem="@layout/category_cardview">
             </android.support.v7.widget.RecyclerView>
@@ -37,32 +39,36 @@
                 android:id="@+id/homeNotesText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="10dp"
                 android:clickable="true"
                 style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:text="LAST NOTES"/>
+                android:text="@string/home_lastnotes_title"/>
 
             <FrameLayout
                 android:id="@+id/homefragment_notecontainer"
                 android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:elevation="3dp"
                 android:layout_height="250dp">
-
             </FrameLayout>
 
             <TextView
                 android:id="@+id/homeLatestContentText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="10dp"
                 android:clickable="true"
                 style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:text="LATEST CONTENT"/>
+                android:text="@string/home_latest_content"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/latestContentView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="GridLayoutManager"
+                android:layout_margin="10dp"
+                android:elevation="10dp"
+                android:background="@color/white"
                 app:spanCount="2"
                 tools:listitem="@layout/category_cardview">
             </android.support.v7.widget.RecyclerView>

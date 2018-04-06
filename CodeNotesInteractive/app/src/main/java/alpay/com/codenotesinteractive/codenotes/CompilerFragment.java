@@ -1,4 +1,4 @@
-package alpay.com.codenotesinteractive.compiler;
+package alpay.com.codenotesinteractive.codenotes;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -29,11 +30,12 @@ import java.io.IOException;
 
 import alpay.com.codenotesinteractive.HomeActivity;
 import alpay.com.codenotesinteractive.R;
-import alpay.com.codenotesinteractive.compiler.Components.CameraSource;
-import alpay.com.codenotesinteractive.compiler.Components.CodeBlocksCompiler;
+import alpay.com.codenotesinteractive.TutorialCodeNotesActivity;
+import alpay.com.codenotesinteractive.codenotes.Components.CameraSource;
+import alpay.com.codenotesinteractive.codenotes.Components.CodeBlocksCompiler;
 
 
-public class CompilerFragment extends Fragment implements View.OnClickListener{
+public class CompilerFragment extends Fragment implements View.OnClickListener {
 
     private final String TAG = "RecogBlocksActivity";
     View view;
@@ -43,6 +45,7 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
     final int RequestCameraPermissionID = 1001;
     String code;
     CodeBlocksCompiler c = new CodeBlocksCompiler();
+    FloatingActionButton floatingActionButton;
 
 
     public CompilerFragment() {
@@ -74,9 +77,8 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_compiler, container, false);
+        setFABAction();
 
-        final FloatingActionButton floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
-        floatingActionButton.setVisibility(View.GONE);
 
         cameraView = (SurfaceView) view.findViewById(R.id.surface_view);
         textView = (TextView) view.findViewById(R.id.text_view);
@@ -84,7 +86,7 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
 
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getContext()).build();
         if (!textRecognizer.isOperational()) {
-           Toast.makeText(getContext(), R.string.detector_dependency, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.detector_dependency, Toast.LENGTH_SHORT).show();
         } else {
 
             cameraSource = new CameraSource.Builder(getContext(), textRecognizer)
@@ -132,14 +134,12 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
                 public void receiveDetections(Detector.Detections<TextBlock> detections) {
 
                     final SparseArray<TextBlock> items = detections.getDetectedItems();
-                    if(items.size() != 0)
-                    {
+                    if (items.size() != 0) {
                         textView.post(new Runnable() {
                             @Override
                             public void run() {
                                 StringBuilder stringBuilder = new StringBuilder();
-                                for(int i =0;i<items.size();++i)
-                                {
+                                for (int i = 0; i < items.size(); ++i) {
                                     TextBlock item = items.valueAt(i);
                                     stringBuilder.append(item.getValue());
                                     stringBuilder.append("\n");
@@ -155,8 +155,7 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
-    public void createAlertDialog(int titleID, int messageID)
-    {
+    public void createAlertDialog(int titleID, int messageID) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
@@ -179,25 +178,37 @@ public class CompilerFragment extends Fragment implements View.OnClickListener{
                 .show();
     }
 
+    private void setFABAction() {
+        floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onClick(View v) {
+                openCodeNotesTutorial();
+            }
+        });
+        floatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_help));
+    }
+
+    private void openCodeNotesTutorial(){
+        Intent intent = new Intent(getActivity(), TutorialCodeNotesActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if(i == R.id.read_code_button)
-        {
-            if(code != null)
-            {
+        if (i == R.id.read_code_button) {
+            if (code != null) {
                 double[] s = c.compile(code);
-                if(s[0] == -1.0)
-                {
+                if (s[0] == -1.0) {
                     createAlertDialog(R.string.no_code_dialog_title, R.string.no_code_dialog_message);
-                }else
-                {
+                } else {
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     intent.putExtra("output", s);
                     startActivity(intent);
                 }
-            }else
-            {
+            } else {
                 createAlertDialog(R.string.no_code_dialog_title, R.string.no_code_dialog_message);
             }
 

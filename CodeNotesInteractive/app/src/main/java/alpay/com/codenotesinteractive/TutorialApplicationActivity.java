@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.hololo.tutorial.library.Step;
 
-public class UserTutorialActivity extends com.hololo.tutorial.library.TutorialActivity {
+public class TutorialApplicationActivity extends com.hololo.tutorial.library.TutorialActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

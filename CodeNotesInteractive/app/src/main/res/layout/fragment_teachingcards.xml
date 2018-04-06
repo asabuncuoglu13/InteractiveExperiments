@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/sample_card"/>
+
+    <TextView
+        android:id="@+id/result_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/read_barcode_text"
+        android:textSize="20sp"
+        android:layout_margin="20dp"
+        android:freezesText="true"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/scan_barcode_button"
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_barcode_button"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/cardview_light_background"/>
+
+</LinearLayout>
