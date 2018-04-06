@@ -1,7 +1,6 @@
-package alpay.com.codenotesinteractive.codenotes;
+package alpay.com.codenotesinteractive.camera;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -14,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -22,33 +20,33 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
 
-import alpay.com.codenotesinteractive.HomeActivity;
 import alpay.com.codenotesinteractive.R;
-import alpay.com.codenotesinteractive.TutorialCodeNotesActivity;
-import alpay.com.codenotesinteractive.codenotes.Components.CameraSource;
-import alpay.com.codenotesinteractive.codenotes.Components.CodeBlocksCompiler;
+import alpay.com.codenotesinteractive.camera.Components.CameraSource;
+import alpay.com.codenotesinteractive.studynotes.AddToDoActivity;
+import alpay.com.codenotesinteractive.studynotes.StudyNoteItem;
+
+import static alpay.com.codenotesinteractive.studynotes.StudyNotesFragment.TODOITEM;
 
 
-public class CompilerFragment extends Fragment implements View.OnClickListener {
+public class ReadTextFragment extends Fragment implements View.OnClickListener {
 
-    private final String TAG = "RecogBlocksActivity";
     View view;
     SurfaceView cameraView;
     TextView textView;
     CameraSource cameraSource;
     final int RequestCameraPermissionID = 1001;
-    String code;
-    CodeBlocksCompiler c = new CodeBlocksCompiler();
+    String recognizedText = "";
     FloatingActionButton floatingActionButton;
 
 
-    public CompilerFragment() {
+    public ReadTextFragment() {
 
     }
 
@@ -144,8 +142,8 @@ public class CompilerFragment extends Fragment implements View.OnClickListener {
                                     stringBuilder.append(item.getValue());
                                     stringBuilder.append("\n");
                                 }
-                                code = stringBuilder.toString();
-                                textView.setText(code);
+                                recognizedText = stringBuilder.toString();
+                                textView.setText(recognizedText);
                             }
                         });
                     }
@@ -155,63 +153,42 @@ public class CompilerFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    public void createAlertDialog(int titleID, int messageID) {
+    public void createAlertDialog() {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
         } else {
             builder = new AlertDialog.Builder(getContext());
         }
-        builder.setTitle(titleID)
-                .setMessage(messageID)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
+        builder.setTitle(R.string.no_code_dialog_title)
+                .setMessage(R.string.no_code_dialog_message)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 
     private void setFABAction() {
         floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.button_fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @SuppressWarnings("deprecation")
-            @Override
-            public void onClick(View v) {
-                openCodeNotesTutorial();
-            }
-        });
-        floatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_help));
+        floatingActionButton.setVisibility(View.GONE);
     }
 
-    private void openCodeNotesTutorial(){
-        Intent intent = new Intent(getActivity(), TutorialCodeNotesActivity.class);
-        startActivity(intent);
+    private void saveRecognizedText(String recognizedText) {
+        Intent newTodo = new Intent(getActivity(), AddToDoActivity.class);
+        StudyNoteItem item = new StudyNoteItem("", false, null);
+        int color = ColorGenerator.MATERIAL.getRandomColor();
+        item.setTodoColor(color);
+        newTodo.putExtra(TODOITEM, item);
+        newTodo.putExtra("textFromCamera", recognizedText);
+        startActivity(newTodo);
     }
 
     @Override
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.read_code_button) {
-            if (code != null) {
-                double[] s = c.compile(code);
-                if (s[0] == -1.0) {
-                    createAlertDialog(R.string.no_code_dialog_title, R.string.no_code_dialog_message);
-                } else {
-                    Intent intent = new Intent(getActivity(), HomeActivity.class);
-                    intent.putExtra("output", s);
-                    startActivity(intent);
-                }
-            } else {
-                createAlertDialog(R.string.no_code_dialog_title, R.string.no_code_dialog_message);
-            }
-
+            if (!recognizedText.equals(""))
+                saveRecognizedText(recognizedText);
+            else
+                createAlertDialog();
         }
     }
 }

@@ -13,27 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package alpay.com.codenotesinteractive.codenotes.Components;
+package alpay.com.codenotesinteractive.camera.Components;
 
 import android.content.Context;
 
-import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.barcode.Barcode;
 
-/**
- * Factory for creating a tracker and associated graphic to be associated with a new barcode.  The
- * multi-processor uses this factory to create barcode trackers as needed -- one for each barcode.
- */
-public class BarcodeTrackerFactory implements MultiProcessor.Factory<Barcode> {
-    private Context mContext;
+public class BarcodeTracker extends Tracker<Barcode> {
+    private BarcodeGraphicTrackerCallback mListener;
 
-    public BarcodeTrackerFactory(Context context) {
-        mContext = context;
+    public interface BarcodeGraphicTrackerCallback {
+        void onDetectedQrCode(Barcode barcode);
+    }
+
+    BarcodeTracker(Context listener) {
+        mListener = (BarcodeGraphicTrackerCallback) listener;
     }
 
     @Override
-    public Tracker<Barcode> create(Barcode barcode) {
-        return new BarcodeTracker(mContext);
+    public void onNewItem(int id, Barcode item) {
+        if (item.displayValue != null) {
+            mListener.onDetectedQrCode(item);
+        }
     }
 }

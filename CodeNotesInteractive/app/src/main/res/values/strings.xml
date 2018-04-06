@@ -16,9 +16,8 @@
     <string name="sign_in_with_google">Sign in with Google to take notes, record your progress and chat with your friends online.</string>
     <string name="check_connection_text">There is no internet connection!
         To continue please be sure you have an active connection.</string>
-    <string name="no_code_detected">I am sorry! I could not recognize a meaningful code...</string>
-    <string name="no_code_dialog_message">I am sorry! I could not recognize a meaningful code...</string>
-    <string name="no_code_dialog_title">I could not recognize the code</string>
+    <string name="no_code_dialog_message">I could not recognize any text :(</string>
+    <string name="no_code_dialog_title">No Text</string>
     <string name="all_text_required">All fields are required</string>
     <string name="acceleremoter_error">We could not detect your accelerometer sensor.</string>
     <string name="response_type_error">Returned response type was not compatible for this chat.</string>
@@ -102,7 +101,7 @@
     <string name="todo_error">Please enter a Todo</string>
 
     <string name="no_to_dos">You don\'t have any todos</string>
-    <string name="title">Title</string>
+    <string name="title">Take your note</string>
     <string name="remind_me">Remind Me</string>
     <string name="choose_date">Date</string>
     <string name="choose_time">Time</string>
@@ -122,8 +121,5 @@
     <string name="card_title_hint">Card Title</string>
     <string name="card_content_hint">Card Content</string>
     <string name="card_qr_hint">QR Code URL</string>
-
-
-    <string name="text_exit_from_app">Press back again to exit from app</string>
 
 </resources>

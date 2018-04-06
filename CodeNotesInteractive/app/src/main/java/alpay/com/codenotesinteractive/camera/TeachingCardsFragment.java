@@ -1,4 +1,4 @@
-package alpay.com.codenotesinteractive.codenotes;
+package alpay.com.codenotesinteractive.camera;
 
 import android.content.Intent;
 import android.graphics.Point;
@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +15,7 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import alpay.com.codenotesinteractive.R;
-import alpay.com.codenotesinteractive.codenotes.Components.BarcodeCaptureActivity;
+import alpay.com.codenotesinteractive.camera.Components.BarcodeCaptureActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

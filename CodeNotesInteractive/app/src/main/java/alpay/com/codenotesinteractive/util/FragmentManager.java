@@ -2,9 +2,9 @@ package alpay.com.codenotesinteractive.util;
 
 import android.support.v4.app.Fragment;
 
+import alpay.com.codenotesinteractive.camera.ReadTextFragment;
+import alpay.com.codenotesinteractive.camera.TeachingCardsFragment;
 import alpay.com.codenotesinteractive.chat.ChatFragment;
-import alpay.com.codenotesinteractive.codenotes.CompilerFragment;
-import alpay.com.codenotesinteractive.codenotes.TeachingCardsFragment;
 import alpay.com.codenotesinteractive.home.HomeFragment;
 import alpay.com.codenotesinteractive.simulation.SimulationParameters;
 import alpay.com.codenotesinteractive.simulation.simulation_fragments.ConstantAccelerationSimulationFragment;
@@ -83,8 +83,8 @@ public class FragmentManager {
         CODENOTES_FRAGMENT {
             @Override
             public Fragment getFragment() {
-                CompilerFragment compilerFragment = new CompilerFragment();
-                return compilerFragment;
+                ReadTextFragment readTextFragment = new ReadTextFragment();
+                return readTextFragment;
             }
 
             @Override

@@ -24,8 +24,7 @@
         <activity android:name=".TutorialApplicationActivity" />
         <activity android:name=".studynotes.AddToDoActivity" />
         <activity android:name=".blockly.BlocklyActivity"/>
-        <activity android:name=".TutorialCodeNotesActivity"/>
-        <activity android:name=".codenotes.Components.BarcodeCaptureActivity"/>
+        <activity android:name=".camera.Components.BarcodeCaptureActivity"/>
 
         <receiver android:name=".studynotes.NotificationPublisher" />
 

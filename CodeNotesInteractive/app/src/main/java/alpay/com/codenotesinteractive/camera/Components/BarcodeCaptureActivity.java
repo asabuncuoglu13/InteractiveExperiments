@@ -16,7 +16,7 @@
  * This file and all BarcodeXXX and CameraXXX files in this project edited by
  * Daniell Algar (included due to copyright reason)
  */
-package alpay.com.codenotesinteractive.codenotes.Components;
+package alpay.com.codenotesinteractive.camera.Components;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -47,7 +47,6 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 import alpay.com.codenotesinteractive.R;
-import butterknife.BindView;
 
 public final class BarcodeCaptureActivity extends Activity
         implements BarcodeTracker.BarcodeGraphicTrackerCallback {
