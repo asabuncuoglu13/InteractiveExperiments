@@ -179,9 +179,9 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
             navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_chatting_speech_bubbles).withName(R.string.menu_chat).withIdentifier(FragmentManager.Category.CHAT.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_take_notes).withName(R.string.menu_studynotes).withIdentifier(FragmentManager.Category.NOTE.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_microscope_sketch).withName(R.string.menu_simulation).withIdentifier(FragmentManager.Category.SIMULATION.id));
-        navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_laptop_sketch).withName(R.string.menu_program).withIdentifier(FragmentManager.Category.PROGRAMMING.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_laptop_sketch).withName(R.string.menu_blockly).withIdentifier(FragmentManager.Category.BLOCKLY.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_card).withName(R.string.menu_teachingcards).withIdentifier(FragmentManager.Category.TEACHINGCARDS.id));
+        navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_feedback).withName(R.string.menu_feedback).withIdentifier(FragmentManager.Category.SENDFEEDBACK.id));
         navigationDrawer.addItem(new PrimaryDrawerItem().withIcon(R.drawable.ic_logout_sketch).withName(R.string.menu_logout).withIdentifier(FragmentManager.Category.LOGOUT.id));
         navigationDrawer.getRecyclerView().setVerticalScrollBarEnabled(false);
     }
@@ -231,6 +231,11 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         }
         if (id == FragmentManager.Category.BLOCKLY.id) {
             Intent intent = new Intent(this, BlocklyActivity.class);
+            startActivity(intent);
+        }
+
+        if (id == FragmentManager.Category.SENDFEEDBACK.id) {
+            Intent intent = new Intent(this, SendFeedbackActivity.class);
             startActivity(intent);
         }
 

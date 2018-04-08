@@ -179,7 +179,8 @@ public class FragmentManager {
         LOGIN(6),
         LOGOUT(7),
         BLOCKLY(8),
-        TEACHINGCARDS(9);
+        TEACHINGCARDS(9),
+        SENDFEEDBACK(10);
         public final int id;
         public static int currentCategoryID;
 

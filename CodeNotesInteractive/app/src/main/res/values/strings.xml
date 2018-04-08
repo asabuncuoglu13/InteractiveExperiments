@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Interactive Experiments</string>
+    <string name="sendfeedback_activity_name">Send Feedback</string>
     <string name="menu_chat">ChatBot</string>
     <string name="menu_program">Code</string>
     <string name="menu_blockly">Blockly</string>
@@ -10,6 +11,8 @@
     <string name="menu_logout">Log Out</string>
     <string name="menu_tutorial">Tutorial</string>
     <string name="menu_teachingcards">Teaching Cards</string>
+    <string name="menu_feedback">Send Feedback</string>
+    <string name="send_text">SEND</string>
 
     <string name="blockly_error">You should have Android 18 or later release to work with Blockly!</string>
     <string name="detector_dependency">Dependencies are not met</string>
@@ -121,5 +124,12 @@
     <string name="card_title_hint">Card Title</string>
     <string name="card_content_hint">Card Content</string>
     <string name="card_qr_hint">QR Code URL</string>
+
+    <string name="sendfeedback_title">Your feedback will improve Code Notes!</string>
+    <string name="sendfeedback_formtitle">What is this feedback about?</string>
+    <string name="sendfeedback_formcontent">Can you explain the improvement detailly?</string>
+    <string name="sendfeedback_formtitle_required">Title will help us to categorize your improvement!</string>
+    <string name="sendfeedback_formcontent_required">Content will help us on how can we improve our application!</string>
+    <string name="sendfeedback_thankyoumessage">Thank you for your feedback!</string>
 
 </resources>
