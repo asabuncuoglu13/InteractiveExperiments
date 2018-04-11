@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +29,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import alpay.com.codenotesinteractive.R;
+import alpay.com.codenotesinteractive.camera.TextRecognitionActivity;
+
+import static alpay.com.codenotesinteractive.camera.TextRecognitionActivity.REQUEST_CODE;
 
 public class AddToDoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private TextInputEditText mToDoTextBodyEditText;
@@ -39,6 +41,7 @@ public class AddToDoActivity extends AppCompatActivity implements DatePickerDial
 
     private EditText mDateEditText;
     private EditText mTimeEditText;
+    private TextView mTextRecogText;
     private StudyNoteItem mUserStudyNoteItem;
     private FloatingActionButton mToDoSendFloatingActionButton;
     public static final String DATE_FORMAT = "MMM d, yyyy";
@@ -100,6 +103,14 @@ public class AddToDoActivity extends AppCompatActivity implements DatePickerDial
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         mToDoTextBodyEditText.setSelection(mToDoTextBodyEditText.length());
 
+        mTextRecogText = (TextView) findViewById(R.id.takeNotesFromCameraButton);
+        mTextRecogText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddToDoActivity.this, TextRecognitionActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
 
         mToDoTextBodyEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -242,6 +253,15 @@ public class AddToDoActivity extends AppCompatActivity implements DatePickerDial
                 timeString = formatDate("h:mm a", mUserReminderDate);
             }
             mTimeEditText.setText(timeString);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == REQUEST_CODE){
+            if (resultCode == RESULT_OK){
+                mToDoTextBodyEditText.setText(data.getExtras().getString("textFromCamera"));
+            }
         }
     }
 

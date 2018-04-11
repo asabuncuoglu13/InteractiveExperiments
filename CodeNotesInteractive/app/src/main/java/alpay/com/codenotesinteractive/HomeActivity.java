@@ -258,10 +258,6 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.SIMULATION_LIST_FRAGMENT.getFragment());
             FragmentManager.Category.currentCategoryID = FragmentManager.Category.SIMULATION.id;
         }
-        if (id == FragmentManager.Category.PROGRAMMING.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.PROGRAMMING.id) {
-            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.CODENOTES_FRAGMENT.getFragment());
-            FragmentManager.Category.currentCategoryID = FragmentManager.Category.PROGRAMMING.id;
-        }
         if (id == FragmentManager.Category.NOTE.id && FragmentManager.Category.currentCategoryID != FragmentManager.Category.NOTE.id) {
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.STUDY_NOTES_FRAGMENT.getFragment());
             FragmentManager.Category.currentCategoryID = FragmentManager.Category.NOTE.id;

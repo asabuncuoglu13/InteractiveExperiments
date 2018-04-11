@@ -40,6 +40,7 @@
         <activity android:name=".blockly.BlocklyActivity"/>
         <activity android:name=".camera.Components.BarcodeCaptureActivity"/>
         <activity android:name=".SendFeedbackActivity"/>
+        <activity android:name=".camera.TextRecognitionActivity"/>
 
         <receiver android:name=".studynotes.NotificationPublisher" />
 

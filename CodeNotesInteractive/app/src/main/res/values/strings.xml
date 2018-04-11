@@ -104,7 +104,8 @@
     <string name="todo_error">Please enter a Todo</string>
 
     <string name="no_to_dos">You don\'t have any todos</string>
-    <string name="title">Take your note</string>
+    <string name="title">Write down your note</string>
+    <string name="take_photo_of_notes"><u>or use text detection from your notes ...</u></string>
     <string name="remind_me">Remind Me</string>
     <string name="choose_date">Date</string>
     <string name="choose_time">Time</string>
