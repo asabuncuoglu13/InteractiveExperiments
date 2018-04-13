@@ -1,6 +1,6 @@
 # Interactive Experiments
 
-### A Quick Intronuctiob with Learning Theories (For academic)
+### A Quick Introduction with Learning Theories (For Academics)
 
 Creating educational apps with theories of learning enhances the impact of using these apps. Building educational apps with the four pillars of learning -active, engaging, meaningful and socially interactive learning- increases effectiveness. 
 
@@ -23,6 +23,11 @@ The application includes three inter-related components -Chat Module, Physics Si
 2. Engaged learning builds a continuous interaction through the interface to increase the attention and the amount of learned material. We put navigation option and teaching assistance to Chat Module to keep the learner’s attention on to subject and build a continuous flow. 
 3. Meaningful learning promotes creating and testing hypothesis. We served an easy-to-use environment to manipulate experimental variables to test hypothesis and grasp the conceptual model behind the experiments. 
 4. Socially interactive environment supports discussions in classroom to understand the newly encountered material. We enabled the classroom-chat in the Chat Module to keep the classroom connected.
+
+### A Quick Guide to Use Application (For Teachers and Students)
+
+The guide is only available on Turkish (for now) -> [Interactive Experiments User Guide](./docs/InteractiveExperimentsKilavuz.pdf)
+
 
 ### A Quick Introduction to Software (For developers)
 
