@@ -77,5 +77,6 @@ public abstract class BaseJavaScriptSimulationFragment extends Fragment {
         webView.destroy();
         floatingActionButton.setOnClickListener(null);
         super.onDestroy();
+        unbinder.unbind();
     }
 }

@@ -160,7 +160,6 @@ public class FragmentManager {
     public enum Category {
         CHAT(1),
         SIMULATION(2),
-        PROGRAMMING(3),
         NOTE(4),
         HOME(5),
         LOGIN(6),

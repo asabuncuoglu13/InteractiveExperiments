@@ -73,9 +73,6 @@ dependencies {
     compile 'com.wdullaer:materialdatetimepicker:1.5.1'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.github.ganfra:material-spinner:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

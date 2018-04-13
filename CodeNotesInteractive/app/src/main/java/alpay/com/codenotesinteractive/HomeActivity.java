@@ -50,6 +50,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     ActionBar toolbar;
+    Bundle bundle;
     static final int RC_SIGN_IN = 123;
 
     @Override
@@ -57,12 +58,10 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         mAuth = FirebaseAuth.getInstance();
         providers = Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
         prepareView();
-        if (bundle != null)
-            selectFragmentFromChatBundle(bundle.getString("reply"));
         if (!Utility.isNetworkAvailable(this))
             Toast.makeText(this, R.string.connection_error, Toast.LENGTH_LONG).show();
     }
@@ -109,9 +108,13 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
 
     public void setNormalScreenView() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.HOME_FRAGMENT.getFragment());
-        FragmentManager.Category.currentCategoryID = FragmentManager.Category.HOME.id;
-        ft.commit();
+        if (bundle != null) {
+            selectFragmentFromChatBundle(bundle.getString("reply"));
+        } else {
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.HOME_FRAGMENT.getFragment());
+            FragmentManager.Category.currentCategoryID = FragmentManager.Category.HOME.id;
+            ft.commit();
+        }
     }
 
     public void setLargeScreenView() {
@@ -119,10 +122,15 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
         ftr.replace(R.id.fragment_chat_container, FragmentManager.FRAGMENT_TYPE.CHAT_FRAGMENT.getFragment());
         ftr.commit();
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.HOME_FRAGMENT.getFragment());
-        FragmentManager.Category.currentCategoryID = FragmentManager.Category.HOME.id;
-        ft.commit();
+        if (bundle != null) {
+            selectFragmentFromChatBundle(bundle.getString("reply"));
+        } else {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.HOME_FRAGMENT.getFragment());
+            FragmentManager.Category.currentCategoryID = FragmentManager.Category.HOME.id;
+            ft.commit();
+        }
+
     }
 
     public void createNavigationBuilderWithAccount() {
@@ -206,7 +214,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
             Intent intent = new Intent(this, com.hololo.tutorial.library.TutorialActivity.class);
             startActivity(intent);
         } else if (reply.contains("Coding-Area")) {
-            chooseCategoryAction(FragmentManager.Category.PROGRAMMING.id);
+            chooseCategoryAction(FragmentManager.Category.BLOCKLY.id);
         } else if (reply.contains("Simulation-Area")) {
             chooseCategoryAction(FragmentManager.Category.SIMULATION.id);
         } else if (reply.contains("Ohms-Law-Experiment")) {
@@ -315,7 +323,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
                 startActivity(intent);
                 return true;
             case android.R.id.home:
-                if(navigationDrawer.isDrawerOpen())
+                if (navigationDrawer.isDrawerOpen())
                     navigationDrawer.closeDrawer();
                 else
                     navigationDrawer.openDrawer();
