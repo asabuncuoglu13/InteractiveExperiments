@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Öğrenme teorileri ile güçlendirilmiş eğitim uygulaması">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Interactive Experiments</title>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/favicon_round.png">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/favicon_round.png">
+
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css">
+    <link rel="stylesheet" href="appdetail_styles.css">
+    <style>
+        #view-source {
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+        <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">Interactive Experiments - Uygulama Detayları</span>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </header>
+        <div class="demo-ribbon"></div>
+        <main class="demo-main mdl-layout__content">
+            <div class="demo-container mdl-grid">
+                <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+                    <div class="demo-crumbs mdl-color-text--grey-500">
+                        Bu yazı şimdilik sadece İngilizce olarak mevcuttur. En yakın zamanda Türkçe çevirisi eklenecektir.
+                    </div>
+                    <h3>Application Details</h3>
+                    <p>
+                        The application includes three interrelated components: (1) Chat Module allows students to ask questions using natural language
+                        (text) and get answers. It also allows discussion of the results of simulations and handles the navigation
+                        through the modules. For example when the learner types “So I guess I wanna do some experiments”
+                        and our bot directs the user to Simulation List page. (2) Physics Simulations Module covers about
+                        mechanical and electrical systems. This module allows students to tweak the parameters on mechanical
+                        and electrical systems to see their effects. (3) Coding Module allows learners to change the parameters
+                        of the physics simulations with simple programming blocks. We aimed to embed programming on to other
+                        subjects, by integrating coding to app.
+                    </p>
+                    <h4>Chat Module</h4>
+                    <p> Limited time and low instructor to student ratio make personal contact infeasible. Using a chat bot as
+                        a teaching assistant allows the students to get personalized help by asking basic questions about
+                        experiments. Our chat bot answers questions about simulations and handles the navigation in the app.
+                        We used Firebase database to enable real-time chat and Google Dialog Flow API to facilitate conversations
+                        with natural language support. Dialog Flow agent is trained with possible questions that the learner
+                        might ask such as “How does weight affect the velocity on the inclined plane?” or “Does resistance
+                        have a relation with voltage?”. The Chat Module also supports dialogs through classroom to promote
+                        socially interactive learning. When the teaching bot is not able to answer a question, learners can
+                        discuss that question with their class friends.
+                    </p>
+                    <h4> Simulation Module</h4>
+                    <p> Building and testing hypotheses requires understanding the subject and comprehend the conceptual knowledge.
+                        Supporting experiments with using phone sensors can increase the relevance of this conceptual knowledge.
+                        For example, Constant Acceleration Simulation can be supported with the device accelerometer to show
+                        students how graph changes with their phone’s motions at real time. In addition to Constant Acceleration
+                        Simulation, we placed four more recently covered subjects in students’ curriculum: Inclined Plane,
+                        Pulley System, Lever System, and Ohm’s Law. We aimed to show how these systems are affected with
+                        parameter tweaking. Simulations were coded in JavaScript and based on the animations created by Walter
+                        Fendt . We modified their interface to support programmability and interaction with Android interface.</p>
+                    <h4>Coding Module</h4>
+                    <p>Patek et al. suggests that creating mental effort to keep learner mentally active builds a ‘minds-on’
+                        environment. By giving the learner the feature to program simulations can create this involvement
+                        and develop the understanding of how they could use programming in other topics. We usedyBlocklu
+                        programming language to set up the experiments
+
+
+                    </p>
+
+                </div>
+            </div>
+            <footer class="demo-footer mdl-mini-footer">
+                <div class="mdl-mini-footer--bottom-section">
+                    <p>
+                        <a href="https://play.google.com/store/apps/details?id=alpay.com.codenotesinteractive">
+                            <img height="80px" src="../images/play_banner.png">
+                        </a>
+                        <a style="margin-right: 20px" href="../terms_and_conditions.html">Terms And Conditions</a>
+                        <a href="../privacy_policy.html">Privacy Policy</a>
+                    </p>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <a href="https://github.com/asabuncuoglu13/InteractiveExperiments" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Github'da İncele</a>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+
+</html>
