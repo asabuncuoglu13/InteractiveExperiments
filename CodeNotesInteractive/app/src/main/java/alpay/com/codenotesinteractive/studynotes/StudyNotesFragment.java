@@ -50,7 +50,7 @@ public class StudyNotesFragment extends Fragment {
     private FloatingActionButton mAddToDoItemFAB;
     private ArrayList<StudyNoteItem> mStudyNoteItemsArrayList;
     private CoordinatorLayout mCoordLayout;
-    public static final String TODOITEM = "MainFragment";
+    public static final String TODOITEM = "StudyNotesFragment";
     private BasicListAdapter adapter;
     private static final int REQUEST_ID_TODO_ITEM = 100;
     private StudyNoteItem mJustDeletedStudyNoteItem;

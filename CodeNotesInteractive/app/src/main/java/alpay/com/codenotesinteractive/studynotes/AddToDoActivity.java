@@ -60,7 +60,6 @@ public class AddToDoActivity extends AppCompatActivity implements DatePickerDial
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_test);
         Bundle bundle = getIntent().getExtras();
-
         getSupportActionBar().hide();
 
         mUserStudyNoteItem = (StudyNoteItem) getIntent().getSerializableExtra(StudyNotesFragment.TODOITEM);
@@ -93,12 +92,18 @@ public class AddToDoActivity extends AppCompatActivity implements DatePickerDial
         }
 
         mToDoTextBodyEditText.requestFocus();
-        if (bundle != null) {
+        if (bundle.getString("textFromCamera") != null) {
             String text = bundle.getString("textFromCamera");
             mToDoTextBodyEditText.setText(text);
         } else {
             mToDoTextBodyEditText.setText(mUserEnteredText);
         }
+
+        if(bundle.get(StudyNotesFragment.TODOITEM) != null){
+            StudyNoteItem item = (StudyNoteItem) bundle.get(StudyNotesFragment.TODOITEM);
+            mToDoTextBodyEditText.setText(item.getToDoText());
+        }
+
         InputMethodManager imm = (InputMethodManager) this.getSystemService(INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         mToDoTextBodyEditText.setSelection(mToDoTextBodyEditText.length());
@@ -214,6 +219,7 @@ public class AddToDoActivity extends AppCompatActivity implements DatePickerDial
                 timePickerDialog.show(getFragmentManager(), "TimeFragment");
             }
         });
+
 
         setDateAndTimeEditText();
 
