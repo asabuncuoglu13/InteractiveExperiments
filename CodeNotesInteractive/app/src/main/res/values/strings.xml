@@ -65,29 +65,9 @@
     <string name="tut7_chatbot_title">Chatbot</string>
     <string name="tut7_chatbot_content">You can do small talks or conversations about experiments.</string>
     <string name="tut8_navigation_title">Navigation</string>
-    <string name="tut8_navigation_content">You can navigate through Chatbot. Try to say "Open Experiments" or "Start Coding". Or you can swipe through bottom bar elements.</string>
+    <string name="tut8_navigation_content">You can navigate through Chatbot. Try to say "Open Experiments" or "Start Coding".</string>
     <string name="tut9_finish_title">That is All!</string>
     <string name="tut9_finish_content">Press FINISH to continue to the app.</string>
-
-    <!-- Code Notes Tutorial -->
-    <string name="tutorial_content_1">Every program begins with "START" card and ends with "END" card. If you do not put these cards, compiler cannot understand what you have typed.</string>
-    <string name="tutorial_content_2">"IF" card needs a conditional at the right hand side. If the conditional is true, you will see the result as output. </string>
-    <string name="tutorial_content_3">If the conditional is false, there will be no output. To get an output we should use "ELSE" card.</string>
-    <string name="tutorial_content_4">"ELSE" should stand alone at the program. This expression will be evaluate the "ELSE" expression and draws a lion.</string>
-    <string name="tutorial_content_5">"FOR" card needs a number at the right hand side. If you say 3 times, there will be 3 trees as output. </string>
-    <string name="tutorial_content_6">"WHILE" card needs a conditional at the right hand side. It will be evaluated until the condition will be meet.</string>
-
-
-    <!-- categories -->
-    <string name="category_all">All</string>
-    <string name="category_featured">Featured</string>
-    <string name="category_section_categories">CATEGORIES</string>
-    <string name="category_buildings">Buildings</string>
-    <string name="category_food">Food &amp; Drink</string>
-    <string name="category_nature">Nature</string>
-    <string name="category_objects">Objects</string>
-    <string name="category_people">People</string>
-    <string name="category_technology">Technology</string>
     
     <string name="home_categories_title">Categories</string>
     <string name="home_lastnotes_title">Latest Notes</string>
@@ -101,9 +81,9 @@
 
     <string name="snooze">Snooze</string>
     <string name="remove">Remove</string>
-    <string name="todo_error">Please enter a Todo</string>
+    <string name="todo_error">Please enter a note</string>
 
-    <string name="no_to_dos">You don\'t have any todos</string>
+    <string name="no_to_dos">You don\'t have any notes</string>
     <string name="title">Write down your note</string>
     <string name="take_photo_of_notes"><u>or use text detection from your notes ...</u></string>
     <string name="remind_me">Remind Me</string>
@@ -126,7 +106,7 @@
     <string name="card_content_hint">Card Content</string>
     <string name="card_qr_hint">QR Code URL</string>
 
-    <string name="sendfeedback_title">Your feedback will improve Code Notes!</string>
+    <string name="sendfeedback_title">Improve Our App with Your Feedback!</string>
     <string name="sendfeedback_formtitle">What is this feedback about?</string>
     <string name="sendfeedback_formcontent">Can you explain the improvement detailly?</string>
     <string name="sendfeedback_formtitle_required">Title will help us to categorize your improvement!</string>

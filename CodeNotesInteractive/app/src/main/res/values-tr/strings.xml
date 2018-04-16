@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">Interactive Experiments</string>
+    <string name="sendfeedback_activity_name">Yorum Gönder</string>
+    <string name="menu_chat">Chat Bot</string>
+    <string name="menu_program">Kodla</string>
+    <string name="menu_blockly">Kodla</string>
+    <string name="menu_simulation">Simülasyon</string>
+    <string name="menu_studynotes">Notlar</string>
+    <string name="menu_home">Ana Ekran</string>
+    <string name="menu_login">Oturum Aç</string>
+    <string name="menu_logout">Oturumu Kapat</string>
+    <string name="menu_tutorial">Öğren</string>
+    <string name="menu_teachingcards">Öğrenme Kartları</string>
+    <string name="menu_feedback">Yorum Gönder</string>
+    <string name="send_text">YOLLA</string>
+
+    <string name="blockly_error">Blockly ile programlama için Android 18 ve sonrası sürümüne ihtiyacın var!</string>
+    <string name="detector_dependency">Gerekli modüller bulunamadı</string>
+    <string name="sign_in_with_google">Not almak, ilerlemeni kaydetmek ve arkadaşlarınla konuşmak için Google ile oturum aç.</string>
+    <string name="check_connection_text">Internet bağlantısı bulunamadı!
+        Devam etmek için internete bağlanın.</string>
+    <string name="no_code_dialog_message">Harhangi bir yazı algılayamadım :(</string>
+    <string name="no_code_dialog_title">Yazı Yok...</string>
+    <string name="all_text_required">Tüm alanları doldurmanız gerekiyor</string>
+    <string name="acceleremoter_error">Accelerometer sensörü bulunamadı...</string>
+    <string name="response_type_error">Bu konuşamada gönderilen cevap yazı bazı değil...</string>
+    <string name="connection_error">Internet bağlantısı yok.</string>
+    <string name="wrong_arguments_for_simulation">SET parametreleri bu deney için geçerli değil.</string>
+    <string name="card_image_description">Simulasyon Resmi</string>
+    <string name="paramter_error">Deneye başlamadan önce tüm parametreleri belirlemen gerek.</string>
+    <string name="logout_completed">Oturum Kapatıldı</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Boş Fragment</string>
+    <string name="springscale">Yay kuvveti</string>
+    <string name="forcevector">Kuvvet Vektörleri</string>
+    <string name="incline_angle">Eğim Açısı</string>
+    <string name="weight">Ağırlık</string>
+    <string name="coeff_friction">Sürtünme Katsayısı</string>
+    <string name="position">Başlangıç Pozisyonu</string>
+    <string name="velocity">Başlangıç Hızı</string>
+    <string name="acceleration">Başlangıç İvmesi</string>
+    <string name="setparams">UYGULA</string>
+    <string name="reset">SIFIRLA</string>
+    <string name="slowmotion">Yavaşlat</string>
+
+    <string name="previous">Önceki</string>
+    <string name="next">Sonraki</string>
+    <string name="cancel">İptal</string>
+    <string name="finish">Bitir</string>
+    <string name="action_howto">Kullanım Kılavuzu</string>
+
+    <string name="tut1_welcome_title">Merhaba!</string>
+    <string name="tut1_welcome_content">Interactive Experiments fizik simülasyonları içeren bir eğitim uygulamasıdır.</string>
+    <string name="tut2_experiment_list_title">Simulasyon Listesi</string>
+    <string name="tut2_experiment_list_content">Simulasyon listesinden bir simulasyon seçerek öğrenmeye başlayabilirsin.</string>
+    <string name="tut3_choose_experiment_title">Parametrelerle Oyna.</string>
+    <string name="tut3_choose_experiment_content">Her simulasyonun kendine ait parametreleri vardır.</string>
+    <string name="tut4_parameters_title">Code Notes Entegrasyonu</string>
+    <string name="tut4_parameters_content">Parametreleri Code Notes kartları ile kontrol edebilirsin.</string>
+    <string name="tut5_coding_parameters_title">Code Notes Kartları</string>
+    <string name="tut5_coding_parameters_content">Mesela, SET ANGLE 25 eğik düzem açısını 25\'e ayarlamak için kullanılır.</string>
+    <string name="tut6_experiment_result_title">Parametreleri Ayarladıktan Sonra</string>
+    <string name="tut6_experiment_result_content">Simulasyondaki değişiklikleri izle ve parametrelerin deneyleri nasıl etkilediğini not al.</string>
+    <string name="tut7_chatbot_title">Chat Bot</string>
+    <string name="tut7_chatbot_content">Chat bot ile sıkıldığında basit konuşmalar yapabilirsin. Ya da simulasyonlar hakkındaki sorularını sorabilirsin.</string>
+    <string name="tut8_navigation_title">Navigasyon</string>
+    <string name="tut8_navigation_content">Chat Bot\'a uygulama içinde gitmek istediğin yerleri söylediğinde seni gitmek istediğin yere götürür.</string>
+    <string name="tut9_finish_title">Artık Uygulamayı Kullanmak için Hazırsın!</string>
+    <string name="tut9_finish_content"> </string>
+    
+    <string name="home_categories_title">Kategoriler</string>
+    <string name="home_lastnotes_title">Son Notlar</string>
+    <string name="home_latest_content">Son Baktıklarım</string>
+
+    <string-array name="snooze_options">
+        <item>10 Dakika</item>
+        <item>30 Dakika</item>
+        <item>1 Saat</item>
+    </string-array>
+
+    <string name="snooze">Ertele</string>
+    <string name="remove">Sil</string>
+    <string name="todo_error">Lütfen bir not giriniz.</string>
+
+    <string name="no_to_dos">Daha hiçbir notunuz yok!</string>
+    <string name="title">Not alın</string>
+    <string name="take_photo_of_notes"><u>ya da fotoğraftan yazıya geçirin...</u></string>
+    <string name="remind_me">Hatırlat</string>
+    <string name="choose_date">Tarih</string>
+    <string name="choose_time">Saat</string>
+    <string name="done_label">Tamam</string>
+    <string name="date_reminder_default">Bugün</string>
+    <string name="date_error_check_again">Girdiğiniz zaman geçmiş zamana ait...</string>
+    <string name="remind_date_and_time">Hatırlatıcı Kuruldu: %1$s, %2$s %3$s</string>
+
+    <string name="scan_barcode_button">Barkodu tara</string>
+    <string name="low_storage_error">Hafıza yeterli değil</string>
+    <string name="no_camera_permission">Kamera kullanımı için izin gerekli</string>
+    <string name="ok">OK</string>
+    <string name="read_barcode_text">Eğer yukarıdakine benzer bir kartın varsa butona tıklayarak okutabilirsin.</string>
+    <string name="no_barcode_captured">Barkod algılanamadı ...</string>
+    <string name="barcode_error_format">Barkod formatında hata çıktı</string>
+
+    <string name="card_title_hint">Kart Başlığı</string>
+    <string name="card_content_hint">Kart Detayı</string>
+    <string name="card_qr_hint">QR Kod URL</string>
+
+    <string name="sendfeedback_title">Yorumlarınızla Uygulamayı Geliştirin!</string>
+    <string name="sendfeedback_formtitle">Yorumunuz ne hakkında?</string>
+    <string name="sendfeedback_formcontent">Yorumunuzu detaylıca açıklayabilir misiniz?</string>
+    <string name="sendfeedback_formtitle_required">Başlık yorumunuzu daha iyi anlamamız için gerekli!</string>
+    <string name="sendfeedback_formcontent_required">Detaylı açıklama yorumunuzu değerlendirmemiz için gerekli!</string>
+    <string name="sendfeedback_thankyoumessage">Yorumunuz için teşekkür ederiz!</string>
+
+</resources>
