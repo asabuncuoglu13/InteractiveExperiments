@@ -1,5 +1,7 @@
 # Interactive Experiments
 
+[![Get Code Notes](./docs/images/play_banner.png "Code Notes Google Play")](https://play.google.com/store/apps/details?id=alpay.com.interactiveexperiments)
+
 ### A Quick Introduction with Learning Theories (For Academics)
 
 Creating educational apps with theories of learning enhances the impact of using these apps. Building educational apps with the four pillars of learning -active, engaging, meaningful and socially interactive learning- increases effectiveness. 
