@@ -36,7 +36,7 @@
 
             </LinearLayout>
 
-            <alpay.com.codenotesinteractive.studynotes.RecyclerViewEmptySupport
+            <alpay.com.interactiveexperiments.studynotes.RecyclerViewEmptySupport
                 android:id="@+id/toDoRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

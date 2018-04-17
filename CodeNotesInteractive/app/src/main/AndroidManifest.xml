@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="alpay.com.codenotesinteractive">
+    package="alpay.com.interactiveexperiments">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -21,28 +21,28 @@
             android:resource="@color/colorAccent" />
 
         <service
-            android:name=".util.MyFirebaseInstanceIDService">
+            android:name="alpay.com.interactiveexperiments.util.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
-        <activity android:name=".HomeActivity">
+        <activity android:name="alpay.com.interactiveexperiments.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AccelerometerPlayActivity" />
-        <activity android:name=".TutorialApplicationActivity" />
-        <activity android:name=".studynotes.AddToDoActivity" />
-        <activity android:name=".blockly.BlocklyActivity"/>
-        <activity android:name=".camera.Components.BarcodeCaptureActivity"/>
-        <activity android:name=".SendFeedbackActivity"/>
-        <activity android:name=".camera.TextRecognitionActivity"/>
+        <activity android:name="alpay.com.interactiveexperiments.AccelerometerPlayActivity" />
+        <activity android:name="alpay.com.interactiveexperiments.TutorialApplicationActivity" />
+        <activity android:name="alpay.com.interactiveexperiments.studynotes.AddToDoActivity" />
+        <activity android:name="alpay.com.interactiveexperiments.blockly.BlocklyActivity"/>
+        <activity android:name="alpay.com.interactiveexperiments.camera.Components.BarcodeCaptureActivity"/>
+        <activity android:name="alpay.com.interactiveexperiments.SendFeedbackActivity"/>
+        <activity android:name="alpay.com.interactiveexperiments.camera.TextRecognitionActivity"/>
 
-        <receiver android:name=".studynotes.NotificationPublisher" />
+        <receiver android:name="alpay.com.interactiveexperiments.studynotes.NotificationPublisher" />
 
 
     </application>

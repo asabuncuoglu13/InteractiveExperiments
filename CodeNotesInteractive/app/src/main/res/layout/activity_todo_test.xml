@@ -23,7 +23,7 @@
                 android:background="@color/colorPrimaryOneToneLight"
                 android:orientation="vertical">
 
-                <alpay.com.codenotesinteractive.studynotes.CustomTextInputLayout
+                <alpay.com.interactiveexperiments.studynotes.CustomTextInputLayout
                     android:id="@+id/toDoCustomTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -37,7 +37,7 @@
                         android:inputType="textAutoCorrect|textCapSentences|textMultiLine"
                         android:textColor="@color/icons" />
 
-                </alpay.com.codenotesinteractive.studynotes.CustomTextInputLayout>
+                </alpay.com.interactiveexperiments.studynotes.CustomTextInputLayout>
 
                 <TextView
                     android:id="@+id/takeNotesFromCameraButton"
