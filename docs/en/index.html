@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Öğrenme teorileri ile güçlendirilmiş eğitim uygulaması">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Interactive Experiments</title>
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="../images/favicon_round.png">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Interactive Experiments">
+  <link rel="apple-touch-icon-precomposed" href="../images/favicon_round.png">
+
+  <meta name="msapplication-TileImage" content="../images/touch/ms-touch-icon-144x144-precomposed.png">
+  <meta name="msapplication-TileColor" content="#3372DF">
+
+  <link rel="shortcut icon" href="../images/favicon.png">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+  </style>
+</head>
+
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+      </div>
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        <h3>Interactive Experiments</h3>
+      </div>
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        <p>Educational App Grounded with Learning Theories</p>
+      </div>
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+      </div>
+      <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+        <a href="index.html" class="mdl-layout__tab is-active">Overview</a>
+        <a href="../appdetail/appdetail.html" class="mdl-layout__tab">App Details</a>
+        <a href="../theory/theory.html" class="mdl-layout__tab">Theroy and Design</a>
+      </div>
+    </header>
+    <main class="mdl-layout__content" id="main">
+      <p></p>
+      <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+        <header class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--deep-purple-900 mdl-color-text--white">
+          <img width="100%" src="../images/logo_square.png">
+        </header>
+        <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+          <div class="mdl-card__supporting-text">
+            <h4>Why Interactive Experiments?</h4>
+            Interactive Experiments öğrencilere simülasyonlar ile fizik konularını kavratmaya çalışan bir uygulamadır. Uygulama aynı
+            zamanda bu simülasyonları konuşup öğrenebileceğimiz bir chat bot’a ve bu programları kodlayarak kodlama da öğrenebileceğimiz
+            bir programlama modülüne sahiptir. Uygulamamız, her mobil uygulamanın kendine ilke edinmesi gereken dört temel
+            öğrenme biçimini kapsaması üzerine tasarlanmıştır.
+          </div>
+          <div class="mdl-card__actions">
+            <a href="../appdetail/appdetail.html" class="mdl-button">DAHA FAZLA ÖĞRENİN...</a>
+          </div>
+        </div>
+      </section>
+      <p></p>
+      <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+        <div class="mdl-card mdl-cell mdl-cell--12-col">
+          <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+            <h4 class="mdl-cell mdl-cell--12-col">Uygulama Modülleri</h4>
+            <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+              <div class="section__circle-container__circle">
+                <img src="../images/ic_chat.png">
+              </div>
+            </div>
+            <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+              <h5>Chat Bot</h5>
+              Chat bot öğrencilerle günlük basit konuşmaları yapabilmenin yanı sıra, öğrendikleri simülasyonlar hakkında soruları da cevaplayabilir.
+              Chat Bot şu an için sadece İngilizce konuşmaları desteklemektedir. Bir sonraki sürümde ise Türkçe konuşma desteği
+              eklenecektir.
+            </div>
+            <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+              <div style="display:table-cell; vertical-align:middle; text-align:center" class="section__circle-container__circle mdl-color--primary">
+                <img src="../images/ic_coding.png">
+              </div>
+            </div>
+            <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+              <h5>Blockly ile Programlama</h5>
+              Blockly Google’ın desteklediği blok bazlı bir programlama dilidir. Dilerseniz simülasyonları Blockly üzerinden programlayabilirsiniz.
+              Blockly ile aynı zamanda matematiksel ifadeler üzerinden programlama da çalışabilirsiniz.
+            </div>
+            <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+              <div class="section__circle-container__circle mdl-color--primary">
+                <img src="../images/ic_experiment.png">
+              </div>
+            </div>
+            <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+              <h5>Simülasyonlar</h5>
+              Simülasyonlar şu an için fizik konuları ile sınırlıdır. Her geçen gün sayısı artan simülasyonlar ile öncelikle fizik konularını
+              tamamlamayı planlıyoruz. Şu an için mekanik ve elektronik kategorisinden altı farklı deney oluşturabilirsiniz.
+            </div>
+          </div>
+          <div class="mdl-card__actions">
+            <a href="https://github.com/asabuncuoglu13/InteractiveExperiments/blob/master/docs/InteractiveExperimentsKilavuz.pdf" class="mdl-button">KULLANIM KILAVUZUNA ULAŞIN...</a>
+          </div>
+        </div>
+      </section>
+      <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+        <div class="mdl-card mdl-cell mdl-cell--12-col">
+          <div class="mdl-card__supporting-text">
+            <h4>Teori ve Tasarım</h4>
+            Eğitim uygulamalarını öğrenme teorileri ile desteklediğimizde, bu uygulamaların etki değeri yüksek bir artış gösterir.
+            Bu öğrenme teorilerini dört temel blok halinde sıralayabiliriz: Aktif öğrenme, Odaklanma, Anlamlı kazanımlar oluşturma ve Sosyal bağlantılar kurma.
+            Bu dört temel bloğu uyguladığımızda eğitim için oluşturduğumuz uygulamalar öğrencilere çok daha verimli çıktılar sunar.
+          </div>
+          <div class="mdl-card__actions">
+            <a href="./theory/theory.html" class="mdl-button">ÖĞRENME TEORİLERİ HAKKINDA...</a>
+          </div>
+        </div>
+      </section>
+      <p></p>
+      <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+        <div class="mdl-card mdl-cell mdl-cell--12-col">
+          <div class="mdl-card__supporting-text">
+            <h4>Yorum Yapın</h4>
+            <form action="mailto:sabuncuoglualpay@gmail.com" class="">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="Name">
+                <label class="mdl-textfield__label" for="Name">Konu başlığı</label>
+              </div>
+              <p></p>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <textarea class="mdl-textfield__input" type="text" rows="5" id="note"></textarea>
+                <label class="mdl-textfield__label" for="note">Konunun detaylı açıklaması</label>
+              </div>
+              <p>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+                  Submit
+                </button>
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+      <p></p>
+      <footer class="mdl-mega-footer">
+        <div class="mdl-mega-footer--bottom-section">
+          <p>
+            <a href="https://play.google.com/store/apps/details?id=alpay.com.interactiveexperiments">
+              <img height="80px" src="../images/play_banner.png">
+            </a>
+            <a style="margin-right: 20px" href="../terms_and_conditions.html">Terms And Conditions</a>
+            <a href="../privacy_policy.html">Privacy Policy</a>
+          </p>
+        </div>
+      </footer>
+    </main>
+  </div>
+  <a href="https://github.com/asabuncuoglu13/InteractiveExperiments" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Github'da İncele</a>
+  <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+
+</html>
