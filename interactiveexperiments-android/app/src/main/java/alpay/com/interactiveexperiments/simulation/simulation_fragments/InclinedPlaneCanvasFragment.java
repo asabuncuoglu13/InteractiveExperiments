@@ -35,6 +35,7 @@ import butterknife.Unbinder;
 import static android.content.Context.POWER_SERVICE;
 import static android.content.Context.SENSOR_SERVICE;
 import static android.content.Context.WINDOW_SERVICE;
+import static java.lang.Math.abs;
 
 public class InclinedPlaneCanvasFragment extends Fragment {
 
@@ -103,12 +104,12 @@ public class InclinedPlaneCanvasFragment extends Fragment {
 
             public void onSwipeRight() {
                 currentSurfaceIndex++;
-                mSimulationView.setBackground(backgroundDrawables[currentSurfaceIndex % backgroundDrawables.length]);
+                mSimulationView.setBackground(backgroundDrawables[abs(currentSurfaceIndex) % backgroundDrawables.length]);
             }
 
             public void onSwipeLeft() {
                 currentSurfaceIndex--;
-                mSimulationView.setBackground(backgroundDrawables[currentSurfaceIndex % backgroundDrawables.length]);
+                mSimulationView.setBackground(backgroundDrawables[abs(currentSurfaceIndex) % backgroundDrawables.length]);
             }
 
             public void onSwipeBottom() {
@@ -172,7 +173,7 @@ public class InclinedPlaneCanvasFragment extends Fragment {
 
             public void computePhysics(float sx, float sy, float dT) {
 
-                float friction = frictionCoefficients[currentSurfaceIndex];
+                float friction = frictionCoefficients[abs(currentSurfaceIndex) % frictionCoefficients.length];
 
                 final float ax = -sx / (5 * friction);
                 final float ay = -sy / (5 * friction);
