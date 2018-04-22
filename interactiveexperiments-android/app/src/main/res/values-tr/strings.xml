@@ -29,6 +29,7 @@
     <string name="card_image_description">Simulasyon Resmi</string>
     <string name="paramter_error">Deneye başlamadan önce tüm parametreleri belirlemen gerek.</string>
     <string name="logout_completed">Oturum Kapatıldı</string>
+    <string name="no_block_error">"Çalışma alanında hiçbir blok yok! Programı başlatmak için blok ekle."</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Boş Fragment</string>

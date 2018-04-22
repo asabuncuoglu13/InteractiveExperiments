@@ -14,10 +14,14 @@
  */
 package alpay.com.interactiveexperiments.blockly;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.blockly.android.AbstractBlocklyActivity;
 import com.google.blockly.android.codegen.CodeGenerationRequest;
@@ -28,11 +32,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import alpay.com.interactiveexperiments.R;
+import alpay.com.interactiveexperiments.TutorialApplicationActivity;
+
 public class BlocklyActivity extends AbstractBlocklyActivity {
     private static final String TAG = "BlocklyActivity";
-
-    private static final String SAVE_FILENAME = "blockly_workspace.xml";
-    private static final String AUTOSAVE_FILENAME = "blockly_workspace_temp.xml";
 
     static final List<String> BLOCK_DEFINITIONS = Arrays.asList(
             DefaultBlocks.COLOR_BLOCKS_PATH,
@@ -40,11 +44,40 @@ public class BlocklyActivity extends AbstractBlocklyActivity {
             DefaultBlocks.LOOP_BLOCKS_PATH,
             DefaultBlocks.MATH_BLOCKS_PATH,
             DefaultBlocks.TEXT_BLOCKS_PATH,
-            DefaultBlocks.VARIABLE_BLOCKS_PATH
+            DefaultBlocks.VARIABLE_BLOCKS_PATH,
+            "blockly/definitions.json"
     );
 
     CodeGenerationRequest.CodeGeneratorCallback mCodeGeneratorCallback =
             new LoggingCodeGeneratorCallback(this, TAG);
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.blockly_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.action_run:
+                if (getController().getWorkspace().hasBlocks()) {
+                    onRunCode();
+                } else {
+                    Toast.makeText(this, R.string.no_block_error, Toast.LENGTH_SHORT).show();
+                }
+                return true;
+
+            case R.id.action_howto:
+                Intent intent = new Intent(this, TutorialApplicationActivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                return false;
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
@@ -81,17 +114,4 @@ public class BlocklyActivity extends AbstractBlocklyActivity {
     protected CodeGenerationRequest.CodeGeneratorCallback getCodeGenerationCallback() {
         return mCodeGeneratorCallback;
     }
-
-    @Override
-    @NonNull
-    protected String getWorkspaceSavePath() {
-        return SAVE_FILENAME;
-    }
-
-    @Override
-    @NonNull
-    protected String getWorkspaceAutosavePath() {
-        return AUTOSAVE_FILENAME;
-    }
-
 }
