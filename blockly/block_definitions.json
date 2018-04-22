@@ -1,0 +1,132 @@
+[{
+  "type": "pulley_block",
+  "message0": "Pulley Simulation",
+  "output": "experiment_block",
+  "colour": 90,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "inclinedplane_block",
+  "message0": "Inclined Plane Simulation",
+  "output": "experiment_block",
+  "colour": 90,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "start_block",
+  "message0": "START",
+  "nextStatement": null,
+  "colour": 0,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "set_experiment_block",
+  "message0": "Set Experiment %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "set_experiment_value",
+      "check": "experiment_block"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "end_block",
+  "message0": "END",
+  "previousStatement": null,
+  "colour": 0,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "constantacceleration_blok",
+  "message0": "Constant Acceleration Experiment",
+  "output": null,
+  "colour": 90,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "ohmslaw_block",
+  "message0": "Ohm's Law Experiment",
+  "output": null,
+  "colour": 90,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "lever_block",
+  "message0": "Lever Experiment",
+  "output": null,
+  "colour": 90,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "set_angle_block",
+  "message0": "Set Angle %1",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "angle_value",
+      "value": 0,
+      "min": 0,
+      "max": 90,
+      "precision": 0.1
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "set_friction_block",
+  "message0": "Set Friction %1",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "friction_value",
+      "value": 0,
+      "min": 0,
+      "max": 3,
+      "precision": 0.1
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "set_weight_block",
+  "message0": "Set Weight %1",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "weight_value",
+      "value": 0,
+      "min": 0,
+      "max": 5,
+      "precision": 0.1
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}]

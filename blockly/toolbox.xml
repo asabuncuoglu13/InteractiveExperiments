@@ -6,9 +6,15 @@
   <category name="Experiment Names" colour="#a5805b">
     <block type="pulley_block"></block>
     <block type="inclinedplane_block"></block>
+    <block type="constantacceleration_blok"></block>
+    <block type="ohmslaw_block"></block>
+    <block type="lever_block"></block>
   </category>
   <category name="Set Statements" colour="#805ba5">
-    <block type="set_block"></block>
+    <block type="set_experiment_block"></block>
+    <block type="set_angle_block">
+      <field name="angle_value">0</field>
+    </block>
   </category>
   <category name="Logic" colour="#5C81A6">
     <block type="controls_if"></block>
