@@ -199,7 +199,9 @@ public class ChatFragment extends Fragment implements AIListener, View.OnClickLi
     private void handleNavigation(String reply) {
         if (reply.contains("How-To-Guide") || reply.contains("Coding-Area")
                 || reply.contains("Simulation-Area") || reply.contains("Ohms-Law-Experiment")
-                || reply.contains("Inclined-Plane-Experiment") || reply.contains("Constant-Acceleration-Experiment")) {
+                || reply.contains("Inclined-Plane-Experiment") || reply.contains("Inclined-Sensor-Experiment")
+                || reply.contains("Constant-Acceleration-Experiment") || reply.contains("Lever-Experiment")
+                || reply.contains("Pulley-Experiment") || reply.contains("Note-Area")) {
             Intent intent = new Intent(getActivity(), HomeActivity.class);
             intent.putExtra("reply", reply);
             startActivity(intent);

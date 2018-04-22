@@ -211,7 +211,7 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
 
     public void selectFragmentFromChatBundle(String reply) {
         if (reply.contains("How-To-Guide")) {
-            Intent intent = new Intent(this, com.hololo.tutorial.library.TutorialActivity.class);
+            Intent intent = new Intent(this, TutorialApplicationActivity.class);
             startActivity(intent);
         } else if (reply.contains("Coding-Area")) {
             chooseCategoryAction(FragmentManager.Category.BLOCKLY.id);
@@ -223,6 +223,14 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
             selectFragmentFromSimulationID(SimulationParameters.INCLINED_PLANE_SIMULATION);
         } else if (reply.contains("Constant-Acceleration-Experiment")) {
             selectFragmentFromSimulationID(SimulationParameters.CONSTANT_ACCELERATION_SIMULATION);
+        } else if (reply.contains("Inclined-Sensor-Experiment")) {
+            selectFragmentFromSimulationID(SimulationParameters.INCLINED_CANVAS_SIMULATION);
+        } else if (reply.contains("Lever-Experiment")) {
+            selectFragmentFromSimulationID(SimulationParameters.LEVER_SIMULATION);
+        }  else if (reply.contains("Pulley-Experiment")) {
+            selectFragmentFromSimulationID(SimulationParameters.PULLEY_SIMULATION);
+        } else if (reply.contains("Note-Area")) {
+            chooseCategoryAction(FragmentManager.Category.NOTE.id);
         }
     }
 

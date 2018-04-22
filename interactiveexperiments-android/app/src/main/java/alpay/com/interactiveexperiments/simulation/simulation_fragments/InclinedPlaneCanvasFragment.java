@@ -23,14 +23,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import alpay.com.interactiveexperiments.R;
 import alpay.com.interactiveexperiments.util.OnSwipeTouchListener;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 import static android.content.Context.POWER_SERVICE;
 import static android.content.Context.SENSOR_SERVICE;

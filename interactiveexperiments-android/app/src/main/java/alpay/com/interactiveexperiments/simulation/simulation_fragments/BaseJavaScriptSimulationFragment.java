@@ -46,7 +46,7 @@ public abstract class BaseJavaScriptSimulationFragment extends Fragment {
                 showChatDialog();
             }
         });
-        floatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_question_chat));
+        floatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_chat));
     }
 
     void showChatDialog() {
@@ -76,6 +76,7 @@ public abstract class BaseJavaScriptSimulationFragment extends Fragment {
     public void onDestroy() {
         webView.destroy();
         floatingActionButton.setOnClickListener(null);
+        floatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_note));
         super.onDestroy();
         unbinder.unbind();
     }

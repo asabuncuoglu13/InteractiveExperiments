@@ -34,7 +34,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="alpay.com.interactiveexperiments.AccelerometerPlayActivity" />
         <activity android:name="alpay.com.interactiveexperiments.TutorialApplicationActivity" />
         <activity android:name="alpay.com.interactiveexperiments.studynotes.AddToDoActivity" />
         <activity android:name="alpay.com.interactiveexperiments.blockly.BlocklyActivity"/>

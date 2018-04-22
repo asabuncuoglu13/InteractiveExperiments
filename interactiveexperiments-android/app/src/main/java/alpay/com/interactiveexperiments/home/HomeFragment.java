@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import alpay.com.interactiveexperiments.R;
 import alpay.com.interactiveexperiments.util.FragmentManager;
 
@@ -40,6 +42,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     public void prepareCategoryItems() {
+        CategoryRecyclerViewAdapter.Category.ITEMS = new ArrayList<CategoryRecyclerViewAdapter.Category>();
         CategoryRecyclerViewAdapter.Category.ITEMS.add(new CategoryRecyclerViewAdapter.Category(getActivity(), "Mechanical Systems", R.drawable.ic_mechanicalsystems));
         CategoryRecyclerViewAdapter.Category.ITEMS.add(new CategoryRecyclerViewAdapter.Category(getActivity(), "Electronic Systems", R.drawable.ic_electornicsystems));
         CategoryRecyclerViewAdapter.Category.ITEMS.add(new CategoryRecyclerViewAdapter.Category(getActivity(), "Other Systems", R.drawable.ic_easter_egg));
@@ -77,7 +80,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.homeCategoriesText) {
+        if (i == R.id.homeCategoriesText || i == R.id.categorySelectView) {
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.SIMULATION_LIST_FRAGMENT.getFragment());
             FragmentManager.Category.currentCategoryID = FragmentManager.Category.SIMULATION.id;
@@ -85,7 +88,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             ft.addToBackStack("CategoryFragment");
             ft.commit();
         }
-        if (i == R.id.homeNotesText) {
+        if (i == R.id.homeNotesText || i == R.id.homefragment_notecontainer) {
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fragment_container_home, FragmentManager.FRAGMENT_TYPE.STUDY_NOTES_FRAGMENT.getFragment());
             FragmentManager.Category.currentCategoryID = FragmentManager.Category.NOTE.id;

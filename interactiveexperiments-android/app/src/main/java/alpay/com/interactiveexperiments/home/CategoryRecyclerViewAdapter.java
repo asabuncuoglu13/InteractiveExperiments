@@ -79,7 +79,7 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     }
 
     public static class Category {
-        public static final List<Category> ITEMS = new ArrayList<Category>();
+        public static List<Category> ITEMS = new ArrayList<Category>();
         public String name;
         public Drawable image;
 

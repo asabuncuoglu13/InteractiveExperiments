@@ -47,6 +47,7 @@
             <FrameLayout
                 android:id="@+id/homefragment_notecontainer"
                 android:layout_width="match_parent"
+                android:clickable="true"
                 android:layout_margin="10dp"
                 android:elevation="3dp"
                 android:layout_height="250dp">
