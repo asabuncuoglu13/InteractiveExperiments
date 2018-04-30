@@ -1,5 +1,7 @@
 package alpay.com.interactiveexperiments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -62,6 +65,14 @@ public class SendFeedbackActivity extends AppCompatActivity {
         }
         sendFeedbackToFirebase(feedbackTitle, feedbackDetail);
         changeToSuccessView();
+    }
+
+    @OnClick(R.id.google_form_text)
+    public void goToGoogleFormUserSurvey(){
+        String url = "https://docs.google.com/forms/d/e/1FAIpQLSfZEB_ukGYnNYryxezfYc_FTorbThgMIqgGrkIxU5ibs7NX9A/viewform?usp=sf_link";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 
     @Nullable

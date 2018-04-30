@@ -1,6 +1,4 @@
-<xml 
-  xmlns="http://www.w3.org/1999/xhtml">
-  <block type="factory_base" id="!taCx(yd6=ng_9-=xB;`" deletable="false" movable="false" x="10" y="10">
+<xml xmlns="http://www.w3.org/1999/xhtml"><block type="factory_base" id="!taCx(yd6=ng_9-=xB;`" deletable="false" movable="false" x="10" y="10">
     <mutation connections="LEFT"></mutation>
     <field name="NAME">pulley_block</field>
     <field name="INLINE">AUTO</field>
@@ -37,8 +35,7 @@
         <field name="HUE">90</field>
       </block>
     </value>
-  </block>
-  <block type="factory_base" id="@iX})FpSx{V*6|{E]WRZ" deletable="false" movable="false" x="10" y="10">
+  </block><block type="factory_base" id="@iX})FpSx{V*6|{E]WRZ" deletable="false" movable="false" x="10" y="10">
     <mutation connections="LEFT"></mutation>
     <field name="NAME">inclinedplane_block</field>
     <field name="INLINE">AUTO</field>
@@ -75,8 +72,7 @@
         <field name="HUE">90</field>
       </block>
     </value>
-  </block>
-  <block type="factory_base" id="Il96ba_]EpgqVh9myHS#" deletable="false" movable="false" x="10" y="10">
+  </block><block type="factory_base" id="Il96ba_]EpgqVh9myHS#" deletable="false" movable="false" x="10" y="10">
     <mutation connections="BOTTOM"></mutation>
     <field name="NAME">start_block</field>
     <field name="INLINE">AUTO</field>
@@ -110,19 +106,18 @@
         <field name="HUE">0</field>
       </block>
     </value>
-  </block>
-  <block type="factory_base" id="0jTb=X,16PYVb0IZ_l|E" deletable="false" movable="false" x="10" y="10">
-    <mutation connections="BOTH"></mutation>
+  </block><block type="factory_base" id="0jTb=X,16PYVb0IZ_l|E" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="LEFT"></mutation>
     <field name="NAME">set_experiment_block</field>
     <field name="INLINE">AUTO</field>
-    <field name="CONNECTIONS">BOTH</field>
+    <field name="CONNECTIONS">LEFT</field>
     <statement name="INPUTS">
       <block type="input_value" id="ho*L`cLGE]-i!Hv4/$6I">
         <field name="INPUTNAME">set_experiment_value</field>
         <field name="ALIGN">LEFT</field>
         <statement name="FIELDS">
           <block type="field_static" id="=[8oo!2x!.).54-H)1uP">
-            <field name="TEXT">Set Experiment</field>
+            <field name="TEXT">Experiment</field>
           </block>
         </statement>
         <value name="TYPE">
@@ -143,11 +138,8 @@
         <field name="TEXT"></field>
       </block>
     </value>
-    <value name="TOPTYPE">
-      <shadow type="type_null" id="M8FEviqkZFoP1Q[;^Mvx"></shadow>
-    </value>
-    <value name="BOTTOMTYPE">
-      <shadow type="type_null" id="`IJP.mzqM)NLai3/y]mM"></shadow>
+    <value name="OUTPUTTYPE">
+      <shadow type="type_null" id="](JjOU+m:HzPso5El#C#"></shadow>
     </value>
     <value name="COLOUR">
       <block type="colour_hue" id=".-Nf8U4gz`Q)zse4uC0i">
@@ -155,8 +147,7 @@
         <field name="HUE">230</field>
       </block>
     </value>
-  </block>
-  <block type="factory_base" id="lK-7h7ZaXvyz1;i`=.Kx" deletable="false" movable="false" x="10" y="10">
+  </block><block type="factory_base" id="lK-7h7ZaXvyz1;i`=.Kx" deletable="false" movable="false" x="10" y="10">
     <mutation connections="TOP"></mutation>
     <field name="NAME">end_block</field>
     <field name="INLINE">AUTO</field>
@@ -190,8 +181,7 @@
         <field name="HUE">0</field>
       </block>
     </value>
-  </block>
-  <block type="factory_base" id="L^TJ/(C-2S_lZ`joFZY@" deletable="false" movable="false" x="10" y="10">
+  </block><block type="factory_base" id="L^TJ/(C-2S_lZ`joFZY@" deletable="false" movable="false" x="10" y="10">
     <mutation connections="LEFT"></mutation>
     <field name="NAME">constantacceleration_blok</field>
     <field name="INLINE">AUTO</field>
@@ -225,8 +215,7 @@
         <field name="HUE">90</field>
       </block>
     </value>
-  </block>
-  <block type="factory_base" id="#b_FEPS!T;0K#l8v)MF)" deletable="false" movable="false" x="10" y="10">
+  </block><block type="factory_base" id="#b_FEPS!T;0K#l8v)MF)" deletable="false" movable="false" x="10" y="10">
     <mutation connections="LEFT"></mutation>
     <field name="NAME">ohmslaw_block</field>
     <field name="INLINE">AUTO</field>
@@ -260,8 +249,7 @@
         <field name="HUE">90</field>
       </block>
     </value>
-  </block>
-  <block type="factory_base" id="g-uOAApJaH|5p9/Unua." deletable="false" movable="false" x="10" y="10">
+  </block><block type="factory_base" id="g-uOAApJaH|5p9/Unua." deletable="false" movable="false" x="10" y="10">
     <mutation connections="LEFT"></mutation>
     <field name="NAME">lever_block</field>
     <field name="INLINE">AUTO</field>
@@ -295,20 +283,19 @@
         <field name="HUE">90</field>
       </block>
     </value>
-  </block>
-  <block type="factory_base" id="q`@=s6dYHW~Q:-y:,YgP" deletable="false" movable="false" x="10" y="10">
-    <mutation connections="BOTH"></mutation>
+  </block><block type="factory_base" id="%_r*$ZcnPTvy)^i,qirv" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="LEFT"></mutation>
     <field name="NAME">set_angle_block</field>
-    <field name="INLINE">EXT</field>
-    <field name="CONNECTIONS">BOTH</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">LEFT</field>
     <statement name="INPUTS">
-      <block type="input_dummy" id="0uX}sPnA$e?5-o+29DH~">
+      <block type="input_dummy" id="g#fA1;F-l[IfuBfk^D0_">
         <field name="ALIGN">LEFT</field>
         <statement name="FIELDS">
-          <block type="field_static" id="6K~,j!3],oUKus7Jt_xD">
-            <field name="TEXT">Set Angle</field>
+          <block type="field_static" id="PMo]h~9L}Btgt+N?gbZ^">
+            <field name="TEXT">ANGLE</field>
             <next>
-              <block type="field_number" id=").tHin.#fv`y{ueNVrae">
+              <block type="field_number" id="!G;eiCXYGjB_#b]dl$%:">
                 <field name="VALUE">0</field>
                 <field name="FIELDNAME">angle_value</field>
                 <field name="MIN">0</field>
@@ -321,26 +308,63 @@
       </block>
     </statement>
     <value name="TOOLTIP">
-      <block type="text" id="rU+=xCH#4TCkm?3Vm=Sc" deletable="false" movable="false">
+      <block type="text" id="y*S)pz:8:T!YX),VHRRa" deletable="false" movable="false">
         <field name="TEXT"></field>
       </block>
     </value>
     <value name="HELPURL">
-      <block type="text" id="vOaP{8Y#*vOM+qcX.=va" deletable="false" movable="false">
+      <block type="text" id="t$#AQ,2S(:h2|ey=h;-9" deletable="false" movable="false">
         <field name="TEXT"></field>
       </block>
     </value>
-    <value name="TOPTYPE">
-      <shadow type="type_null" id="IX*f9~~kzlvF%M{+5-`W"></shadow>
-    </value>
-    <value name="BOTTOMTYPE">
-      <shadow type="type_null" id="XJP`5@v3e^rXDxi2PI+o"></shadow>
+    <value name="OUTPUTTYPE">
+      <shadow type="type_null" id="+4NMipiPOjadSotC)?BX"></shadow>
     </value>
     <value name="COLOUR">
-      <block type="colour_hue" id="`Q,4f.w9m/+C.zItsL%3">
+      <block type="colour_hue" id="AfP0?Gw~OQuFmSz%CfF[">
         <mutation colour="#5b67a5"></mutation>
         <field name="HUE">230</field>
       </block>
     </value>
-  </block>
-</xml>
+  </block><block type="factory_base" id=";7/_C8X|_W0qbM_);ss5" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">set_block</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="Gs.90#/E(8pO2sXr_]b~">
+        <field name="INPUTNAME">set_value</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="3Blbw)uKadpM%1Bou[+X">
+            <field name="TEXT">SET</field>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="|V2A0(*{k,TNJ$+}ZdUA"></shadow>
+        </value>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="4n1G,98;J$o/C8=m%gxN" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="kpA0gK:MH8t-7[c48f:@" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="w4da;;SR!cnV*D~)Jltu"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="HdgxdJym$9OCZ|[-IAqi"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="m-k6V6wefnz}Kpnk5A9q">
+        <mutation colour="#5b67a5"></mutation>
+        <field name="HUE">230</field>
+      </block>
+    </value>
+  </block></xml>
