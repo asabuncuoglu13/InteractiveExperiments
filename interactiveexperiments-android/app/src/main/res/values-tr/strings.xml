@@ -17,6 +17,7 @@
     <string name="google_form_button_text"><u>Anketi Doldurmak için Google Forms\'u aç</u></string>
 
     <string name="blockly_error">Blockly ile programlama için Android 18 ve sonrası sürümüne ihtiyacın var!</string>
+    <string name="blockly_generated_output_error">Oluşturduğun kod hatalı gözüküyor</string>
     <string name="detector_dependency">Gerekli modüller bulunamadı</string>
     <string name="sign_in_with_google">Not almak, ilerlemeni kaydetmek ve arkadaşlarınla konuşmak için Google ile oturum aç.</string>
     <string name="check_connection_text">Internet bağlantısı bulunamadı!

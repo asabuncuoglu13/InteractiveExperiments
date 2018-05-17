@@ -17,6 +17,7 @@
     <string name="google_form_button_text"><u>Go To Google Foms to Fill Survey</u></string>
 
     <string name="blockly_error">You should have Android 18 or later release to work with Blockly!</string>
+    <string name="blockly_generated_output_error">There is something wrong on your code</string>
     <string name="detector_dependency">Dependencies are not met</string>
     <string name="sign_in_with_google">Sign in with Google to take notes, record your progress and chat with your friends online.</string>
     <string name="check_connection_text">There is no internet connection!

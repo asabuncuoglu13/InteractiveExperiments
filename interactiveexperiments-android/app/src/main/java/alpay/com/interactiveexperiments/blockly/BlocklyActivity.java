@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -33,8 +34,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import alpay.com.interactiveexperiments.HomeActivity;
 import alpay.com.interactiveexperiments.R;
 import alpay.com.interactiveexperiments.TutorialApplicationActivity;
+import alpay.com.interactiveexperiments.util.CodeBlocksCompiler;
 import alpay.com.interactiveexperiments.util.JavascriptUtil;
 
 public class BlocklyActivity extends AbstractBlocklyActivity {
@@ -55,18 +58,24 @@ public class BlocklyActivity extends AbstractBlocklyActivity {
             new CodeGenerationRequest.CodeGeneratorCallback() {
                 @Override
                 public void onFinishCodeGeneration(final String generatedCode) {
-                    Toast.makeText(getApplicationContext(), generatedCode,
-                            Toast.LENGTH_LONG).show();
+                    startExperiment(generatedCode);
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            String encoded = "Turtle.execute("
-                                    + JavascriptUtil.makeJsString(generatedCode) + ")";
-                            //mTurtleWebview.loadUrl("javascript:" + encoded);
                         }
                     });
                 }
             };
+
+    private void startExperiment(String generatedCode){
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        String output = CodeBlocksCompiler.compile(generatedCode);
+        if(output.contains("P"))
+            intent.putExtra("reply", "Pulley-Experiment");
+        else
+            intent.putExtra("reply", "Inclined-Plane-Experiment");
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,7 +86,6 @@ public class BlocklyActivity extends AbstractBlocklyActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case R.id.action_run:
                 if (getController().getWorkspace().hasBlocks()) {
                     onRunCode();

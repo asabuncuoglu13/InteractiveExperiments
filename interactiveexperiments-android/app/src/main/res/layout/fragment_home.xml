@@ -53,27 +53,6 @@
                 android:layout_height="250dp">
             </FrameLayout>
 
-            <TextView
-                android:id="@+id/homeLatestContentText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:clickable="true"
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:text="@string/home_latest_content"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/latestContentView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="GridLayoutManager"
-                android:layout_margin="10dp"
-                android:elevation="10dp"
-                android:background="@color/white"
-                app:spanCount="2"
-                tools:listitem="@layout/category_cardview">
-            </android.support.v7.widget.RecyclerView>
-
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

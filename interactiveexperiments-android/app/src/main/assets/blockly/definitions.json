@@ -1,11 +1,10 @@
 [{
   "type": "set_block",
-  "message0": "SET EXPERIMENT %1",
+  "message0": "SET %1",
   "args0": [
     {
       "type": "input_value",
-      "name": "set_value",
-      "check": "experiment_block"
+      "name": "set_value"
     }
   ],
   "previousStatement": null,
