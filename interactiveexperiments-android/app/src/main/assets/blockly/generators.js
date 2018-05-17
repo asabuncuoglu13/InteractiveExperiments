@@ -21,7 +21,7 @@ Blockly.JavaScript['inclinedplane_block'] = function(block) {
 
 Blockly.JavaScript['start_block'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var code = 'START\n';
   return code;
 };
 
@@ -34,6 +34,6 @@ Blockly.JavaScript['set_experiment_block'] = function(block) {
 
 Blockly.JavaScript['end_block'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var code = 'END\n';
   return code;
 };

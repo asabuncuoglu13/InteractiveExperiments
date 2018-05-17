@@ -16,6 +16,7 @@ package alpay.com.interactiveexperiments.blockly;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,9 +35,11 @@ import java.util.List;
 
 import alpay.com.interactiveexperiments.R;
 import alpay.com.interactiveexperiments.TutorialApplicationActivity;
+import alpay.com.interactiveexperiments.util.JavascriptUtil;
 
 public class BlocklyActivity extends AbstractBlocklyActivity {
     private static final String TAG = "BlocklyActivity";
+    private final Handler mHandler = new Handler();
 
     static final List<String> BLOCK_DEFINITIONS = Arrays.asList(
             DefaultBlocks.COLOR_BLOCKS_PATH,
@@ -48,8 +51,22 @@ public class BlocklyActivity extends AbstractBlocklyActivity {
             "blockly/definitions.json"
     );
 
-    CodeGenerationRequest.CodeGeneratorCallback mCodeGeneratorCallback =
-            new LoggingCodeGeneratorCallback(this, TAG);
+    private final CodeGenerationRequest.CodeGeneratorCallback mCodeGeneratorCallback =
+            new CodeGenerationRequest.CodeGeneratorCallback() {
+                @Override
+                public void onFinishCodeGeneration(final String generatedCode) {
+                    Toast.makeText(getApplicationContext(), generatedCode,
+                            Toast.LENGTH_LONG).show();
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            String encoded = "Turtle.execute("
+                                    + JavascriptUtil.makeJsString(generatedCode) + ")";
+                            //mTurtleWebview.loadUrl("javascript:" + encoded);
+                        }
+                    });
+                }
+            };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

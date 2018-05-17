@@ -210,6 +210,8 @@ public class HomeActivity extends AppCompatActivity implements SimulationListFra
     }
 
     public void selectFragmentFromChatBundle(String reply) {
+        if(reply == null)
+            return;
         if (reply.contains("How-To-Guide")) {
             Intent intent = new Intent(this, TutorialApplicationActivity.class);
             startActivity(intent);
