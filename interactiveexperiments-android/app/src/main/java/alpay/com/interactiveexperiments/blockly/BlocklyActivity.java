@@ -20,14 +20,12 @@ import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.blockly.android.AbstractBlocklyActivity;
 import com.google.blockly.android.codegen.CodeGenerationRequest;
-import com.google.blockly.android.codegen.LoggingCodeGeneratorCallback;
 import com.google.blockly.model.DefaultBlocks;
 
 import java.util.ArrayList;
@@ -38,7 +36,6 @@ import alpay.com.interactiveexperiments.HomeActivity;
 import alpay.com.interactiveexperiments.R;
 import alpay.com.interactiveexperiments.TutorialApplicationActivity;
 import alpay.com.interactiveexperiments.util.CodeBlocksCompiler;
-import alpay.com.interactiveexperiments.util.JavascriptUtil;
 
 public class BlocklyActivity extends AbstractBlocklyActivity {
     private static final String TAG = "BlocklyActivity";
