@@ -45,6 +45,9 @@
         <receiver android:name="alpay.com.interactiveexperiments.studynotes.NotificationPublisher" />
 
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="2edf501d14eeb3985c921e718a13f3fb5203b32d" />
     </application>
 
 </manifest>
