@@ -1,6 +1,6 @@
 # Interactive Experiments
 
-[![Get Code Notes](./docs/images/play_banner.png "Code Notes Google Play")](https://play.google.com/store/apps/details?id=alpay.com.interactiveexperiments)
+_I am not currently working on this project. If you are interested on continue with development, I can share the resources. You can still find the project on Google Play. But I deleted the project from Google Cloud Platform, so, you cannot use chat functionality._
 
 ### A Quick Introduction with Learning Theories (For Academics)
 
@@ -46,6 +46,9 @@ All key points you need to know:
 - Navigation Drawer implementation: https://github.com/mikepenz/MaterialDrawer
 - Tutorial View: https://github.com/msayan/tutorial-view
 - Blockly requires minSdk->18, ai.api requires minSdk->16
+
+
+[![Get Interactive Experiments](./docs/images/play_banner.png)](https://play.google.com/store/apps/details?id=alpay.com.interactiveexperiments)
 
 
 
